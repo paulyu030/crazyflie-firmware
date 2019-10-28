@@ -273,7 +273,7 @@ static void stabilizerTask(void* param)
       commanderGetSetpoint(&setpoint, &state);
       compressSetpoint();
 
-      sitAwUpdateSetpoint(&setpoint, &sensorData, &state);
+      // sitAwUpdateSetpoint(&setpoint, &sensorData, &state);
 
       controller(&control, &setpoint, &sensorData, &state, tick);
 
