@@ -7,8 +7,8 @@
 #include "controller_quaternion.h"
 #include "controller_mellinger.h"
 
-#define DEFAULT_CONTROLLER ControllerTypePID
-// #define DEFAULT_CONTROLLER ControllerTypeQuaternion
+// #define DEFAULT_CONTROLLER ControllerTypePID
+#define DEFAULT_CONTROLLER ControllerTypeQuaternion
 static ControllerType currentController = ControllerTypeAny;
 
 static void initController();

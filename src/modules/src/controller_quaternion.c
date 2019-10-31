@@ -32,14 +32,14 @@ void controllerQuaternion(control_t *control, setpoint_t *setpoint,
                                          const state_t *state,
                                          const uint32_t tick)
 {
-  Quaternion_controller_U.ay = setpoint->attitude.roll;
-  Quaternion_controller_U.ax = setpoint->attitude.pitch;   
-  Quaternion_controller_U.yaw_setpoint = setpoint->attitudeRate.yaw;
-  Quaternion_controller_U.az = -setpoint->thrust;
+  Quaternion_controller_U.ax = setpoint->attitude.pitch*300;
+  Quaternion_controller_U.ay = -setpoint->attitude.roll*300;
+  Quaternion_controller_U.yaw_setpoint = setpoint->attitudeRate.yaw/150;
+  Quaternion_controller_U.az = setpoint->thrust;
 
   Quaternion_controller_U.qw = state->attitudeQuaternion.w;
   Quaternion_controller_U.qx = state->attitudeQuaternion.x;
-  Quaternion_controller_U.qy = state->attitudeQuaternion.y;
+  Quaternion_controller_U.qy = -state->attitudeQuaternion.y;
   Quaternion_controller_U.qz = state->attitudeQuaternion.z;
 
   Quaternion_controller_U.p = sensors->gyro.x;
@@ -49,15 +49,21 @@ void controllerQuaternion(control_t *control, setpoint_t *setpoint,
   Quaternion_controller_step();
 
   // if(qcounter > 500){
-  //   DEBUG_PRINT("yaw_input: %f\n", (double)setpoint->attitudeRate.yaw);
-  //   DEBUG_PRINT("yaw_output: %f\n", (double)-Quaternion_controller_Y.yaw_output);
+  //   // DEBUG_PRINT("roll_output: %f\tpitch_output: %f\tyaw_output: %f\tthrust_output: %f\n", (double)Quaternion_controller_Y.roll_output, 
+  //   //                                                                                       (double)Quaternion_controller_Y.pitch_output, 
+  //   //                                                                                       (double)Quaternion_controller_Y.yaw_output, 
+  //   //                                                                                       (double)Quaternion_controller_Y.thrust_output);
+  //   DEBUG_PRINT("qw: %f\tqx: %f\tqy: %f\tqz: %f\n", (double)state->attitudeQuaternion.w, 
+  //                                                   (double)state->attitudeQuaternion.x, 
+  //                                                   (double)state->attitudeQuaternion.y, 
+  //                                                   (double)state->attitudeQuaternion.z);
   //   qcounter = 0;
   // }
   // else
   // {
   //   qcounter++;
   // }
-  if (Quaternion_controller_Y.thrust_output < 100)
+  if (setpoint->thrust < 100)
   {
     control->roll = 0;
     control->pitch = 0;
@@ -108,14 +114,14 @@ LOG_GROUP_STOP(controller)
 // LOG_ADD(LOG_FLOAT, yaw_outD, &QuaternionYawRate.outD)
 // LOG_GROUP_STOP(Quaternion_rate)
 
-PARAM_GROUP_START(Quaternion_attitude)
+PARAM_GROUP_START(Q_att)
 PARAM_ADD(PARAM_FLOAT, mass, &Quaternion_controller_P.mass_Gain)
-PARAM_ADD(PARAM_FLOAT, K_xi_dot, &Quaternion_controller_P.K_xi_dot_Gain)
 PARAM_ADD(PARAM_FLOAT, K_xi, &Quaternion_controller_P.K_xi_Gain)
-PARAM_ADD(PARAM_FLOAT, roll_output_gain, &Quaternion_controller_P.roll_output_gain_Gain)
-PARAM_ADD(PARAM_FLOAT, pitch_output_gain, &Quaternion_controller_P.pitch_output_gain_Gain)
-PARAM_ADD(PARAM_FLOAT, yaw_output_gain, &Quaternion_controller_P.yaw_output_gain_Gain)
-PARAM_ADD(PARAM_FLOAT, thrust_output_gain, &Quaternion_controller_P.thrust_output_gain_Gain)
+PARAM_ADD(PARAM_FLOAT, K_xi_dot, &Quaternion_controller_P.K_xi_dot_Gain)
+PARAM_ADD(PARAM_FLOAT, roll_gain, &Quaternion_controller_P.roll_output_gain_Gain)
+PARAM_ADD(PARAM_FLOAT, pitch_gain, &Quaternion_controller_P.pitch_output_gain_Gain)
+PARAM_ADD(PARAM_FLOAT, yaw_gain, &Quaternion_controller_P.yaw_output_gain_Gain)
+PARAM_ADD(PARAM_FLOAT, thrust_gain, &Quaternion_controller_P.thrust_output_gain_Gain)
 PARAM_GROUP_STOP(Quaternion_attitude)
 
 // PARAM_GROUP_START(Quaternion_rate)
