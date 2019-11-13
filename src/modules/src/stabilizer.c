@@ -280,9 +280,9 @@ static void stabilizerTask(void* param)
       checkEmergencyStopTimeout();
 
       if (emergencyStop) {
-        powerStop();
+        // powerStop();
       } else {
-        powerDistribution(&control);
+        // powerDistribution(&control);
       }
 
       // Log data to uSD card if configured
