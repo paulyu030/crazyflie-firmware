@@ -63,13 +63,13 @@ void controllerQuaternion(control_t *control, setpoint_t *setpoint,
     //                                                 Quaternion_controller_Y.M2_output, 
     //                                                 Quaternion_controller_Y.M3_output, 
     //                                                 Quaternion_controller_Y.M4_output);
-    DEBUG_PRINT("p: %f\tq: %f\tr: %f\n", (double)Quaternion_controller_U.p, 
-                                         (double)Quaternion_controller_U.q, 
-                                         (double)Quaternion_controller_U.r);
-    // DEBUG_PRINT("az_output: %f\t omega_dot_f:%.2f %.2f %.2f\t mu_f:%f %f %f\t omega_dot_c: %f %f %f\n", (double)Quaternion_controller_U.az,
-    //                                                     (double)Quaternion_controller_Y.Omega_dot_f[0],(double)Quaternion_controller_Y.Omega_dot_f[1],(double)Quaternion_controller_Y.Omega_dot_f[2],
-    //                                                     (double)Quaternion_controller_Y.mu_f[0],(double)Quaternion_controller_Y.mu_f[1],(double)Quaternion_controller_Y.mu_f[2],
-    //                                                     (double)Quaternion_controller_Y.Omega_dot_c[0],(double)Quaternion_controller_Y.Omega_dot_c[1],(double)Quaternion_controller_Y.Omega_dot_c[2]);
+    // DEBUG_PRINT("p: %f\tq: %f\tr: %f\n", (double)Quaternion_controller_U.p, 
+    //                                      (double)Quaternion_controller_U.q, 
+    //                                      (double)Quaternion_controller_U.r);
+    // DEBUG_PRINT("az_output: %f\n", (double)Quaternion_controller_U.az);
+    DEBUG_PRINT("omega_dot_c: %f %f %f\n",(double)Quaternion_controller_Y.Omega_dot_c[0]
+                                          ,(double)Quaternion_controller_Y.Omega_dot_c[1]
+                                          ,(double)Quaternion_controller_Y.Omega_dot_c[2]);
     // DEBUG_PRINT("x:%f\ty:%f\tz:%f\n", (double)gyro_x/500,
     //                                   (double)gyro_y/500,
     //                                   (double)gyro_z/500);
