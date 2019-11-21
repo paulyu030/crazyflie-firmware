@@ -71,6 +71,7 @@ enum packet_type {
   hoverType         = 5,
   fullStateType     = 6,
   positionType      = 7,
+  basePoseType      = 8,
 };
 
 /* ---===== 2 - Decoding functions =====--- */
@@ -367,6 +368,33 @@ static void positionDecoder(setpoint_t *setpoint, uint8_t type, const void *data
   setpoint->attitude.yaw = values->yaw;
 }
 
+/* basePoseDecoder
+ * Set the absolute postition and orientation
+ */
+ struct basePosePacket_s {
+   float w;
+   float x;
+   float y;
+   float z;
+   float theta;
+   float thrust;
+ } __attribute__((packed));
+static void basePoseDecoder(setpoint_t *setpoint, uint8_t type, const void *data, size_t datalen)
+{
+  const struct basePosePacket_s *values = data;
+
+  setpoint->attitudeQuaternion.w = values->w;
+  setpoint->attitudeQuaternion.x = values->x;
+  setpoint->attitudeQuaternion.y = values->y;
+  setpoint->attitudeQuaternion.z = values->z;
+
+  // setpoint->attitude.roll = values->x;
+  setpoint->attitude.pitch = values->theta;
+  // setpoint->attitude.yaw = values->z;
+
+  setpoint->thrust = value->thrust;
+}
+
  /* ---===== 3 - packetDecoders array =====--- */
 const static packetDecoder_t packetDecoders[] = {
   [stopType]          = stopDecoder,
@@ -377,6 +405,7 @@ const static packetDecoder_t packetDecoders[] = {
   [hoverType]         = hoverDecoder,
   [fullStateType]     = fullStateDecoder,
   [positionType]      = positionDecoder,
+  [basePoseType]      = basePoseDecoder,
 };
 
 /* Decoder switch */
