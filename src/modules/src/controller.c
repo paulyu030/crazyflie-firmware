@@ -4,9 +4,11 @@
 #include "cfassert.h"
 #include "controller.h"
 #include "controller_pid.h"
+#include "controller_quaternion.h"
 #include "controller_mellinger.h"
 
-#define DEFAULT_CONTROLLER ControllerTypePID
+// #define DEFAULT_CONTROLLER ControllerTypePID
+#define DEFAULT_CONTROLLER ControllerTypeQuaternion
 static ControllerType currentController = ControllerTypeAny;
 
 static void initController();
@@ -22,6 +24,7 @@ static ControllerFcns controllerFunctions[] = {
   {.init = 0, .test = 0, .update = 0, .name = "None"}, // Any
   {.init = controllerPidInit, .test = controllerPidTest, .update = controllerPid, .name = "PID"},
   {.init = controllerMellingerInit, .test = controllerMellingerTest, .update = controllerMellinger, .name = "Mellinger"},
+  {.init = controllerQuaternionInit, .test = controllerQuaternionTest, .update = controllerQuaternion, .name = "Quaternion"},
 };
 
 
