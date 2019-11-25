@@ -392,7 +392,7 @@ static void basePoseDecoder(setpoint_t *setpoint, uint8_t type, const void *data
   setpoint->attitude.pitch = values->theta;
   // setpoint->attitude.yaw = values->z;
 
-  setpoint->thrust = value->thrust;
+  setpoint->thrust = values->thrust;
 }
 
  /* ---===== 3 - packetDecoders array =====--- */
