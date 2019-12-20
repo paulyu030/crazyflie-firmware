@@ -66,7 +66,7 @@ void controllerQuaternion(control_t *control, setpoint_t *setpoint,
   {
     qcounter++;
   }
-  if ((double)setpoint->thrust < 0.01)
+  if ((double)setpoint->thrust < 0.0001)
   {
     motorsSetRatio(0, 0);
     motorsSetRatio(1, 0);
@@ -83,22 +83,18 @@ void controllerQuaternion(control_t *control, setpoint_t *setpoint,
 }
 
 
-// LOG_GROUP_START(controller)
-// LOG_ADD(LOG_FLOAT, actuatorThrust, &Quaternion_controller_Y.thrust_output)
-// LOG_ADD(LOG_FLOAT, roll,      &Quaternion_controller_Y.roll_output)
-// LOG_ADD(LOG_FLOAT, pitch,     &Quaternion_controller_Y.pitch_output)
-// LOG_ADD(LOG_FLOAT, yaw,       &Quaternion_controller_Y.yaw_output)
-// // LOG_ADD(LOG_FLOAT, rollRate,  &rateDesired.roll)
-// // LOG_ADD(LOG_FLOAT, pitchRate, &rateDesired.pitch)
-// // LOG_ADD(LOG_FLOAT, yawRate,   &rateDesired.yaw)
-// LOG_GROUP_STOP(controller)
+LOG_GROUP_START(Q_att)
+LOG_ADD(LOG_FLOAT, theta, &Quaternion_single_axis_contro_U.theta)
+LOG_ADD(LOG_FLOAT, thrust,&Quaternion_single_axis_contro_U.thrust)
+LOG_ADD(LOG_FLOAT, theta_meas,    &Quaternion_single_axis_contro_Y.theta_meas)
+LOG_ADD(LOG_FLOAT, gyroy, &Quaternion_single_axis_contro_U.q)
+LOG_GROUP_STOP(Q_att)
 
 PARAM_GROUP_START(Q_att)
 PARAM_ADD(PARAM_FLOAT, pitch_P, &Quaternion_single_axis_contro_P.pitch_P)
 PARAM_ADD(PARAM_FLOAT, pitch_rP, &Quaternion_single_axis_contro_P.pitch_rate_P)
 PARAM_ADD(PARAM_FLOAT, pitch_rI, &Quaternion_single_axis_contro_P.pitch_rate_I)
 PARAM_ADD(PARAM_FLOAT, pitch_rD, &Quaternion_single_axis_contro_P.pitch_rate_D)
-PARAM_ADD(PARAM_FLOAT, gaina, &Quaternion_single_axis_contro_P.Gaina)
 // PARAM_ADD(PARAM_FLOAT, index, &Quaternion_single_axis_contro_P.index)
 PARAM_GROUP_STOP(Q_att)
 
