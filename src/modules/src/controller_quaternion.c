@@ -16,7 +16,7 @@
 
 #define ATTITUDE_UPDATE_DT    (float)(1.0f/ATTITUDE_RATE)
 
-int qcounter = 0;
+// int qcounter = 0;
 
 void controllerQuaternionInit(void)
 {
@@ -50,22 +50,22 @@ void controllerQuaternion(control_t *control, setpoint_t *setpoint,
 
   Quaternion_single_axis_controller_step();
 
-  if(qcounter > 500){
-    // DEBUG_PRINT("roll_output: %f\tpitch_output: %f\tyaw_output: %f\tthrust_output: %f\n", (double)Quaternion_controller_Y.roll_output, 
-    //                                                                                       (double)Quaternion_controller_Y.pitch_output, 
-    //                                                                                       (double)Quaternion_controller_Y.yaw_output, 
-    //                                                                                       (double)Quaternion_controller_Y.thrust_output);
-    // DEBUG_PRINT("qw: %f\tqx: %f\tqy: %f\tqz: %f\n", (double)state->attitudeQuaternion.w, 
-    //                                                 (double)state->attitudeQuaternion.x, 
-    //                                                 (double)state->attitudeQuaternion.y, 
-    //                                                 (double)state->attitudeQuaternion.z);
-    DEBUG_PRINT("thrust: %f\n", (double)Quaternion_single_axis_contro_U.thrust);
-    qcounter = 0;
-  }
-  else
-  {
-    qcounter++;
-  }
+  // if(qcounter > 500){
+  //   // DEBUG_PRINT("roll_output: %f\tpitch_output: %f\tyaw_output: %f\tthrust_output: %f\n", (double)Quaternion_controller_Y.roll_output, 
+  //   //                                                                                       (double)Quaternion_controller_Y.pitch_output, 
+  //   //                                                                                       (double)Quaternion_controller_Y.yaw_output, 
+  //   //                                                                                       (double)Quaternion_controller_Y.thrust_output);
+  //   // DEBUG_PRINT("qw: %f\tqx: %f\tqy: %f\tqz: %f\n", (double)state->attitudeQuaternion.w, 
+  //   //                                                 (double)state->attitudeQuaternion.x, 
+  //   //                                                 (double)state->attitudeQuaternion.y, 
+  //   //                                                 (double)state->attitudeQuaternion.z);
+  //   // DEBUG_PRINT("thrust: %f\n", (double)Quaternion_single_axis_contro_Y.theta_meas);
+  //   qcounter = 0;
+  // }
+  // else
+  // {
+  //   qcounter++;
+  // }
   if ((double)setpoint->thrust < 0.0001)
   {
     motorsSetRatio(0, 0);
