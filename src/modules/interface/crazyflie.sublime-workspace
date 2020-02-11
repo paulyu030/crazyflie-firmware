@@ -1,0 +1,876 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"mea",
+				"att_mea"
+			],
+			[
+				"run_tilt_",
+				"run_tilt_double"
+			],
+			[
+				"run",
+				"run_square_thread"
+			],
+			[
+				"logg",
+				"logger"
+			],
+			[
+				"y",
+				"y"
+			],
+			[
+				"pitch",
+				"pitch"
+			],
+			[
+				"n",
+				"n"
+			],
+			[
+				"if",
+				"ifmain\tif __name__ == '__main__'"
+			],
+			[
+				"max",
+				"f_c_max"
+			],
+			[
+				"x",
+				"x"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "/home/indigo/crazyfile/crazyflie-lib-python/examples/MotionCap_scripts/DroneControl_crazyflie/rotor_combined.py",
+			"settings":
+			{
+				"buffer_size": 16332,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "/home/indigo/crazyfile/crazyflie-lib-python/examples/MotionCap_scripts/DroneControl_crazyflie/Optitrack.py",
+			"settings":
+			{
+				"buffer_size": 3579,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "/home/indigo/crazyfile/crazyflie-lib-python/examples/MotionCap_scripts/DroneControl_crazyflie/rotor_combined_controller.py",
+			"settings":
+			{
+				"buffer_size": 5318,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"contents": "import Tkinter as tk\nimport time\nimport threading\nimport numpy as np\n\nclass keyboard_control():\n\t\"\"\"docstring for keyboard_control\"\"\"\n\tdef __init__(self, control_mode='attitude'):\n\t\tself.command = tk.Tk()\n\t\tself.command.bind_all(\"<Key>\", self.key_input)\n\n\t\tself.stop = False\n\t\t\n\t\tself.velocity = 0.1\n\t\tself.square_size = 1\n\t\tself.ang_v = 0.06\n\t\tself.tilt_max = 0.2\n\t\tself.pause_time = 5\n\t\tself.last_update = time.time()\n\t\tself.state = 0\n\n\t\tself.control_mode = control_mode\n \t\t\n \t\tself.roll = 0\n \t\tself.pitch = 0\n \t\tself.yaw = 0\n\t\t\n\t\tself.x = 0\n\t\tself.y = 0\n\t\tself.z = 0\n\n\t\tself.small_step = 0.05\n\t\tself.z_step = 0.1\n\n\t\tself.wait_time = 20\n\n\tdef key_input(self, event):\n\t\tkey_press = event.keysym.lower()\n\t\tprint(key_press)\n\n\t\tif self.control_mode == 'position':\n\t\t\tif key_press == 'control_l':\n\t\t\t\tself.z = min(self.z+self.z_step, 0.1)\n\t\t\t\tprint(self.z)\n\t\t\telif key_press == 'alt_l':\n\t\t\t\tself.z = max(self.z-self.z_step, -1)\n\t\t\t\tprint(self.z)\n\t\t\telif key_press == 'right':\n\t\t\t\tself.pitch += self.small_step\n\t\t\t\tprint(self.pitch)\n\t\t\telif key_press == 'left':\n\t\t\t\tself.pitch -= self.small_step\n\t\t\t\tprint(self.pitch)\n\t\t\telif key_press == 'up':\n\t\t\t\tself.roll += self.small_step\n\t\t\t\tprint(self.roll)\n\t\t\telif key_press == 'down':\n\t\t\t\tself.roll -= self.small_step\n\t\t\t\tprint(self.roll)\n\t\t\telif key_press == 'space':\n\t\t\t\tself.roll = 0\n\t\t\t\tself.pitch = 0\n\t\t\t\tprint(\"set to zero pose\")\n\t\t\telif key_press == 'return':\n\t\t \t\trun_square_thread = threading.Thread(target=self.run_square_double, name='run_square_single')\n\t\t\t\trun_square_thread.start()\n\t\t\telif key_press == 'escape':\n\t\t\t\tself.stop = True\n\t\telse:\n\t\t\tif key_press == 'control_l':\n\t\t\t\tself.z = min(self.z+self.z_step, 0.1)\n\t\t\t\tprint(self.z)\n\t\t\telif key_press == 'alt_l':\n\t\t\t\tself.z = max(self.z-self.z_step, -1)\n\t\t\t\tprint(self.z)\n\t\t\telif key_press == 'right':\n\t\t\t\tself.roll += self.small_step\n\t\t\t\tprint(self.roll)\n\t\t\telif key_press == 'left':\n\t\t\t\tself.roll -= self.small_step\n\t\t\t\tprint(self.roll)\n\t\t\telif key_press == 'up':\n\t\t\t\tself.pitch -= self.small_step\n\t\t\t\tprint(self.pitch)\n\t\t\telif key_press == 'down':\n\t\t\t\tself.pitch += self.small_step\n\t\t\t\tprint(self.pitch)\n\t\t\telif key_press == 'space':\n\t\t\t\tself.z = 0\n\t\t\t\tprint(self.z)\n\t\t\telif key_press == 'return':\n\t\t \t\trun_square_thread = threading.Thread(target=self.run_tilt_single_multiple, name='run_tilt_single')  #run_tilt_double run_tilt_yaw\n\t\t\t\trun_square_thread.start()\n\t\t\telif key_press == 'escape':\n\t\t\t\tself.stop = True\n\n\tdef run_square_single(self):\n\t\tstate = 6\n\t\tlast_update = time.time()\n\t\twhile state > 0:\n\t\t\tcurrent_time = time.time()\n\t\t\tdt = current_time - last_update\n\t\t\tlast_update = current_time\n\n\t\t\tif state == 6:\n\t\t\t\ttime.sleep(self.wait_time)\n\t\t\t\tlast_update = time.time()\n\t\t\t\tstate = 5\n\t\t\tif state == 5:\n\t\t\t\tif self.x < self.square_size:\n\t\t\t\t\tself.x += self.velocity*dt\n\t\t\t\t\tself.roll = np.clip(self.roll + self.ang_v*dt, -0.2, 0.2)\n\t\t\t\telse:\n\t\t\t\t\tself.x = self.square_size\n\t\t\t\t\tstate = 4\n\t\t\telif state == 4:\n\t\t\t\tif self.y < self.square_size:\n\t\t\t\t\tself.y += self.velocity*dt\n\t\t\t\t\tself.roll = np.clip(self.roll - self.ang_v*dt, 0, 0.2)\n\t\t\t\telse:\n\t\t\t\t\tself.y = self.square_size\n\t\t\t\t\tstate = 3\n\t\t\telif state == 3:\n\t\t\t\tif self.x > 0:\n\t\t\t\t\tself.x -= self.velocity*dt\n\t\t\t\t\tself.roll = np.clip(self.roll - self.ang_v*dt, -0.2, 0)\n\t\t\t\telse:\n\t\t\t\t\tself.x = 0\n\t\t\t\t\tstate = 2\n\t\t\telif state == 2:\n\t\t\t\tif self.y > 0:\n\t\t\t\t\tself.y -= self.velocity*dt\n\t\t\t\t\tself.roll = np.clip(self.roll + self.ang_v*dt, -0.2, 0)\n\t\t\t\telse:\n\t\t\t\t\tself.y = 0\n\t\t\t\t\tstate = 1\n\t\t\telif state == 1:\n\t\t\t\ttime.sleep(self.wait_time)\n\t\t\t\tlast_update = time.time()\n\t\t\t\tprint('finish')\n\t\t\t\tstate = 0\n\t\t\ttime.sleep(0.1)\n\t\t\tprint(self.x, self.y, self.roll, self.pitch)\n\n\n\tdef run_square_double(self):\n\t\tstate = 6\n\t\tlast_update = time.time()\n\t\twhile state > 0:\n\t\t\tcurrent_time = time.time()\n\t\t\tdt = current_time - last_update\n\t\t\tlast_update = current_time\n\n\t\t\tif state == 6:\n\t\t\t\ttime.sleep(self.wait_time)\n\t\t\t\tlast_update = time.time()\n\t\t\t\tstate = 5\n\t\t\tif state == 5:\n\t\t\t\tif self.x < self.square_size:\n\t\t\t\t\tself.x += self.velocity*dt\n\t\t\t\t\tself.roll = np.clip(self.roll + self.ang_v*dt, 0, 0.2)\n\t\t\t\t\tself.pitch = np.clip(self.pitch - self.ang_v*dt, -0.2, 0)\t\t\t\t\t\n\t\t\t\telse:\n\t\t\t\t\tself.x = self.square_size\n\t\t\t\t\tstate = 4\n\t\t\telif state == 4:\n\t\t\t\tif self.y < self.square_size:\n\t\t\t\t\tself.y += self.velocity*dt\n\t\t\t\t\tself.roll = np.clip(self.roll - self.ang_v*dt, 0, 0.2)\n\t\t\t\t\tself.pitch = np.clip(self.pitch + self.ang_v*dt, -0.2, 0)\t\t\t\t\t\n\t\t\t\telse:\n\t\t\t\t\tself.y = self.square_size\n\t\t\t\t\tstate = 3\n\t\t\telif state == 3:\n\t\t\t\tif self.x > 0:\n\t\t\t\t\tself.x -= self.velocity*dt\n\t\t\t\t\tself.roll = np.clip(self.roll - self.ang_v*dt, -0.2, 0)\n\t\t\t\t\tself.pitch = np.clip(self.pitch + self.ang_v*dt, 0, 0.2)\n\t\t\t\telse:\n\t\t\t\t\tself.x = 0\n\t\t\t\t\tstate = 2\n\t\t\telif state == 2:\n\t\t\t\tif self.y > 0:\n\t\t\t\t\tself.y -= self.velocity*dt\n\t\t\t\t\tself.roll = np.clip(self.roll + self.ang_v*dt, -0.2, 0)\n\t\t\t\t\tself.pitch = np.clip(self.pitch - self.ang_v*dt, 0, 0.2)\n\t\t\t\telse:\n\t\t\t\t\tself.y = 0\n\t\t\t\t\tstate = 1\n\t\t\telif state == 1:\n\t\t\t\ttime.sleep(self.wait_time)\n\t\t\t\tlast_update = time.time()\n\t\t\t\tprint('finish')\n\t\t\t\tstate = 0\n\t\t\ttime.sleep(0.1)\n\t\t\tprint(self.x, self.y, self.roll, self.pitch)\n\n\n\tdef run_tilt_single(self):\n\t\tstate = 7\n\t\tlast_update = time.time()\n\t\twhile state > 0:\n\t\t\tcurrent_time = time.time()\n\t\t\tdt = current_time - last_update\n\t\t\tlast_update = current_time\n\n\t\t\tif state == 7:\n\t\t\t\ttime.sleep(self.wait_time)\n\t\t\t\tlast_update = time.time()\n\t\t\t\tstate = 6\n\t\t\telif state == 6:\n\t\t\t\tif self.pitch < self.tilt_max:\n\t\t\t\t\tself.pitch += self.ang_v*dt\n\t\t\t\telse:\n\t\t\t\t\tself.pitch = self.tilt_max\n\t\t\t\t\tstate = 5\n\t\t\telif state == 5:\n\t\t\t\ttime.sleep(self.pause_time)\n\t\t\t\tlast_update = time.time()\n\t\t\t\tstate = 4\n\t\t\telif state == 4:\n\t\t\t\tif self.pitch > -self.tilt_max:\n\t\t\t\t\tself.pitch -= self.ang_v*dt\n\t\t\t\telse:\n\t\t\t\t\tself.pitch = -self.tilt_max\n\t\t\t\t\tstate = 3\n\t\t\telif state == 3:\n\t\t\t\ttime.sleep(self.pause_time)\n\t\t\t\tlast_update = time.time()\n\t\t\t\tstate = 2\n\t\t\telif state == 2:\n\t\t\t\tif self.pitch < 0:\n\t\t\t\t\tself.pitch += self.ang_v*dt\n\t\t\t\telse:\n\t\t\t\t\tself.pitch = 0\n\t\t\t\t\tstate = 1\n\t\t\tif state == 1:\n\t\t\t\ttime.sleep(self.wait_time)\n\t\t\t\tlast_update = time.time()\n\t\t\t\tprint('finish')\n\t\t\t\tstate = 0\n\t\t\t\t\n\t\t\ttime.sleep(0.1)\n\t\t\tprint(self.pitch)\n\n\tdef run_tilt_single_multiple(self):\n\t\tstate = 11\n\t\tlast_update = time.time()\n\t\tstep_size = 0.05\n\t\twhile state > 0:\n\t\t\tcurrent_time = time.time()\n\t\t\tdt = current_time - last_update\n\t\t\tlast_update = current_time\n\n\t\t\tif state == 11:\n\t\t\t\ttime.sleep(self.wait_time)\n\t\t\t\tlast_update = time.time()\n\t\t\t\tstate = 10\n\t\t\telif state == 10:\n\t\t\t\tif self.pitch < step_size*2:\n\t\t\t\t\tself.pitch += self.ang_v*dt\n\t\t\t\telse:\n\t\t\t\t\tself.pitch = step_size*2\n\t\t\t\t\tstate = 9\n\t\t\telif state == 9:\n\t\t\t\ttime.sleep(self.pause_time)\n\t\t\t\tlast_update = time.time()\n\t\t\t\tstate = 8\n\t\t\telif state == 8:\n\t\t\t\tif self.pitch < step_size*3:\n\t\t\t\t\tself.pitch += self.ang_v*dt\n\t\t\t\telse:\n\t\t\t\t\tself.pitch = step_size*3\n\t\t\t\t\tstate = 7\n\t\t\telif state == 7:\n\t\t\t\ttime.sleep(self.pause_time)\n\t\t\t\tlast_update = time.time()\n\t\t\t\tstate = 6\n\t\t\telif state == 6:\n\t\t\t\tif self.pitch < step_size*4:\n\t\t\t\t\tself.pitch += self.ang_v*dt\n\t\t\t\telse:\n\t\t\t\t\tself.pitch = step_size*4\n\t\t\t\t\tstate = 5\n\t\t\telif state == 5:\n\t\t\t\ttime.sleep(self.pause_time)\n\t\t\t\tlast_update = time.time()\n\t\t\t\tstate = 4\n\t\t\telif state == 4:\n\t\t\t\tif self.pitch < step_size*5:\n\t\t\t\t\tself.pitch += self.ang_v*dt\n\t\t\t\telse:\n\t\t\t\t\tself.pitch = step_size*5\n\t\t\t\t\tstate = 3\n\t\t\telif state == 3:\n\t\t\t\ttime.sleep(self.pause_time)\n\t\t\t\tlast_update = time.time()\n\t\t\t\tstate = 2\n\t\t\telif state == 2:\n\t\t\t\tif self.pitch < step_size*6:\n\t\t\t\t\tself.pitch += self.ang_v*dt\n\t\t\t\telse:\n\t\t\t\t\tself.pitch = step_size*6\n\t\t\t\t\tstate = 1\n\t\t\tif state == 1:\n\t\t\t\t# time.sleep(self.wait_time)\n\t\t\t\tlast_update = time.time()\n\t\t\t\tprint('finish')\n\t\t\t\tstate = 0\n\t\t\t\t\n\t\t\ttime.sleep(0.1)\n\t\t\tprint(self.pitch)\n\n\tdef run_tilt_double(self):\n\t\tstate = 7\n\t\tlast_update = time.time()\n\t\twhile state > 0:\n\t\t\tcurrent_time = time.time()\n\t\t\tdt = current_time - last_update\n\t\t\tlast_update = current_time\n\n\t\t\tif state == 7:\n\t\t\t\ttime.sleep(self.wait_time)\n\t\t\t\tlast_update = time.time()\n\t\t\t\tstate = 6\n\t\t\telif state == 6:\n\t\t\t\tif self.pitch < self.tilt_max:\n\t\t\t\t\tself.pitch += self.ang_v*dt\n\t\t\t\t\tself.roll -= self.ang_v*dt\n\t\t\t\telse:\n\t\t\t\t\tself.pitch = self.tilt_max\n\t\t\t\t\tstate = 5\n\t\t\telif state == 5:\n\t\t\t\ttime.sleep(self.pause_time)\n\t\t\t\tlast_update = time.time()\n\t\t\t\tstate = 4\n\t\t\telif state == 4:\n\t\t\t\tif self.pitch > -self.tilt_max:\n\t\t\t\t\tself.pitch -= self.ang_v*dt\n\t\t\t\t\tself.roll += self.ang_v*dt\t\t\t\t\t\n\t\t\t\telse:\n\t\t\t\t\tself.pitch = -self.tilt_max\n\t\t\t\t\tstate = 3\n\t\t\telif state == 3:\n\t\t\t\ttime.sleep(self.pause_time)\n\t\t\t\tlast_update = time.time()\n\t\t\t\tstate = 2\n\t\t\telif state == 2:\n\t\t\t\tif self.pitch < 0:\n\t\t\t\t\tself.pitch += self.ang_v*dt\n\t\t\t\t\tself.roll -= self.ang_v*dt\n\t\t\t\telse:\n\t\t\t\t\tself.pitch = 0\n\t\t\t\t\tstate = 1\n\t\t\tif state == 1:\n\t\t\t\ttime.sleep(self.wait_time)\n\t\t\t\tlast_update = time.time()\n\t\t\t\tprint('finish')\n\t\t\t\tstate = 0\n\t\t\t\t\n\t\t\ttime.sleep(0.1)\n\t\t\tprint(self.pitch)\n\n\tdef run_tilt_yaw(self):\n\t\tstate = 7\n\t\tlast_update = time.time()\n\t\twhile state > 0:\n\t\t\tcurrent_time = time.time()\n\t\t\tdt = current_time - last_update\n\t\t\tlast_update = current_time\n\n\t\t\tif state == 7:\n\t\t\t\ttime.sleep(self.wait_time)\n\t\t\t\tlast_update = time.time()\n\t\t\t\tstate = 6\n\t\t\telif state == 6:\n\t\t\t\tif self.pitch < self.tilt_max:\n\t\t\t\t\tself.pitch += self.ang_v*dt\n\t\t\t\t\tself.yaw -= self.ang_v*dt*3\n\t\t\t\telse:\n\t\t\t\t\tself.pitch = self.tilt_max\n\t\t\t\t\tstate = 5\n\t\t\telif state == 5:\n\t\t\t\ttime.sleep(self.pause_time)\n\t\t\t\tlast_update = time.time()\n\t\t\t\tstate = 4\n\t\t\telif state == 4:\n\t\t\t\tif self.pitch > -self.tilt_max:\n\t\t\t\t\tself.pitch -= self.ang_v*dt\n\t\t\t\t\tself.yaw += self.ang_v*dt*3\n\t\t\t\telse:\n\t\t\t\t\tself.pitch = -self.tilt_max\n\t\t\t\t\tstate = 3\n\t\t\telif state == 3:\n\t\t\t\ttime.sleep(self.pause_time)\n\t\t\t\tlast_update = time.time()\n\t\t\t\tstate = 2\n\t\t\telif state == 2:\n\t\t\t\tif self.pitch < 0:\n\t\t\t\t\tself.pitch += self.ang_v*dt\n\t\t\t\t\tself.yaw -= self.ang_v*dt*3\n\t\t\t\telse:\n\t\t\t\t\tself.pitch = 0\n\t\t\t\t\tstate = 1\n\t\t\tif state == 1:\n\t\t\t\ttime.sleep(self.wait_time)\n\t\t\t\tlast_update = time.time()\n\t\t\t\tprint('finish')\n\t\t\t\tstate = 0\n\t\t\t\t\n\t\t\ttime.sleep(0.1)\n\t\t\tprint(self.pitch)\n\n\nif __name__ == '__main__':\n\tremoter = keyboard_control(control_mode='attitude')\n\twhile remoter.stop == False:\n\t\tremoter.command.update()\n\t\ttime.sleep(0.1)\n\n",
+			"file": "/home/indigo/crazyfile/crazyflie-lib-python/examples/MotionCap_scripts/DroneControl_crazyflie/keyboard.py",
+			"file_size": 10136,
+			"file_write_time": 132255092564414900,
+			"settings":
+			{
+				"buffer_size": 10138,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		}
+	],
+	"build_system": "Packages/Python/Python.sublime-build",
+	"build_system_choices":
+	[
+		[
+			[
+				[
+					"Packages/Python/Python.sublime-build",
+					""
+				],
+				[
+					"Packages/Python/Python.sublime-build",
+					"Syntax Check"
+				]
+			],
+			[
+				"Packages/Python/Python.sublime-build",
+				""
+			]
+		]
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"git cha",
+				"Git: Change Branch"
+			],
+			[
+				"git q",
+				"Git: Quick Commit (repo)"
+			],
+			[
+				"git comm",
+				"Git: Commit"
+			],
+			[
+				"git add",
+				"Git: Add Current File"
+			],
+			[
+				"git new",
+				"Git: New Branch"
+			],
+			[
+				"git status",
+				"Git: Status"
+			],
+			[
+				"git ",
+				"Git: New Branch"
+			],
+			[
+				"git change",
+				"Git: Change Branch"
+			],
+			[
+				"git checkout",
+				"Git: Checkout Tag"
+			],
+			[
+				"git qc",
+				"Git: Quick Commit (repo)"
+			],
+			[
+				"git change br",
+				"Git: Change Branch"
+			],
+			[
+				"git qu",
+				"Git: Quick Commit (repo)"
+			],
+			[
+				"git n",
+				"Git: New Branch"
+			],
+			[
+				"git pu",
+				"Git: Pull Current Branch"
+			],
+			[
+				"git push",
+				"Git: Push Current Branch"
+			],
+			[
+				"git mer",
+				"Git: Merge Branch"
+			],
+			[
+				"git change ",
+				"Git: Change Branch"
+			],
+			[
+				"git quc",
+				"Git: Quick Commit (repo)"
+			],
+			[
+				"git chan",
+				"Git: Change Branch"
+			],
+			[
+				"git p",
+				"Git: Pull Current Branch"
+			],
+			[
+				"git pul",
+				"Git: Pull Current Branch"
+			],
+			[
+				"gi tpush",
+				"Git: Push Current Branch"
+			],
+			[
+				"packains",
+				"Package Control: Install Package"
+			],
+			[
+				"git reset",
+				"Git: Reset (unstage) All"
+			],
+			[
+				"git stash ",
+				"Git: Stash Apply"
+			],
+			[
+				"git bra",
+				"Git: New Branch"
+			],
+			[
+				"git st",
+				"Git: Stash Changes"
+			],
+			[
+				"git ap",
+				"Git: Stash Apply"
+			],
+			[
+				"git stash",
+				"Git: Stash List"
+			],
+			[
+				"git co",
+				"Git: Commit"
+			],
+			[
+				"packin",
+				"Package Control: Install Package"
+			]
+		],
+		"width": 0.0
+	},
+	"console":
+	{
+		"height": 0.0,
+		"history":
+		[
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"expanded_folders":
+	[
+		"/home/indigo/crazyfile",
+		"/home/indigo/crazyfile/crazyflie-lib-python",
+		"/home/indigo/crazyfile/crazyflie-lib-python/examples",
+		"/home/indigo/crazyfile/crazyflie-lib-python/examples/MotionCap_scripts",
+		"/home/indigo/crazyfile/crazyflie-lib-python/examples/MotionCap_scripts/DroneControl",
+		"/home/indigo/crazyfile/crazyflie-lib-python/examples/MotionCap_scripts/DroneControl_crazyflie",
+		"/home/indigo/crazyfile/crazyflie2-nrf-firmware"
+	],
+	"file_history":
+	[
+		"/home/indigo/crazyfile/crazyflie-firmware/src/modules/src/Quaternion_single_axis_controller_ert_rtw/Quaternion_single_axis_controller.c",
+		"/home/indigo/crazyfile/crazyflie-lib-python/examples/MotionCap_scripts/DroneControl_crazyflie/rotor_combined_gui.py",
+		"/home/indigo/crazyfile/crazyflie-lib-python/examples/MotionCap_scripts/DroneControl_crazyflie/rotor_combined_logger.py",
+		"/home/indigo/crazyfile/crazyflie-lib-python/examples/MotionCap_scripts/DroneControl_crazyflie/keyboard.py",
+		"/home/indigo/crazyfile/crazyflie-lib-python/examples/MotionCap_scripts/DroneControl_crazyflie/rotor_combined_controller.py",
+		"/home/indigo/crazyfile/crazyflie-firmware/src/modules/src/controller_quaternion.c",
+		"/home/indigo/crazyfile/crazyflie-lib-python/cflib/drivers/crazyradio.py",
+		"/home/indigo/crazyfile/crazyflie-lib-python/cflib/crtp/radiodriver.py",
+		"/home/indigo/crazyfile/crazyflie-lib-python/cflib/crazyflie/log.py",
+		"/home/indigo/crazyfile/crazyflie-lib-python/cflib/crazyflie/__init__.py",
+		"/home/indigo/crazyfile/crazyflie-lib-python/examples/MotionCap_scripts/DroneControl/NatNetClient.py",
+		"/home/indigo/crazyfile/crazyflie-lib-python/cflib/crazyflie/commander.py",
+		"/home/indigo/crazyfile/crazyflie-lib-python/examples/MotionCap_scripts/DroneControl_crazyflie/NatNetClient.py",
+		"/home/indigo/crazyfile/crazyflie-lib-python/examples/MotionCap_scripts/DroneControl_crazyflie/fixtime.txt",
+		"/home/indigo/crazyfile/crazyflie-firmware/src/hal/interface/syslink.h",
+		"/home/indigo/crazyfile/crazyflie-firmware/src/drivers/src/uart_syslink.c",
+		"/home/indigo/crazyfile/crazyflie-firmware/src/modules/src/comm.c",
+		"/home/indigo/crazyfile/crazyflie-firmware/src/modules/src/system.c",
+		"/home/indigo/crazyfile/crazyflie-firmware/src/modules/src/commander.c",
+		"/home/indigo/crazyfile/crazyflie2-nrf-firmware/src/esb.c",
+		"/home/indigo/crazyfile/crazyflie-lib-python/cflib/crtp/crtpdriver.py",
+		"/home/indigo/crazyfile/crazyflie-lib-python/examples/MotionCap_scripts/DroneControl_crazyflie/Optitrack.py",
+		"/home/indigo/crazyfile/crazyflie-firmware/src/hal/src/syslink.c",
+		"/home/indigo/crazyfile/crazyflie-firmware/src/hal/src/radiolink.c",
+		"/home/indigo/crazyfile/crazyflie2-nrf-firmware/src/main.c",
+		"/home/indigo/crazyfile/crazyflie-firmware/src/modules/src/crtp.c",
+		"/home/indigo/crazyfile/crazyflie-lib-python/cflib/crtp/crtpstack.py",
+		"/home/indigo/crazyfile/crazyflie-lib-python/examples/MotionCap_scripts/DroneControl_crazyflie/rotor_combined.py",
+		"/home/indigo/crazyfile/crazyflie-lib-python/examples/MotionCap_scripts/DroneControl_crazyflie/log1M.txt",
+		"/home/indigo/crazyfile/crazyflie-lib-python/examples/MotionCap_scripts/DroneControl_crazyflie/log2.txt",
+		"/home/indigo/crazyfile/crazyflie-lib-python/examples/multiramp.py",
+		"/home/indigo/crazyfile/crazyflie-lib-python/cflib/crtp/__init__.py",
+		"/home/indigo/crazyfile/crazyflie-lib-python/examples/MotionCap_scripts/DroneControl_crazyflie/ramp.py",
+		"/home/indigo/crazyfile/crazyflie-firmware/src/modules/src/crtp_commander_high_level.c",
+		"/home/indigo/crazyfile/crazyflie-firmware/src/modules/src/stabilizer.c",
+		"/home/indigo/crazyfile/crazyflie-firmware/src/drivers/src/uart1.c",
+		"/home/indigo/crazyfile/crazyflie-firmware/src/lib/FreeRTOS/include/queue.h",
+		"/home/indigo/crazyfile/crazyflie-firmware/src/deck/drivers/src/lighthouse.c",
+		"/home/indigo/crazyfile/crazyflie-firmware/src/drivers/src/uart2.c",
+		"/home/indigo/crazyfile/crazyflie-firmware/src/deck/drivers/src/test/uart2test.c",
+		"/home/indigo/crazyfile/crazyflie-firmware/src/modules/interface/stabilizer_types.h",
+		"/home/indigo/crazyfile/crazyflie-firmware/src/modules/src/crtp_commander_generic.c",
+		"/home/indigo/crazyfile/crazyflie-lib-python/examples/MotionCap_scripts/DroneControl_crazyflie/rotor_combined_test.py",
+		"/home/indigo/crazyfile/crazyflie-firmware/src/deck/drivers/src/gtgps.c",
+		"/home/indigo/crazyfile/crazyflie-firmware/src/deck/drivers/src/bigquad.c",
+		"/home/indigo/crazyfile/crazyflie-firmware/src/modules/src/rotor_combined_controller_ert_rtw/rotor_combined_controller.h",
+		"/home/indigo/crazyfile/crazyflie-firmware/src/drivers/src/motors.c",
+		"/home/indigo/crazyfile/crazyflie-firmware/src/modules/interface/commander.h",
+		"/home/indigo/crazyfile/crazyflie-firmware/src/modules/src/mem_cf2.c",
+		"/home/indigo/crazyfile/crazyflie-firmware/src/drivers/interface/lh_bootloader.h",
+		"/home/indigo/crazyfile/crazyflie-firmware/src/drivers/interface/uart1.h",
+		"/home/indigo/crazyfile/crazyflie-firmware/src/modules/src/sysload.c",
+		"/home/indigo/crazyfile/crazyflie-firmware/src/hal/src/usblink.c",
+		"/home/indigo/crazyfile/crazyflie-firmware/Makefile",
+		"/home/indigo/crazyfile/crazyflie-firmware/src/modules/src/controller_pid.c",
+		"/home/indigo/crazyfile/crazyflie-firmware/src/config/config.h",
+		"/home/indigo/crazyfile/crazyflie-firmware/src/deck/drivers/src/test/uart1test.c",
+		"/home/indigo/crazyfile/crazyflie-firmware/src/modules/interface/estimator.h",
+		"/home/indigo/crazyfile/crazyflie-firmware/src/modules/src/controller.c",
+		"/home/indigo/test.c",
+		"/home/indigo/crazyfile/crazyflie-firmware/src/lib/FreeRTOS/include/FreeRTOS.h",
+		"/home/indigo/crazyfile/crazyflie-firmware/src/lib/FreeRTOS/portable/GCC/ARM_CM3/portmacro.h",
+		"/home/indigo/crazyfile/lps-node-firmware/lib/freertos/inc/queue.h",
+		"/home/indigo/crazyfile/crazyflie-firmware/src/lib/FreeRTOS/tasks.c",
+		"/home/indigo/crazyfile/upload_crazyflie_bootloader.sh",
+		"/home/indigo/crazyfile/crazyflie-firmware/src/modules/src/console.c",
+		"/home/indigo/crazyfile/crazyflie-firmware/src/deck/core/deck.c",
+		"/home/indigo/crazyfile/crazyflie-firmware/src/hal/src/sensors.c",
+		"/home/indigo/crazyfile/crazyflie-firmware/src/modules/src/estimator_complementary.c",
+		"/home/indigo/crazyfile/crazyflie-firmware/src/deck/drivers/src/usddeck.c",
+		"/home/indigo/crazyfile/crazyflie-lib-python/examples/system_id.py",
+		"/home/indigo/crazyfile/crazyflie-lib-python/examples/MotionCap_scripts/DroneControl_crazyflie/rotor_combined_debug.py",
+		"/home/indigo/crazyfile/crazyflie-firmware/src/deck/interface/deck_spi.h",
+		"/home/indigo/crazyfile/crazyflie-firmware/src/deck/api/deck_spi.c",
+		"/home/indigo/crazyfile/crazyflie-firmware/src/deck/drivers/src/locodeck.c",
+		"/home/indigo/crazyfile/crazyflie-firmware/src/deck/core/deck_info.c",
+		"/home/indigo/crazyfile/Firmware/build/bitcraze_crazyflie_default/NuttX/nuttx/include/string.h",
+		"/home/indigo/crazyfile/crazyflie-firmware/vendor/libdw1000/inc/libdw1000Types.h",
+		"/home/indigo/crazyfile/crazyflie-firmware/src/drivers/src/pmw3901.c",
+		"/home/indigo/crazyfile/crazyflie-firmware/src/deck/drivers/src/flowdeck_v1v2.c",
+		"/home/indigo/crazyfile/crazyflie-lib-python/examples/MotionCap_scripts/DroneControl_crazyflie/rotor_combined_log.py",
+		"/home/indigo/Desktop/QuadcopterControl.py",
+		"/home/indigo/crazyfile/crazyflie-lib-python/cache/4D76B32D.json",
+		"/home/indigo/crazyfile/crazyflie-lib-python/examples/DroneControl_crazyflie/attitude_control.py",
+		"/home/indigo/crazyfile/crazyflie-lib-python/examples/DroneControl_crazyflie/rotor_combined.py",
+		"/home/indigo/crazyfile/crazyflie-firmware/src/modules/src/estimator.c",
+		"/home/indigo/crazyfile/crazyflie-firmware/src/modules/src/crtp_commander_rpyt.c",
+		"/home/indigo/crazyfile/crazyflie-lib-python/build/lib.linux-x86_64-2.7/cflib/crazyflie/commander.py",
+		"/home/indigo/crazyfile/crazyflie-firmware/src/modules/src/crtp_commander.c",
+		"/home/indigo/crazyfile/crazyflie-lib-python/build/lib/cflib/crazyflie/commander.py",
+		"/home/indigo/crazyfile/crazyflie-firmware/src/modules/src/position_controller_pid.c",
+		"/home/indigo/crazyfile/crazyflie-firmware/src/modules/src/crtp_localization_service.c",
+		"/home/indigo/crazyfile/crazyflie-firmware/src/modules/interface/crtp_localization_service.h",
+		"/home/indigo/crazyfile/crazyflie-lib-python/venv-cflib/lib/python2.7/site-packages/cflib/crtp/debugdriver.py",
+		"/home/indigo/crazyfile/crazyflie-lib-python/examples/positioning/external_position_optitrack.py",
+		"/home/indigo/crazyfile/crazyflie-lib-python/examples/positioning/initial_position.py",
+		"/home/indigo/crazyfile/crazyflie-lib-python/examples/basiclogSync.py",
+		"/home/indigo/crazyfile/crazyflie-lib-python/cflib/crazyflie/syncLogger.py",
+		"/home/indigo/crazyfile/crazyflie-lib-python/cache/55C34AF1.json",
+		"/home/indigo/crazyfile/crazyflie-firmware/src/modules/src/sensfusion6.c",
+		"/home/indigo/crazyfile/crazyflie-lib-python/build/lib/cflib/crazyflie/syncCrazyflie.py",
+		"/home/indigo/crazyfile/crazyflie-firmware/src/modules/src/position_estimator_altitude.c",
+		"/home/indigo/crazyfile/crazyflie-firmware/src/modules/src/kalman_core.c",
+		"/home/indigo/crazyfile/crazyflie-firmware/src/drivers/interface/motors.h",
+		"/home/indigo/crazyfile/crazyflie-firmware/src/modules/src/power_distribution_stock.c",
+		"/home/indigo/crazyfile/crazyflie-lib-python/examples/rotor_combined.py",
+		"/home/indigo/crazyfile/crazyflie-firmware/src/modules/interface/controller.h",
+		"/home/indigo/crazyfile/crazyflie-lib-python/cflib/utils/callbacks.py",
+		"/home/indigo/crazyfile/crazyflie-firmware/src/modules/src/Quaternion_controller_ert_rtw/Quaternion_controller.c",
+		"/home/indigo/crazyfile/crazyflie-lib-python/cflib/crazyflie/syncCrazyflie.py",
+		"/home/indigo/crazyfile/crazyflie-firmware/src/modules/src/log.c",
+		"/home/indigo/crazyfile/crazyflie-lib-python/cflib/crazyflie/extpos.py",
+		"/home/indigo/crazyfile/crazyflie-firmware/src/modules/src/param.c",
+		"/home/indigo/crazyfile/crazyflie-lib-python/examples/test_thrust.py",
+		"/home/indigo/crazyfile/crazyflie-firmware/src/modules/src/controller_mellinger.c",
+		"/home/indigo/crazyfile/crazyflie-firmware/src/modules/interface/math3d.h",
+		"/home/indigo/crazyfile/crazyflie-lib-python/examples/scan.py",
+		"/home/indigo/crazyfile/crazyflie-lib-python/build/lib/cflib/crtp/__init__.py",
+		"/home/indigo/crazyfile/crazyflie-firmware/src/modules/src/Quaternion_controller_ert_rtw/Quaternion_controller_data.c",
+		"/home/indigo/crazyfile/crazyflie-firmware/src/modules/interface/param.h",
+		"/home/indigo/crazyfile/crazyflie-firmware/src/modules/src/PID_controller_ert_rtw/rtwtypes.h",
+		"/home/indigo/crazyfile/crazyflie-firmware/src/modules/interface/controller_mellinger.h",
+		"/home/indigo/crazyfile/crazyflie-firmware/src/modules/interface/controller_quaternion.h",
+		"/home/indigo/crazyfile/Firmware/src/systemcmds/tests/test_sensors.c",
+		"/home/indigo/crazyfile/crazyflie-firmware/src/modules/src/attitude_pid_controller.c",
+		"/home/indigo/crazyfile/crazyflie-firmware/src/modules/src/sitaw.c",
+		"/home/indigo/crazyfile/crazyflie-firmware/src/modules/src/controller_pid_backup.c",
+		"/home/indigo/crazyfile/crazyflie-firmware/src/modules/src/PID_controller_ert_rtw/PID_controller_types.h"
+	],
+	"find":
+	{
+		"height": 39.0
+	},
+	"find_in_files":
+	{
+		"height": 104.0,
+		"where_history":
+		[
+			"/home/indigo/crazyfile/crazyflie-lib-python",
+			"/home/indigo/crazyfile/crazyflie-firmware",
+			"/home/indigo/crazyfile/crazyflie-lib-python/examples",
+			"/home/indigo/crazyfile/crazyflie-lib-python",
+			"/home/indigo/crazyfile/crazyflie-firmware/src",
+			"/home/indigo/crazyfile/crazyflie-firmware/",
+			"/home/indigo/crazyfile/crazyflie-firmware/src",
+			"/home/indigo/crazyfile/crazyflie-firmware",
+			"/home/indigo/crazyfile/crazyflie-firmware/src",
+			"/home/indigo/crazyfile/crazyflie-firmware/src/modules/src",
+			"/home/indigo/crazyfile/crazyflie-lib-python/build",
+			"/home/indigo/crazyfile/crazyflie-firmware/src/modules/src",
+			"/home/indigo/crazyfile/crazyflie-lib-python",
+			"/home/indigo/crazyfile/crazyflie-firmware/src/",
+			"/home/indigo/crazyfile/crazyflie-firmware/src/modules",
+			"/home/indigo/crazyfile/crazyflie-lib-python",
+			"/home/indigo/crazyfile/crazyflie-firmware/src/modules",
+			"/home/indigo/crazyfile/crazyflie-firmware",
+			"/home/indigo/crazyfile/lps-node-firmware",
+			"/home/indigo/crazyfile/crazyflie-firmware/",
+			"/home/indigo/crazyfile/crazyflie-firmware/src",
+			"/home/indigo/crazyfile/crazyflie-lib-python/cache",
+			"/home/indigo/crazyfile/crazyflie-firmware/src",
+			"/home/indigo/crazyfile/crazyflie-firmware/src/modules/src",
+			"/home/indigo/crazyfile/crazyflie-firmware/src/modules/src/Quaternion_controller_ert_rtw",
+			"/home/indigo/crazyfile/crazyflie-lib-python",
+			"/home/indigo/crazyfile/crazyflie-firmware/src",
+			"/home/indigo/crazyfile/crazyflie-firmware/src/modules",
+			"/home/indigo/crazyfile/crazyflie-firmware/",
+			"/home/indigo/crazyfile/crazyflie-firmware/src/",
+			"/home/indigo/crazyfile/crazyflie-firmware/src/modules/src/PID_controller_ert_rtw"
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"self.pause_time",
+			"time.sleep(5)",
+			"alt",
+			"update_states",
+			"20",
+			"-0.2",
+			"single",
+			"22",
+			"5",
+			"24",
+			"o-",
+			"\t\tplt.xlabel('time (s)')\n",
+			"[0]*self.plot_size",
+			" = ",
+			"self",
+			"self.gui_interface.",
+			"self",
+			"plot",
+			"np.zeros(self.plot_size)",
+			"self",
+			"plot_size",
+			"np.random.randn(1000)",
+			"1000",
+			"ax",
+			"100",
+			"roll",
+			"1,",
+			"1",
+			"2",
+			"roll",
+			"*180/math.pi",
+			"state = 0",
+			"roll",
+			"\t\tstate = 7\n\t\tlast_update = time.time()\n\t\twhile state > 0:\n\t\t\tcurrent_time = time.time()\n\t\t\tdt = current_time - last_update\n\t\t\tlast_update = current_time\n\n\t\t\tif state == 7:\n\t\t\t\ttime.sleep(20)\n\t\t\t\tlast_update = time.time()\n\t\t\t\tstate = 6\n\t\t\telif state == 6:\n\t\t\t\tif self.pitch < self.tilt_max:\n\t\t\t\t\tself.pitch += self.ang_v*dt\n\t\t\t\t\tself.roll -= self.ang_v*dt\n\t\t\t\telse:\n\t\t\t\t\tself.pitch = self.tilt_max\n\t\t\t\t\tstate = 5\n\t\t\telif state == 5:\n\t\t\t\ttime.sleep(self.pause_time)\n\t\t\t\tlast_update = time.time()\n\t\t\t\tstate = 4\n\t\t\telif state == 4:\n\t\t\t\tif self.pitch > -self.tilt_max:\n\t\t\t\t\tself.pitch -= self.ang_v*dt\n\t\t\t\t\tself.roll += self.ang_v*dt\t\t\t\t\t\n\t\t\t\telse:\n\t\t\t\t\tself.pitch = -self.tilt_max\n\t\t\t\t\tstate = 3\n\t\t\telif state == 3:\n\t\t\t\ttime.sleep(self.pause_time)\n\t\t\t\tlast_update = time.time()\n\t\t\t\tstate = 2\n\t\t\telif state == 2:\n\t\t\t\tif self.pitch < 0:\n\t\t\t\t\tself.pitch += self.ang_v*dt\n\t\t\t\t\tself.roll -= self.ang_v*dt\n\t\t\t\telse:\n\t\t\t\t\tself.pitch = 0\n\t\t\t\t\tstate = 1\n\t\t\tif state == 1:\n\t\t\t\ttime.sleep(20)\n\t\t\t\tlast_update = time.time()\n\t\t\t\tstate = 0\n\t\t\t\t\n\t\t\ttime.sleep(0.1)\n\t\t\tprint(self.pitch)",
+			"run_square_single",
+			"roll",
+			"\t\t\t\t\tself.roll -= self.ang_v*dt\n",
+			"self.pause_time)\n\t\t\t\t# last_update",
+			"2",
+			"20",
+			"45",
+			"18",
+			"self.x",
+			"self.y",
+			"25",
+			"3.2",
+			"*3",
+			"3",
+			"5",
+			"20",
+			"control_",
+			",",
+			"big_step",
+			"self.x",
+			"5",
+			"self.velocity",
+			"self.square_size",
+			"if ",
+			"if",
+			"self.state",
+			"self",
+			"return [0, ",
+			", 0, 0]",
+			"state",
+			"0",
+			"\"",
+			"ref",
+			"thrust",
+			"beta",
+			"thrust",
+			"\"",
+			"5",
+			"measureQuad",
+			"15",
+			"10",
+			"1",
+			"5",
+			"35",
+			"10",
+			"1",
+			"3",
+			"5",
+			"20",
+			"10",
+			"3",
+			"8",
+			"20",
+			"10",
+			"1",
+			"0",
+			"5",
+			"15",
+			"10",
+			"20",
+			"5",
+			"10",
+			"40",
+			"60",
+			"20",
+			"10",
+			"50",
+			"period",
+			"Could not add",
+			"_send_packet_safe",
+			"cradio",
+			"_send_packet_safe",
+			"_radio_ack",
+			"5",
+			"70",
+			"0",
+			"50",
+			"0",
+			"40",
+			"10",
+			"15",
+			"80",
+			"jacobian_beta",
+			"10",
+			"30",
+			"pyusb1",
+			"P2PCallback",
+			"setupRx",
+			"20",
+			"5",
+			"60",
+			"10",
+			"0",
+			"11"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+			"time.sleep(self.wait_time)",
+			")[0]",
+			"struct.unpack('<I', ",
+			"int(codecs.encode(data[offset:offset + 4], 'hex'), 16)",
+			", 'hex'),16)",
+			",'hex'),16)",
+			"int(codecs.encode(",
+			"print(",
+			"time",
+			""
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 3,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "/home/indigo/crazyfile/crazyflie-lib-python/examples/MotionCap_scripts/DroneControl_crazyflie/rotor_combined.py",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 16332,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								16177,
+								16177
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Python/Python.sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 6747.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "/home/indigo/crazyfile/crazyflie-lib-python/examples/MotionCap_scripts/DroneControl_crazyflie/Optitrack.py",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 3579,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2724,
+								2724
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Python/Python.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 789.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 3,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "/home/indigo/crazyfile/crazyflie-lib-python/examples/MotionCap_scripts/DroneControl_crazyflie/rotor_combined_controller.py",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 5318,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								794,
+								794
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Python/Python.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 287.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "/home/indigo/crazyfile/crazyflie-lib-python/examples/MotionCap_scripts/DroneControl_crazyflie/keyboard.py",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 10138,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								5820,
+								5820
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Python/Python.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 27.0
+	},
+	"input":
+	{
+		"height": 40.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.exec":
+	{
+		"height": 240.0
+	},
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"output.git":
+	{
+		"height": 126.0
+	},
+	"pinned_build_system": "Packages/Python/Python.sublime-build",
+	"project": "crazyflie.sublime-project",
+	"replace":
+	{
+		"height": 70.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"uart2",
+				"crazyflie-firmware/src/drivers/src/uart2.c"
+			],
+			[
+				"estimator.h",
+				"crazyflie-firmware/src/modules/interface/estimator.h"
+			],
+			[
+				"controller.h",
+				"crazyflie-firmware/src/modules/interface/controller.h"
+			],
+			[
+				"controller_quaternion",
+				"crazyflie-firmware/src/modules/src/controller_quaternion.c"
+			],
+			[
+				"pid.h",
+				"crazyflie-firmware/src/modules/interface/pid.h"
+			],
+			[
+				"controller_pid.h",
+				"crazyflie-firmware/src/modules/interface/controller_pid.h"
+			],
+			[
+				"stabilizer_types",
+				"crazyflie-firmware/src/modules/interface/stabilizer_types.h"
+			],
+			[
+				"motor",
+				"src/drivers/src/motors.c"
+			],
+			[
+				"ardui",
+				"src/modules/mc_rl_control/tools/arduino_i2c_rpm.ino"
+			],
+			[
+				"arduino",
+				"src/modules/mc_rl_control/tools/arduino_i2c_rpm.ino"
+			],
+			[
+				"git_init_src_lib_DriverFramework.stamp",
+				"build/emlid_navio2_cross/git_init_src_lib_DriverFramework.stamp"
+			],
+			[
+				"vehicle_command",
+				"msg/vehicle_command.msg"
+			],
+			[
+				"ekf2_main",
+				"src/modules/ekf2/ekf2_main.cpp"
+			],
+			[
+				"DevMgr.hpp",
+				"src/lib/DriverFramework/framework/include/DevMgr.hpp"
+			],
+			[
+				"px4_i2c.h",
+				"src/platforms/px4_i2c.h"
+			]
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 500.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 380.0
+	},
+	"select_symbol":
+	{
+		"height": 392.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 650.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 339.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}
