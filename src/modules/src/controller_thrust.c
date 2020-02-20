@@ -35,10 +35,6 @@ void controllerThrust(control_t *control, setpoint_t *setpoint,
   rtU.thrust = setpoint->thrust;
 
 
-  // gyro_x += sensors->gyro.x;
-  // gyro_y += sensors->gyro.y;
-  // gyro_z += sensors->gyro.z;
-
   thrust_test_step();
 
   if (setpoint->thrust < 10)
