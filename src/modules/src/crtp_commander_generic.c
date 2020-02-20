@@ -71,6 +71,8 @@ enum packet_type {
   hoverType         = 5,
   fullStateType     = 6,
   positionType      = 7,
+  basePoseType      = 8,
+  thrustType        = 9,
 };
 
 /* ---===== 2 - Decoding functions =====--- */
@@ -367,6 +369,51 @@ static void positionDecoder(setpoint_t *setpoint, uint8_t type, const void *data
   setpoint->attitude.yaw = values->yaw;
 }
 
+/* basePoseDecoder
+ * Set the absolute postition and orientation
+ */
+ struct basePosePacket_s {
+   float index;
+   float w;
+   float x;
+   float y;
+   float z;
+   float theta;
+   float thrust;
+ } __attribute__((packed));
+static void basePoseDecoder(setpoint_t *setpoint, uint8_t type, const void *data, size_t datalen)
+{
+  const struct basePosePacket_s *values = data;
+
+  setpoint->attitude.roll = values->index;  // use roll to save index number
+
+  setpoint->attitudeQuaternion.w = values->w;
+  setpoint->attitudeQuaternion.x = values->x;
+  setpoint->attitudeQuaternion.y = values->y;
+  setpoint->attitudeQuaternion.z = values->z;
+
+  // setpoint->attitude.roll = values->x;
+  setpoint->attitude.pitch = values->theta;  // use pitch to save theta
+  // setpoint->attitude.yaw = values->z;
+
+  setpoint->thrust = values->thrust;
+}
+
+/* thrustDecoder
+   Set the thrust only. No controller involved.
+   Used for thrust force measurement
+*/
+struct thrustPacket_s {
+  float thrust;
+} __attribute__((packed));
+static void thrustDecoder(setpoint_t *setpoint, uint8_t type, const void *data, size_t datalen)
+{
+  const struct thrustPacket_s *values = data;
+
+  setpoint->thrust = values->thrust;
+}
+
+
  /* ---===== 3 - packetDecoders array =====--- */
 const static packetDecoder_t packetDecoders[] = {
   [stopType]          = stopDecoder,
@@ -377,6 +424,8 @@ const static packetDecoder_t packetDecoders[] = {
   [hoverType]         = hoverDecoder,
   [fullStateType]     = fullStateDecoder,
   [positionType]      = positionDecoder,
+  [basePoseType]      = basePoseDecoder,
+  [thrustType]        = thrustDecoder,
 };
 
 /* Decoder switch */

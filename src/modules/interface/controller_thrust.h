@@ -21,18 +21,18 @@
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  *
- * controller_quaternion.h - Quaternion Controller Interface
+ * controller_thrust.h - Thrust Test (no controller) Interface
  */
-#ifndef __CONTROLLER_QUATERNION_H__
-#define __CONTROLLER_QUATERNION_H__
+#ifndef __CONTROLLER_THRUST_H__
+#define __CONTROLLER_THRUST_H__
 
 #include "stabilizer_types.h"
 
-void controllerQuaternionInit(void);
-bool controllerQuaternionTest(void);
-void controllerQuaternion(control_t *control, setpoint_t *setpoint,
+void controllerThrustInit(void);
+bool controllerThrustTest(void);
+void controllerThrust(control_t *control, setpoint_t *setpoint,
                                          const sensorData_t *sensors,
                                          const state_t *state,
                                          const uint32_t tick);
 
-#endif //__CONTROLLER_PID_H__
+#endif 
