@@ -73,6 +73,7 @@ enum packet_type {
   positionType      = 7,
   basePoseType      = 8,
   thrustType        = 9,
+  twoDType          = 10,
 };
 
 /* ---===== 2 - Decoding functions =====--- */
@@ -414,6 +415,37 @@ static void thrustDecoder(setpoint_t *setpoint, uint8_t type, const void *data, 
 }
 
 
+/* basePoseDecoder
+ * Set the absolute postition and orientation
+ */
+ struct twoDPacket_s {
+   uint8_t index;
+   float w;
+   float x;
+   float y;
+   float z;
+   float alpha;
+   float beta;
+   float thrust;
+ } __attribute__((packed));
+static void twoDDecoder(setpoint_t *setpoint, uint8_t type, const void *data, size_t datalen)
+{
+  const struct twoDPacket_s *values = data;
+
+  setpoint->attitude.roll = (float)values->index;  // use roll to save index number
+
+  setpoint->attitudeQuaternion.w = values->w;
+  setpoint->attitudeQuaternion.x = values->x;
+  setpoint->attitudeQuaternion.y = values->y;
+  setpoint->attitudeQuaternion.z = values->z;
+
+  setpoint->attitude.pitch = values->alpha;  // use pitch to save alpha
+  setpoint->attitude.yaw = values->beta; //use yaw to save beta
+
+  setpoint->thrust = values->thrust;
+}
+
+
  /* ---===== 3 - packetDecoders array =====--- */
 const static packetDecoder_t packetDecoders[] = {
   [stopType]          = stopDecoder,
@@ -426,6 +458,7 @@ const static packetDecoder_t packetDecoders[] = {
   [positionType]      = positionDecoder,
   [basePoseType]      = basePoseDecoder,
   [thrustType]        = thrustDecoder,
+  [twoDType]          = twoDDecoder,
 };
 
 /* Decoder switch */

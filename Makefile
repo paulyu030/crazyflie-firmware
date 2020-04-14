@@ -121,7 +121,7 @@ endif
 
 # Crazyflie sources
 VPATH += $(CRAZYFLIE_BASE)/src/init $(CRAZYFLIE_BASE)/src/hal/src $(CRAZYFLIE_BASE)/src/modules/src $(CRAZYFLIE_BASE)/src/utils/src $(CRAZYFLIE_BASE)/src/drivers/bosch/src $(CRAZYFLIE_BASE)/src/drivers/src $(CRAZYFLIE_BASE)/src/platform
-VPATH += $(CRAZYFLIE_BASE)/src/modules/src/PID_controller_ert_rtw $(CRAZYFLIE_BASE)/src/modules/src/Quaternion_controller_ert_rtw $(CRAZYFLIE_BASE)/src/modules/src/thrust_test_ert_rtw
+VPATH += $(CRAZYFLIE_BASE)/src/modules/src/PID_controller_ert_rtw $(CRAZYFLIE_BASE)/src/modules/src/Quaternion_controller_ert_rtw $(CRAZYFLIE_BASE)/src/modules/src/thrust_test_ert_rtw $(CRAZYFLIE_BASE)/src/modules/src/single_qc_real_ert_rtw
 
 ############### Source files configuration ################
 
@@ -166,6 +166,7 @@ PROJ_OBJ += range.o app_handler.o
 PROJ_OBJ += PID_controller.o PID_controller_data.o
 PROJ_OBJ += Quaternion_controller.o Quaternion_controller_data.o
 PROJ_OBJ += thrust_test.o 
+PROJ_OBJ += single_qc_real.o
 PROJ_OBJ += rt_nonfinite.o rtGetInf.o rtGetNaN.o
 
 # Stabilizer modules
@@ -174,7 +175,7 @@ PROJ_OBJ += crtp_commander_generic.o crtp_localization_service.o
 # PROJ_OBJ += attitude_pid_controller.o position_controller_pid.o
 PROJ_OBJ += position_estimator_altitude.o sensfusion6.o stabilizer.o
 PROJ_OBJ += estimator.o estimator_complementary.o
-PROJ_OBJ += controller.o controller_pid.o controller_mellinger.o controller_quaternion.o controller_thrust.o
+PROJ_OBJ += controller.o controller_pid.o controller_mellinger.o controller_quaternion.o controller_thrust.o controller_single.o
 PROJ_OBJ += power_distribution_$(POWER_DISTRIBUTION).o
 PROJ_OBJ += estimator_kalman.o kalman_core.o kalman_supervisor.o
 
@@ -270,7 +271,7 @@ GDB = $(CROSS_COMPILE)gdb
 
 INCLUDES += -I$(FREERTOS)/include -I$(PORT) -I$(CRAZYFLIE_BASE)/src
 INCLUDES += -I$(CRAZYFLIE_BASE)/src/config -I$(CRAZYFLIE_BASE)/src/hal/interface -I$(CRAZYFLIE_BASE)/src/modules/interface 
-INCLUDES += -I$(CRAZYFLIE_BASE)/src/modules/src/PID_controller_ert_rtw -I$(CRAZYFLIE_BASE)/src/modules/src/Quaternion_controller_ert_rtw -I$(CRAZYFLIE_BASE)/src/modules/src/thrust_test_ert_rtw
+INCLUDES += -I$(CRAZYFLIE_BASE)/src/modules/src/PID_controller_ert_rtw -I$(CRAZYFLIE_BASE)/src/modules/src/Quaternion_controller_ert_rtw -I$(CRAZYFLIE_BASE)/src/modules/src/thrust_test_ert_rtw -I$(CRAZYFLIE_BASE)/src/modules/src/single_qc_real_ert_rtw
 INCLUDES += -I$(CRAZYFLIE_BASE)/src/utils/interface -I$(CRAZYFLIE_BASE)/src/drivers/interface -I$(CRAZYFLIE_BASE)/src/platform
 INCLUDES += -I$(CRAZYFLIE_BASE)/vendor/CMSIS/CMSIS/Include -I$(CRAZYFLIE_BASE)/src/drivers/bosch/interface
 

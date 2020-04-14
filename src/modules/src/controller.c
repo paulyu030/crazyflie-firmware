@@ -7,9 +7,10 @@
 #include "controller_quaternion.h"
 #include "controller_mellinger.h"
 #include "controller_thrust.h"
+#include "controller_single.h"
 
 // #define DEFAULT_CONTROLLER ControllerTypePID
-#define DEFAULT_CONTROLLER ControllerTypeThrust
+#define DEFAULT_CONTROLLER ControllerTypeSingle
 static ControllerType currentController = ControllerTypeAny;
 
 static void initController();
@@ -27,6 +28,7 @@ static ControllerFcns controllerFunctions[] = {
   {.init = controllerMellingerInit, .test = controllerMellingerTest, .update = controllerMellinger, .name = "Mellinger"},
   {.init = controllerQuaternionInit, .test = controllerQuaternionTest, .update = controllerQuaternion, .name = "Quaternion"},
   {.init = controllerThrustInit, .test = controllerThrustTest, .update = controllerThrust, .name = "Thrust"},
+  {.init = controllerSingleInit, .test = controllerSingleTest, .update = controllerSingle, .name = "Single"},
 };
 
 
