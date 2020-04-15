@@ -3,9 +3,9 @@
  *
  * Code generated for Simulink model 'single_qc_real'.
  *
- * Model version                  : 1.7
+ * Model version                  : 1.17
  * Simulink Coder version         : 9.3 (R2020a) 18-Nov-2019
- * C/C++ source code generated on : Fri Apr 10 11:17:37 2020
+ * C/C++ source code generated on : Tue Apr 14 15:15:18 2020
  *
  * Target selection: ert.tlc
  * Embedded hardware selection: ARM Compatible->ARM Cortex
@@ -16,6 +16,7 @@
 #ifndef RTW_HEADER_single_qc_real_h_
 #define RTW_HEADER_single_qc_real_h_
 #include <math.h>
+#include <string.h>
 #ifndef single_qc_real_COMMON_INCLUDES_
 # define single_qc_real_COMMON_INCLUDES_
 #include "rtwtypes.h"
@@ -25,7 +26,7 @@
 
 /* Macros for accessing real-time model data structure */
 
-/* Block signals and states (default storage) for system '<Root>' */
+/* Block states (default storage) for system '<Root>' */
 typedef struct {
   real_T Integrator_DSTATE;            /* '<S39>/Integrator' */
   real_T UD_DSTATE;                    /* '<S32>/UD' */
@@ -55,9 +56,102 @@ typedef struct {
   uint16_T m2;                         /* '<Root>/m2' */
   uint16_T m3;                         /* '<Root>/m3' */
   uint16_T m4;                         /* '<Root>/m4' */
+  real_T error_alpha;                  /* '<Root>/error_alpha' */
+  real_T error_beta;                   /* '<Root>/error_beta' */
+  real_T u_alpha;                      /* '<Root>/u_alpha' */
+  real_T u_beta;                       /* '<Root>/u_beta' */
 } ExtY_single_qc_real_T;
 
-/* Block signals and states (default storage) */
+/* Parameters (default storage) */
+struct P_single_qc_real_T_ {
+  real_T dgaina;                       /* Variable: dgaina
+                                        * Referenced by: '<S31>/Derivative Gain'
+                                        */
+  real_T dgainb;                       /* Variable: dgainb
+                                        * Referenced by: '<S81>/Derivative Gain'
+                                        */
+  real_T igaina;                       /* Variable: igaina
+                                        * Referenced by: '<S36>/Integral Gain'
+                                        */
+  real_T igainb;                       /* Variable: igainb
+                                        * Referenced by: '<S86>/Integral Gain'
+                                        */
+  real_T pgaina;                       /* Variable: pgaina
+                                        * Referenced by: '<S44>/Proportional Gain'
+                                        */
+  real_T pgainb;                       /* Variable: pgainb
+                                        * Referenced by: '<S94>/Proportional Gain'
+                                        */
+  real_T torque_modifier;              /* Variable: torque_modifier
+                                        * Referenced by: '<Root>/Constant'
+                                        */
+  real_T DiscretePIDController_Different;
+                              /* Mask Parameter: DiscretePIDController_Different
+                               * Referenced by: '<S32>/UD'
+                               */
+  real_T DiscretePIDController1_Differen;
+                              /* Mask Parameter: DiscretePIDController1_Differen
+                               * Referenced by: '<S82>/UD'
+                               */
+  real_T DiscretePIDController_InitialCo;
+                              /* Mask Parameter: DiscretePIDController_InitialCo
+                               * Referenced by: '<S39>/Integrator'
+                               */
+  real_T DiscretePIDController1_InitialC;
+                              /* Mask Parameter: DiscretePIDController1_InitialC
+                               * Referenced by: '<S89>/Integrator'
+                               */
+  real_T Gain_Gain;                    /* Expression: 0.5886/65535
+                                        * Referenced by: '<Root>/Gain'
+                                        */
+  real_T Saturation_UpperSat;          /* Expression: 0.5355
+                                        * Referenced by: '<Root>/Saturation'
+                                        */
+  real_T Saturation_LowerSat;          /* Expression: 0
+                                        * Referenced by: '<Root>/Saturation'
+                                        */
+  real_T Integrator_gainval;           /* Computed Parameter: Integrator_gainval
+                                        * Referenced by: '<S39>/Integrator'
+                                        */
+  real_T Tsamp_WtEt;                   /* Computed Parameter: Tsamp_WtEt
+                                        * Referenced by: '<S34>/Tsamp'
+                                        */
+  real_T Saturation_UpperSat_b;        /* Expression: 5.6e-4
+                                        * Referenced by: '<S3>/Saturation'
+                                        */
+  real_T Saturation_LowerSat_p;        /* Expression: -5.6e-4
+                                        * Referenced by: '<S3>/Saturation'
+                                        */
+  real_T Integrator_gainval_i;       /* Computed Parameter: Integrator_gainval_i
+                                      * Referenced by: '<S89>/Integrator'
+                                      */
+  real_T Tsamp_WtEt_c;                 /* Computed Parameter: Tsamp_WtEt_c
+                                        * Referenced by: '<S84>/Tsamp'
+                                        */
+  real_T Saturation1_UpperSat;         /* Expression: 5.6e-4
+                                        * Referenced by: '<S3>/Saturation1'
+                                        */
+  real_T Saturation1_LowerSat;         /* Expression: -5.6e-4
+                                        * Referenced by: '<S3>/Saturation1'
+                                        */
+  real_T Saturation2_UpperSat;         /* Expression: 5.6e-4
+                                        * Referenced by: '<S3>/Saturation2'
+                                        */
+  real_T Saturation2_LowerSat;         /* Expression: -5.6e-4
+                                        * Referenced by: '<S3>/Saturation2'
+                                        */
+  real_T Saturation1_UpperSat_m;       /* Expression: 65535
+                                        * Referenced by: '<Root>/Saturation1'
+                                        */
+  real_T Saturation1_LowerSat_e;       /* Expression: 0
+                                        * Referenced by: '<Root>/Saturation1'
+                                        */
+};
+
+/* Block parameters (default storage) */
+extern P_single_qc_real_T single_qc_real_P;
+
+/* Block states (default storage) */
 extern DW_single_qc_real_T single_qc_real_DW;
 
 /* External inputs (root inport signals with default storage) */

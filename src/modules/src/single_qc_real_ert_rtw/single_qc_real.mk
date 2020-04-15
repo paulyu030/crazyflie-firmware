@@ -2,7 +2,7 @@
 ## Makefile generated for Simulink model 'single_qc_real'. 
 ## 
 ## Makefile     : single_qc_real.mk
-## Generated on : Fri Apr 10 00:45:39 2020
+## Generated on : Tue Apr 14 15:15:33 2020
 ## MATLAB Coder version: 5.0 (R2020a)
 ## 
 ## Build Info:
@@ -189,7 +189,7 @@ DEFINES = $(DEFINES_BUILD_ARGS) $(DEFINES_CUSTOM) $(DEFINES_OPTS) $(DEFINES_STAN
 ## SOURCE FILES
 ###########################################################################
 
-SRCS = $(START_DIR)\single_qc_real_ert_rtw\single_qc_real.c
+SRCS = $(START_DIR)\single_qc_real_ert_rtw\single_qc_real.c $(START_DIR)\single_qc_real_ert_rtw\single_qc_real_data.c
 
 MAIN_SRC = $(START_DIR)\single_qc_real_ert_rtw\ert_main.c
 
@@ -199,7 +199,7 @@ ALL_SRCS = $(SRCS) $(MAIN_SRC)
 ## OBJECTS
 ###########################################################################
 
-OBJS = single_qc_real.obj
+OBJS = single_qc_real.obj single_qc_real_data.obj
 
 MAIN_OBJ = ert_main.obj
 
@@ -362,6 +362,10 @@ ert_main.obj : $(START_DIR)\single_qc_real_ert_rtw\ert_main.c
 
 single_qc_real.obj : $(START_DIR)\single_qc_real_ert_rtw\single_qc_real.c
 	$(CC) $(CFLAGS) -Fo"$@" $(START_DIR)\single_qc_real_ert_rtw\single_qc_real.c
+
+
+single_qc_real_data.obj : $(START_DIR)\single_qc_real_ert_rtw\single_qc_real_data.c
+	$(CC) $(CFLAGS) -Fo"$@" $(START_DIR)\single_qc_real_ert_rtw\single_qc_real_data.c
 
 
 ###########################################################################

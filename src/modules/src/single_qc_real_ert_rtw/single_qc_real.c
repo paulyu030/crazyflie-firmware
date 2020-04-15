@@ -3,9 +3,9 @@
  *
  * Code generated for Simulink model 'single_qc_real'.
  *
- * Model version                  : 1.7
+ * Model version                  : 1.17
  * Simulink Coder version         : 9.3 (R2020a) 18-Nov-2019
- * C/C++ source code generated on : Fri Apr 10 11:17:37 2020
+ * C/C++ source code generated on : Tue Apr 14 15:15:18 2020
  *
  * Target selection: ert.tlc
  * Embedded hardware selection: ARM Compatible->ARM Cortex
@@ -16,7 +16,7 @@
 #include "single_qc_real.h"
 #include "single_qc_real_private.h"
 
-/* Block signals and states (default storage) */
+/* Block states (default storage) */
 DW_single_qc_real_T single_qc_real_DW;
 
 /* External inputs (root inport signals with default storage) */
@@ -47,17 +47,24 @@ void single_qc_real_step(void)
   real_T R_bii[9];
   real_T tempR[9];
   int32_T d_k;
+  real_T thrust;
+  real_T ftx;
   real_T fty;
+  real_T rtb_Sum_f;
   real_T rtb_Sum1;
   real_T rtb_Sum;
   real_T rtb_beta_e;
   real_T rtb_Tsamp;
-  real_T rtb_Saturation_n;
+  real_T rtb_Sum_b;
   real_T rtb_Tsamp_c;
   real_T tmp[4];
   real_T q_bi_0[4];
   int8_T subsa_idx_1;
+  real_T tmp_0;
+  real_T u0;
+  real_T rtb_Sum_p;
   int32_T R_bii_tmp;
+  real_T u0_tmp;
 
   /* MATLAB Function: '<Root>/MATLAB Function' incorporates:
    *  Inport: '<Root>/index'
@@ -70,11 +77,11 @@ void single_qc_real_step(void)
    *  Inport: '<Root>/qz_IMU'
    *  Inport: '<Root>/qz_op'
    */
-  rtb_Tsamp = single_qc_real_U.index * 3.1415926535897931 / 4.0;
-  tmp[0] = cos(rtb_Tsamp);
+  rtb_Sum_p = single_qc_real_U.index * 3.1415926535897931 / 4.0;
+  tmp[0] = cos(rtb_Sum_p);
   tmp[1] = 0.0;
   tmp[2] = 0.0;
-  tmp[3] = sin(rtb_Tsamp);
+  tmp[3] = sin(rtb_Sum_p);
   q_bi_0[0] = single_qc_real_U.qw_op;
   q_bi_0[1] = single_qc_real_U.qx_op;
   q_bi_0[2] = single_qc_real_U.qy_op;
@@ -95,24 +102,24 @@ void single_qc_real_step(void)
   q_bi[1] = q_bii[1] * rtb_Sum;
   q_bi[2] = q_bii[2] * rtb_Sum;
   q_bi[3] = q_bii[3] * rtb_Sum;
-  rtb_Tsamp = q_bi[3] * q_bi[3];
-  rtb_Sum = q_bi[2] * q_bi[2];
-  tempR[0] = 1.0 - (rtb_Sum + rtb_Tsamp) * 2.0;
-  rtb_Tsamp_c = q_bi[1] * q_bi[2];
-  rtb_beta_e = q_bi[0] * q_bi[3];
-  tempR[1] = (rtb_Tsamp_c - rtb_beta_e) * 2.0;
-  rtb_Saturation_n = q_bi[1] * q_bi[3];
-  fty = q_bi[0] * q_bi[2];
-  tempR[2] = (rtb_Saturation_n + fty) * 2.0;
-  tempR[3] = (rtb_Tsamp_c + rtb_beta_e) * 2.0;
-  rtb_Tsamp_c = q_bi[1] * q_bi[1];
-  tempR[4] = 1.0 - (rtb_Tsamp_c + rtb_Tsamp) * 2.0;
-  rtb_Tsamp = q_bi[2] * q_bi[3];
-  rtb_beta_e = q_bi[0] * q_bi[1];
-  tempR[5] = (rtb_Tsamp - rtb_beta_e) * 2.0;
-  tempR[6] = (rtb_Saturation_n - fty) * 2.0;
-  tempR[7] = (rtb_Tsamp + rtb_beta_e) * 2.0;
-  tempR[8] = 1.0 - (rtb_Tsamp_c + rtb_Sum) * 2.0;
+  rtb_Sum = q_bi[3] * q_bi[3];
+  rtb_Tsamp = q_bi[2] * q_bi[2];
+  tempR[0] = 1.0 - (rtb_Tsamp + rtb_Sum) * 2.0;
+  rtb_Sum_f = q_bi[1] * q_bi[2];
+  rtb_Sum1 = q_bi[0] * q_bi[3];
+  tempR[1] = (rtb_Sum_f - rtb_Sum1) * 2.0;
+  rtb_Tsamp_c = q_bi[1] * q_bi[3];
+  rtb_Sum_b = q_bi[0] * q_bi[2];
+  tempR[2] = (rtb_Tsamp_c + rtb_Sum_b) * 2.0;
+  tempR[3] = (rtb_Sum_f + rtb_Sum1) * 2.0;
+  rtb_Sum_f = q_bi[1] * q_bi[1];
+  tempR[4] = 1.0 - (rtb_Sum_f + rtb_Sum) * 2.0;
+  rtb_Sum = q_bi[2] * q_bi[3];
+  rtb_Sum1 = q_bi[0] * q_bi[1];
+  tempR[5] = (rtb_Sum - rtb_Sum1) * 2.0;
+  tempR[6] = (rtb_Tsamp_c - rtb_Sum_b) * 2.0;
+  tempR[7] = (rtb_Sum + rtb_Sum1) * 2.0;
+  tempR[8] = 1.0 - (rtb_Sum_f + rtb_Tsamp) * 2.0;
   for (d_k = 0; d_k < 3; d_k++) {
     R_bii_tmp = (int8_T)(d_k + 1) - 1;
     R_bii[R_bii_tmp] = tempR[R_bii_tmp * 3];
@@ -136,7 +143,7 @@ void single_qc_real_step(void)
    * About '<S34>/Tsamp':
    *  y = u * K where K = 1 / ( w * Ts )
    */
-  rtb_Tsamp = 0.0002 * rtb_Sum * 500.0;
+  rtb_Tsamp = single_qc_real_P.dgaina * rtb_Sum * single_qc_real_P.Tsamp_WtEt;
 
   /* Sum: '<S48>/Sum' incorporates:
    *  Delay: '<S32>/UD'
@@ -144,13 +151,9 @@ void single_qc_real_step(void)
    *  Gain: '<S44>/Proportional Gain'
    *  Sum: '<S32>/Diff'
    */
-  rtb_Sum = (0.001 * rtb_Sum + single_qc_real_DW.Integrator_DSTATE) + (rtb_Tsamp
-    - single_qc_real_DW.UD_DSTATE);
-
-  /* Product: '<S3>/Product' incorporates:
-   *  Trigonometry: '<S3>/Trigonometric Function1'
-   */
-  fty = cos(rtb_beta_e) * rtb_Sum;
+  rtb_Sum_f = (single_qc_real_P.pgaina * rtb_Sum +
+               single_qc_real_DW.Integrator_DSTATE) + (rtb_Tsamp -
+    single_qc_real_DW.UD_DSTATE);
 
   /* Sum: '<S3>/Sum1' incorporates:
    *  Inport: '<Root>/beta_desired'
@@ -163,45 +166,8 @@ void single_qc_real_step(void)
    * About '<S84>/Tsamp':
    *  y = u * K where K = 1 / ( w * Ts )
    */
-  rtb_Tsamp_c = 0.0002 * rtb_Sum1 * 500.0;
-
-  /* Product: '<S3>/Product1' incorporates:
-   *  Trigonometry: '<S3>/Trigonometric Function'
-   */
-  rtb_Sum *= sin(rtb_beta_e);
-
-  /* Gain: '<Root>/Gain' incorporates:
-   *  Inport: '<Root>/thrust'
-   */
-  rtb_beta_e = 8.9814602883955138E-6 * single_qc_real_U.thrust;
-
-  /* Saturate: '<Root>/Saturation' */
-  if (rtb_beta_e > 0.5355) {
-    rtb_beta_e = 0.5355;
-  } else {
-    if (rtb_beta_e < 0.0) {
-      rtb_beta_e = 0.0;
-    }
-  }
-
-  /* End of Saturate: '<Root>/Saturation' */
-
-  /* MATLAB Function: '<Root>/MATLAB Function1' */
-  rtb_beta_e /= 4.0;
-
-  /* Saturate: '<S3>/Saturation' */
-  if (fty > 0.00056) {
-    fty = 0.00056;
-  } else {
-    if (fty < -0.00056) {
-      fty = -0.00056;
-    }
-  }
-
-  /* End of Saturate: '<S3>/Saturation' */
-
-  /* MATLAB Function: '<Root>/MATLAB Function1' */
-  rtb_Saturation_n = fty / 4.0 / 0.03165;
+  rtb_Tsamp_c = single_qc_real_P.dgainb * rtb_Sum1 *
+    single_qc_real_P.Tsamp_WtEt_c;
 
   /* Sum: '<S98>/Sum' incorporates:
    *  Delay: '<S82>/UD'
@@ -209,71 +175,193 @@ void single_qc_real_step(void)
    *  Gain: '<S94>/Proportional Gain'
    *  Sum: '<S82>/Diff'
    */
-  fty = (0.001 * rtb_Sum1 + single_qc_real_DW.Integrator_DSTATE_e) +
-    (rtb_Tsamp_c - single_qc_real_DW.UD_DSTATE_e);
+  rtb_Sum_b = (single_qc_real_P.pgainb * rtb_Sum1 +
+               single_qc_real_DW.Integrator_DSTATE_e) + (rtb_Tsamp_c -
+    single_qc_real_DW.UD_DSTATE_e);
+
+  /* Gain: '<Root>/Gain' incorporates:
+   *  Inport: '<Root>/thrust'
+   */
+  u0 = single_qc_real_P.Gain_Gain * single_qc_real_U.thrust;
+
+  /* Saturate: '<Root>/Saturation' */
+  if (u0 > single_qc_real_P.Saturation_UpperSat) {
+    u0 = single_qc_real_P.Saturation_UpperSat;
+  } else {
+    if (u0 < single_qc_real_P.Saturation_LowerSat) {
+      u0 = single_qc_real_P.Saturation_LowerSat;
+    }
+  }
+
+  /* End of Saturate: '<Root>/Saturation' */
+
+  /* MATLAB Function: '<Root>/MATLAB Function1' */
+  thrust = u0 / 4.0;
+
+  /* Product: '<S3>/Product' incorporates:
+   *  Trigonometry: '<S3>/Trigonometric Function1'
+   */
+  u0 = cos(rtb_beta_e) * rtb_Sum_f;
+
+  /* Saturate: '<S3>/Saturation' */
+  if (u0 > single_qc_real_P.Saturation_UpperSat_b) {
+    u0 = single_qc_real_P.Saturation_UpperSat_b;
+  } else {
+    if (u0 < single_qc_real_P.Saturation_LowerSat_p) {
+      u0 = single_qc_real_P.Saturation_LowerSat_p;
+    }
+  }
+
+  /* End of Saturate: '<S3>/Saturation' */
+
+  /* MATLAB Function: '<Root>/MATLAB Function1' */
+  ftx = u0 / 4.0 / 0.03165;
 
   /* Saturate: '<S3>/Saturation1' */
-  if (fty > 0.00056) {
-    fty = 0.00056;
+  if (rtb_Sum_b > single_qc_real_P.Saturation1_UpperSat) {
+    rtb_Sum_p = single_qc_real_P.Saturation1_UpperSat;
+  } else if (rtb_Sum_b < single_qc_real_P.Saturation1_LowerSat) {
+    rtb_Sum_p = single_qc_real_P.Saturation1_LowerSat;
   } else {
-    if (fty < -0.00056) {
-      fty = -0.00056;
-    }
+    rtb_Sum_p = rtb_Sum_b;
   }
 
   /* End of Saturate: '<S3>/Saturation1' */
 
   /* MATLAB Function: '<Root>/MATLAB Function1' */
-  fty = fty / 4.0 / 0.03165;
+  fty = rtb_Sum_p / 4.0 / 0.03165;
+
+  /* Product: '<S3>/Product1' incorporates:
+   *  Trigonometry: '<S3>/Trigonometric Function'
+   */
+  u0 = rtb_Sum_f * sin(rtb_beta_e);
 
   /* Saturate: '<S3>/Saturation2' */
-  if (rtb_Sum > 0.00056) {
-    rtb_Sum = 0.00056;
+  if (u0 > single_qc_real_P.Saturation2_UpperSat) {
+    u0 = single_qc_real_P.Saturation2_UpperSat;
   } else {
-    if (rtb_Sum < -0.00056) {
-      rtb_Sum = -0.00056;
+    if (u0 < single_qc_real_P.Saturation2_LowerSat) {
+      u0 = single_qc_real_P.Saturation2_LowerSat;
     }
   }
 
   /* End of Saturate: '<S3>/Saturation2' */
 
+  /* MATLAB Function: '<Root>/MATLAB Function1' incorporates:
+   *  Constant: '<Root>/Constant'
+   */
+  rtb_beta_e = u0 / 4.0 / (0.03165 * single_qc_real_P.torque_modifier);
+  u0_tmp = thrust + ftx;
+  u0 = ((u0_tmp - fty) - rtb_beta_e) / 0.1472 * 65535.0;
+
+  /* Saturate: '<Root>/Saturation1' */
+  if (u0 > single_qc_real_P.Saturation1_UpperSat_m) {
+    u0 = single_qc_real_P.Saturation1_UpperSat_m;
+  } else {
+    if (u0 < single_qc_real_P.Saturation1_LowerSat_e) {
+      u0 = single_qc_real_P.Saturation1_LowerSat_e;
+    }
+  }
+
+  /* DataTypeConversion: '<Root>/Data Type Conversion2' */
+  rtb_Sum_p = fmod(floor(u0), 65536.0);
+
   /* MATLAB Function: '<Root>/MATLAB Function1' */
-  rtb_Sum = rtb_Sum / 4.0 / 0.03165;
-  rtb_Sum1 = rtb_beta_e + rtb_Saturation_n;
+  u0 = ((u0_tmp + fty) + rtb_beta_e) / 0.1472 * 65535.0;
+
+  /* Saturate: '<Root>/Saturation1' */
+  if (u0 > single_qc_real_P.Saturation1_UpperSat_m) {
+    u0 = single_qc_real_P.Saturation1_UpperSat_m;
+  } else {
+    if (u0 < single_qc_real_P.Saturation1_LowerSat_e) {
+      u0 = single_qc_real_P.Saturation1_LowerSat_e;
+    }
+  }
+
+  /* DataTypeConversion: '<Root>/Data Type Conversion2' */
+  tmp_0 = fmod(floor(u0), 65536.0);
+
+  /* MATLAB Function: '<Root>/MATLAB Function1' */
+  u0_tmp = thrust - ftx;
+  u0 = ((u0_tmp + fty) - rtb_beta_e) / 0.1472 * 65535.0;
+
+  /* Saturate: '<Root>/Saturation1' */
+  if (u0 > single_qc_real_P.Saturation1_UpperSat_m) {
+    u0 = single_qc_real_P.Saturation1_UpperSat_m;
+  } else {
+    if (u0 < single_qc_real_P.Saturation1_LowerSat_e) {
+      u0 = single_qc_real_P.Saturation1_LowerSat_e;
+    }
+  }
+
+  /* DataTypeConversion: '<Root>/Data Type Conversion2' */
+  thrust = fmod(floor(u0), 65536.0);
+
+  /* MATLAB Function: '<Root>/MATLAB Function1' */
+  u0 = ((u0_tmp - fty) + rtb_beta_e) / 0.1472 * 65535.0;
+
+  /* Saturate: '<Root>/Saturation1' */
+  if (u0 > single_qc_real_P.Saturation1_UpperSat_m) {
+    u0 = single_qc_real_P.Saturation1_UpperSat_m;
+  } else {
+    if (u0 < single_qc_real_P.Saturation1_LowerSat_e) {
+      u0 = single_qc_real_P.Saturation1_LowerSat_e;
+    }
+  }
+
+  /* DataTypeConversion: '<Root>/Data Type Conversion2' */
+  rtb_beta_e = fmod(floor(u0), 65536.0);
 
   /* Outport: '<Root>/m1' incorporates:
    *  DataTypeConversion: '<Root>/Data Type Conversion2'
-   *  MATLAB Function: '<Root>/MATLAB Function1'
    */
-  single_qc_real_Y.m1 = (uint16_T)(((rtb_Sum1 - fty) - rtb_Sum) / 0.1472 *
-    65535.0);
+  single_qc_real_Y.m1 = (uint16_T)(rtb_Sum_p < 0.0 ? (int32_T)(uint16_T)
+    -(int16_T)(uint16_T)-rtb_Sum_p : (int32_T)(uint16_T)rtb_Sum_p);
 
   /* Outport: '<Root>/m2' incorporates:
    *  DataTypeConversion: '<Root>/Data Type Conversion2'
-   *  MATLAB Function: '<Root>/MATLAB Function1'
    */
-  single_qc_real_Y.m2 = (uint16_T)(((rtb_Sum1 + fty) + rtb_Sum) / 0.1472 *
-    65535.0);
-
-  /* MATLAB Function: '<Root>/MATLAB Function1' */
-  rtb_beta_e -= rtb_Saturation_n;
+  single_qc_real_Y.m2 = (uint16_T)(tmp_0 < 0.0 ? (int32_T)(uint16_T)-(int16_T)
+    (uint16_T)-tmp_0 : (int32_T)(uint16_T)tmp_0);
 
   /* Outport: '<Root>/m3' incorporates:
    *  DataTypeConversion: '<Root>/Data Type Conversion2'
-   *  MATLAB Function: '<Root>/MATLAB Function1'
    */
-  single_qc_real_Y.m3 = (uint16_T)(((rtb_beta_e + fty) - rtb_Sum) / 0.1472 *
-    65535.0);
+  single_qc_real_Y.m3 = (uint16_T)(thrust < 0.0 ? (int32_T)(uint16_T)-(int16_T)
+    (uint16_T)-thrust : (int32_T)(uint16_T)thrust);
 
   /* Outport: '<Root>/m4' incorporates:
    *  DataTypeConversion: '<Root>/Data Type Conversion2'
-   *  MATLAB Function: '<Root>/MATLAB Function1'
    */
-  single_qc_real_Y.m4 = (uint16_T)(((rtb_beta_e - fty) + rtb_Sum) / 0.1472 *
-    65535.0);
+  single_qc_real_Y.m4 = (uint16_T)(rtb_beta_e < 0.0 ? (int32_T)(uint16_T)
+    -(int16_T)(uint16_T)-rtb_beta_e : (int32_T)(uint16_T)rtb_beta_e);
+
+  /* Outport: '<Root>/u_beta' */
+  single_qc_real_Y.u_beta = rtb_Sum_b;
+
+  /* Outport: '<Root>/error_beta' */
+  single_qc_real_Y.error_beta = rtb_Sum1;
+
+  /* Outport: '<Root>/u_alpha' */
+  single_qc_real_Y.u_alpha = rtb_Sum_f;
+
+  /* Outport: '<Root>/error_alpha' */
+  single_qc_real_Y.error_alpha = rtb_Sum;
+
+  /* Update for DiscreteIntegrator: '<S39>/Integrator' incorporates:
+   *  Gain: '<S36>/Integral Gain'
+   */
+  single_qc_real_DW.Integrator_DSTATE += single_qc_real_P.igaina * rtb_Sum *
+    single_qc_real_P.Integrator_gainval;
 
   /* Update for Delay: '<S32>/UD' */
   single_qc_real_DW.UD_DSTATE = rtb_Tsamp;
+
+  /* Update for DiscreteIntegrator: '<S89>/Integrator' incorporates:
+   *  Gain: '<S86>/Integral Gain'
+   */
+  single_qc_real_DW.Integrator_DSTATE_e += single_qc_real_P.igainb * rtb_Sum1 *
+    single_qc_real_P.Integrator_gainval_i;
 
   /* Update for Delay: '<S82>/UD' */
   single_qc_real_DW.UD_DSTATE_e = rtb_Tsamp_c;
@@ -282,7 +370,33 @@ void single_qc_real_step(void)
 /* Model initialize function */
 void single_qc_real_initialize(void)
 {
-  /* (no initialization code required) */
+  /* Registration code */
+
+  /* states (dwork) */
+  (void) memset((void *)&single_qc_real_DW, 0,
+                sizeof(DW_single_qc_real_T));
+
+  /* external inputs */
+  (void)memset(&single_qc_real_U, 0, sizeof(ExtU_single_qc_real_T));
+
+  /* external outputs */
+  (void) memset((void *)&single_qc_real_Y, 0,
+                sizeof(ExtY_single_qc_real_T));
+
+  /* InitializeConditions for DiscreteIntegrator: '<S39>/Integrator' */
+  single_qc_real_DW.Integrator_DSTATE =
+    single_qc_real_P.DiscretePIDController_InitialCo;
+
+  /* InitializeConditions for Delay: '<S32>/UD' */
+  single_qc_real_DW.UD_DSTATE = single_qc_real_P.DiscretePIDController_Different;
+
+  /* InitializeConditions for DiscreteIntegrator: '<S89>/Integrator' */
+  single_qc_real_DW.Integrator_DSTATE_e =
+    single_qc_real_P.DiscretePIDController1_InitialC;
+
+  /* InitializeConditions for Delay: '<S82>/UD' */
+  single_qc_real_DW.UD_DSTATE_e =
+    single_qc_real_P.DiscretePIDController1_Differen;
 }
 
 /* Model terminate function */

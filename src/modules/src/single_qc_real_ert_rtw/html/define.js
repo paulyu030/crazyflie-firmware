@@ -7,11 +7,13 @@ this.def["single_qc_real_U"] = {file: "single_qc_real_c.html",line:23,type:"var"
 this.def["single_qc_real_Y"] = {file: "single_qc_real_c.html",line:26,type:"var"};
 this.def["single_qc_real.c:single_qc_real_quatmultiply"] = {file: "single_qc_real_c.html",line:33,type:"fcn"};
 this.def["single_qc_real_step"] = {file: "single_qc_real_c.html",line:43,type:"fcn"};
-this.def["single_qc_real_initialize"] = {file: "single_qc_real_c.html",line:283,type:"fcn"};
-this.def["single_qc_real_terminate"] = {file: "single_qc_real_c.html",line:289,type:"fcn"};
-this.def["DW_single_qc_real_T"] = {file: "single_qc_real_h.html",line:34,type:"type"};
-this.def["ExtU_single_qc_real_T"] = {file: "single_qc_real_h.html",line:50,type:"type"};
-this.def["ExtY_single_qc_real_T"] = {file: "single_qc_real_h.html",line:58,type:"type"};
+this.def["single_qc_real_initialize"] = {file: "single_qc_real_c.html",line:371,type:"fcn"};
+this.def["single_qc_real_terminate"] = {file: "single_qc_real_c.html",line:403,type:"fcn"};
+this.def["DW_single_qc_real_T"] = {file: "single_qc_real_h.html",line:35,type:"type"};
+this.def["ExtU_single_qc_real_T"] = {file: "single_qc_real_h.html",line:51,type:"type"};
+this.def["ExtY_single_qc_real_T"] = {file: "single_qc_real_h.html",line:63,type:"type"};
+this.def["P_single_qc_real_T"] = {file: "single_qc_real_types_h.html",line:23,type:"type"};
+this.def["single_qc_real_P"] = {file: "single_qc_real_data_c.html",line:20,type:"var"};
 this.def["int8_T"] = {file: "rtwtypes_h.html",line:47,type:"type"};
 this.def["uint8_T"] = {file: "rtwtypes_h.html",line:48,type:"type"};
 this.def["int16_T"] = {file: "rtwtypes_h.html",line:49,type:"type"};
@@ -63,6 +65,8 @@ function Html2SrcLink() {
 	this.html2Root["single_qc_real_private_h.html"] = "single_qc_real_private_h.html";
 	this.html2SrcPath["single_qc_real_types_h.html"] = "../single_qc_real_types.h";
 	this.html2Root["single_qc_real_types_h.html"] = "single_qc_real_types_h.html";
+	this.html2SrcPath["single_qc_real_data_c.html"] = "../single_qc_real_data.c";
+	this.html2Root["single_qc_real_data_c.html"] = "single_qc_real_data_c.html";
 	this.html2SrcPath["rtwtypes_h.html"] = "../rtwtypes.h";
 	this.html2Root["rtwtypes_h.html"] = "rtwtypes_h.html";
 	this.getLink2Src = function (htmlFileName) {
@@ -80,4 +84,4 @@ function Html2SrcLink() {
 }
 Html2SrcLink.instance = new Html2SrcLink();
 var fileList = [
-"ert_main_c.html","single_qc_real_c.html","single_qc_real_h.html","single_qc_real_private_h.html","single_qc_real_types_h.html","rtwtypes_h.html"];
+"ert_main_c.html","single_qc_real_c.html","single_qc_real_h.html","single_qc_real_private_h.html","single_qc_real_types_h.html","single_qc_real_data_c.html","rtwtypes_h.html"];

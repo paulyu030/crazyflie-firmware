@@ -16,9 +16,25 @@
 
 #define ATTITUDE_UPDATE_DT    (float)(1.0f/ATTITUDE_RATE)
 
+static float pgaina = 1e-3;
+static float pgainb = 1e-3;
+static float igaina = 0;
+static float igainb = 0;
+static float dgaina = 0;
+static float dgainb = 0;
+static float torque_modifier = 0;
+
 
 void controllerSingleInit(void)
 {
+  single_qc_real_P.pgaina = pgaina;
+  single_qc_real_P.pgainb = pgainb;
+  single_qc_real_P.igaina = igaina;
+  single_qc_real_P.igainb = igainb;
+  single_qc_real_P.dgaina = dgaina;
+  single_qc_real_P.dgainb = dgainb;
+  single_qc_real_P.torque_modifier = torque_modifier;
+  
   single_qc_real_initialize();
 }
 
@@ -73,31 +89,22 @@ LOG_ADD(LOG_FLOAT, M1, &single_qc_real_Y.m1)
 LOG_ADD(LOG_FLOAT, M2, &single_qc_real_Y.m2)
 LOG_ADD(LOG_FLOAT, M3, &single_qc_real_Y.m3)
 LOG_ADD(LOG_FLOAT, M4, &single_qc_real_Y.m4)
-// LOG_ADD(LOG_FLOAT, rollRate,  &rateDesired.roll)
-// LOG_ADD(LOG_FLOAT, pitchRate, &rateDesired.pitch)
-// LOG_ADD(LOG_FLOAT, yawRate,   &rateDesired.yaw)
 LOG_GROUP_STOP(controller)
 
-// LOG_GROUP_START(Quaternion_attitude)
-// LOG_ADD(LOG_FLOAT, roll_outP, &QuaternionRoll.outP)
-// LOG_ADD(LOG_FLOAT, roll_outI, &QuaternionRoll.outI)
-// LOG_ADD(LOG_FLOAT, roll_outD, &QuaternionRoll.outD)
-// LOG_ADD(LOG_FLOAT, pitch_outP, &QuaternionPitch.outP)
-// LOG_ADD(LOG_FLOAT, pitch_outI, &QuaternionPitch.outI)
-// LOG_ADD(LOG_FLOAT, pitch_outD, &QuaternionPitch.outD)
-// LOG_ADD(LOG_FLOAT, yaw_outP, &QuaternionYaw.outP)
-// LOG_ADD(LOG_FLOAT, yaw_outI, &QuaternionYaw.outI)
-// LOG_ADD(LOG_FLOAT, yaw_outD, &QuaternionYaw.outD)
-// LOG_GROUP_STOP(Quaternion_attitude)
+LOG_GROUP_START(ControllerTuning)
+LOG_ADD(LOG_FLOAT, error_alpha, &single_qc_real_Y.error_alpha)
+LOG_ADD(LOG_FLOAT, error_beta, &single_qc_real_Y.error_beta)
+LOG_ADD(LOG_FLOAT, u_alpha, &single_qc_real_Y.u_alpha)
+LOG_ADD(LOG_FLOAT, u_beta, &single_qc_real_Y.u_beta)
+LOG_GROUP_STOP(ControllerTuning)
 
-// LOG_GROUP_START(Quaternion_rate)
-// LOG_ADD(LOG_FLOAT, roll_outP, &QuaternionRollRate.outP)
-// LOG_ADD(LOG_FLOAT, roll_outI, &QuaternionRollRate.outI)
-// LOG_ADD(LOG_FLOAT, roll_outD, &QuaternionRollRate.outD)
-// LOG_ADD(LOG_FLOAT, pitch_outP, &QuaternionPitchRate.outP)
-// LOG_ADD(LOG_FLOAT, pitch_outI, &QuaternionPitchRate.outI)
-// LOG_ADD(LOG_FLOAT, pitch_outD, &QuaternionPitchRate.outD)
-// LOG_ADD(LOG_FLOAT, yaw_outP, &QuaternionYawRate.outP)
-// LOG_ADD(LOG_FLOAT, yaw_outI, &QuaternionYawRate.outI)
-// LOG_ADD(LOG_FLOAT, yaw_outD, &QuaternionYawRate.outD)
-// LOG_GROUP_STOP(Quaternion_rate)
+
+PARAM_GROUP_START(ControllerTuningParam)
+PARAM_ADD(PARAM_FLOAT, pgaina, &single_qc_real_P.pgaina)
+PARAM_ADD(PARAM_FLOAT, pgainb, &single_qc_real_P.pgainb)
+PARAM_ADD(PARAM_FLOAT, igaina, &single_qc_real_P.igaina)
+PARAM_ADD(PARAM_FLOAT, igainb, &single_qc_real_P.igainb)
+PARAM_ADD(PARAM_FLOAT, dgaina, &single_qc_real_P.dgaina)
+PARAM_ADD(PARAM_FLOAT, dgainb, &single_qc_real_P.dgainb)
+PARAM_ADD(PARAM_FLOAT, torque_modifier, &single_qc_real_P.torque_modifier)
+PARAM_GROUP_STOP(ControllerTuningParam)

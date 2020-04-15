@@ -166,7 +166,7 @@ PROJ_OBJ += range.o app_handler.o
 PROJ_OBJ += PID_controller.o PID_controller_data.o
 PROJ_OBJ += Quaternion_controller.o Quaternion_controller_data.o
 PROJ_OBJ += thrust_test.o 
-PROJ_OBJ += single_qc_real.o
+PROJ_OBJ += single_qc_real.o single_qc_real_data.o
 PROJ_OBJ += rt_nonfinite.o rtGetInf.o rtGetNaN.o
 
 # Stabilizer modules

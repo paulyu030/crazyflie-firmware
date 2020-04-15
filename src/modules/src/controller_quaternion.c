@@ -147,7 +147,7 @@ PARAM_ADD(PARAM_FLOAT, omega_dot_f_gain, &Quaternion_controller_P.omega_dot_f_ga
 // PARAM_ADD(PARAM_FLOAT, pitch_gain, &Quaternion_controller_P.pitch_output_gain_Gain)
 // PARAM_ADD(PARAM_FLOAT, yaw_gain, &Quaternion_controller_P.yaw_output_gain_Gain)
 // PARAM_ADD(PARAM_FLOAT, thrust_gain, &Quaternion_controller_P.thrust_output_gain_Gain)
-PARAM_GROUP_STOP(Quaternion_attitude)
+PARAM_GROUP_STOP(Q_att)
 
 // PARAM_GROUP_START(Quaternion_rate)
 // PARAM_ADD(PARAM_FLOAT, roll_kp, &Quaternion_controller_P.roll_rate_P_Gain)
