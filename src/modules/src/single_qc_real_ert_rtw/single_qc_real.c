@@ -3,9 +3,9 @@
  *
  * Code generated for Simulink model 'single_qc_real'.
  *
- * Model version                  : 1.18
+ * Model version                  : 1.23
  * Simulink Coder version         : 9.3 (R2020a) 18-Nov-2019
- * C/C++ source code generated on : Wed Apr 15 19:07:47 2020
+ * C/C++ source code generated on : Wed Apr 15 16:00:32 2020
  *
  * Target selection: ert.tlc
  * Embedded hardware selection: ARM Compatible->ARM Cortex
@@ -65,6 +65,11 @@ void single_qc_real_step(void)
   real_T rtb_Sum_p;
   int32_T R_bii_tmp;
   real_T u0_tmp;
+  static const real_T c[4] = { 0.70710678118654757, 0.0, 0.0,
+    0.70710678118654746 };
+
+  static const real_T d[4] = { -0.70710678118654757, 0.0, 0.0,
+    0.70710678118654746 };
 
   /* MATLAB Function: '<Root>/MATLAB Function' incorporates:
    *  Inport: '<Root>/index'
@@ -95,6 +100,8 @@ void single_qc_real_step(void)
   q_bi_0[1] = q_bi[1];
   q_bi_0[2] = q_bi[2];
   q_bi_0[3] = q_bi[3];
+  single_qc_real_quatmultiply(tmp, d, q_bi);
+  single_qc_real_quatmultiply(c, q_bi, tmp);
   single_qc_real_quatmultiply(tmp, q_bi_0, q_bii);
   rtb_Sum = 1.0 / sqrt(((q_bii[0] * q_bii[0] + q_bii[1] * q_bii[1]) + q_bii[2] *
                         q_bii[2]) + q_bii[3] * q_bii[3]);

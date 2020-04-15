@@ -2,7 +2,7 @@
 ## Makefile generated for Simulink model 'single_qc_real'. 
 ## 
 ## Makefile     : single_qc_real.mk
-## Generated on : Wed Apr 15 19:08:04 2020
+## Generated on : Wed Apr 15 16:00:52 2020
 ## MATLAB Coder version: 5.0 (R2020a)
 ## 
 ## Build Info:
