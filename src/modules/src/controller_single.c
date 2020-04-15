@@ -1,4 +1,4 @@
-#define DEBUG_MODULE "Thrust"
+#define DEBUG_MODULE "Single"
 
 #include "stabilizer.h"
 #include "stabilizer_types.h"
@@ -16,25 +16,9 @@
 
 #define ATTITUDE_UPDATE_DT    (float)(1.0f/ATTITUDE_RATE)
 
-static float pgaina = 1e-3;
-static float pgainb = 1e-3;
-static float igaina = 0;
-static float igainb = 0;
-static float dgaina = 0;
-static float dgainb = 0;
-static float torque_modifier = 0;
-
 
 void controllerSingleInit(void)
 {
-  single_qc_real_P.pgaina = pgaina;
-  single_qc_real_P.pgainb = pgainb;
-  single_qc_real_P.igaina = igaina;
-  single_qc_real_P.igainb = igainb;
-  single_qc_real_P.dgaina = dgaina;
-  single_qc_real_P.dgainb = dgainb;
-  single_qc_real_P.torque_modifier = torque_modifier;
-  
   single_qc_real_initialize();
 }
 
@@ -84,27 +68,33 @@ void controllerSingle(control_t *control, setpoint_t *setpoint,
 }
 
 
+// log/param name can't be too long, otherwise error
+// only one log group is allowed
+
 LOG_GROUP_START(controller)
 LOG_ADD(LOG_FLOAT, M1, &single_qc_real_Y.m1)
 LOG_ADD(LOG_FLOAT, M2, &single_qc_real_Y.m2)
 LOG_ADD(LOG_FLOAT, M3, &single_qc_real_Y.m3)
 LOG_ADD(LOG_FLOAT, M4, &single_qc_real_Y.m4)
-LOG_GROUP_STOP(controller)
 
-LOG_GROUP_START(ControllerTuning)
 LOG_ADD(LOG_FLOAT, error_alpha, &single_qc_real_Y.error_alpha)
 LOG_ADD(LOG_FLOAT, error_beta, &single_qc_real_Y.error_beta)
 LOG_ADD(LOG_FLOAT, u_alpha, &single_qc_real_Y.u_alpha)
 LOG_ADD(LOG_FLOAT, u_beta, &single_qc_real_Y.u_beta)
-LOG_GROUP_STOP(ControllerTuning)
+LOG_GROUP_STOP(controller)
 
 
-PARAM_GROUP_START(ControllerTuningParam)
+
+
+PARAM_GROUP_START(controller_tune)
 PARAM_ADD(PARAM_FLOAT, pgaina, &single_qc_real_P.pgaina)
-PARAM_ADD(PARAM_FLOAT, pgainb, &single_qc_real_P.pgainb)
 PARAM_ADD(PARAM_FLOAT, igaina, &single_qc_real_P.igaina)
-PARAM_ADD(PARAM_FLOAT, igainb, &single_qc_real_P.igainb)
 PARAM_ADD(PARAM_FLOAT, dgaina, &single_qc_real_P.dgaina)
+
+PARAM_ADD(PARAM_FLOAT, pgainb, &single_qc_real_P.pgainb)
+PARAM_ADD(PARAM_FLOAT, igainb, &single_qc_real_P.igainb)
 PARAM_ADD(PARAM_FLOAT, dgainb, &single_qc_real_P.dgainb)
-PARAM_ADD(PARAM_FLOAT, torque_modifier, &single_qc_real_P.torque_modifier)
-PARAM_GROUP_STOP(ControllerTuningParam)
+
+PARAM_ADD(PARAM_FLOAT, t_mod, &single_qc_real_P.torque_modifier)
+PARAM_GROUP_STOP(controller_tune)
+

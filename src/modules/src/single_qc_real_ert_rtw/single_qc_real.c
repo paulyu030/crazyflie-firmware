@@ -3,9 +3,9 @@
  *
  * Code generated for Simulink model 'single_qc_real'.
  *
- * Model version                  : 1.17
+ * Model version                  : 1.18
  * Simulink Coder version         : 9.3 (R2020a) 18-Nov-2019
- * C/C++ source code generated on : Tue Apr 14 15:15:18 2020
+ * C/C++ source code generated on : Wed Apr 15 19:07:47 2020
  *
  * Target selection: ert.tlc
  * Embedded hardware selection: ARM Compatible->ARM Cortex
@@ -250,7 +250,7 @@ void single_qc_real_step(void)
   /* MATLAB Function: '<Root>/MATLAB Function1' incorporates:
    *  Constant: '<Root>/Constant'
    */
-  rtb_beta_e = u0 / 4.0 / (0.03165 * single_qc_real_P.torque_modifier);
+  rtb_beta_e = u0 / 4.0 / 0.03165 * single_qc_real_P.torque_modifier;
   u0_tmp = thrust + ftx;
   u0 = ((u0_tmp - fty) - rtb_beta_e) / 0.1472 * 65535.0;
 
