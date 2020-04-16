@@ -3,9 +3,9 @@
  *
  * Code generated for Simulink model 'single_qc_real'.
  *
- * Model version                  : 1.23
+ * Model version                  : 1.25
  * Simulink Coder version         : 9.3 (R2020a) 18-Nov-2019
- * C/C++ source code generated on : Wed Apr 15 16:00:32 2020
+ * C/C++ source code generated on : Wed Apr 15 17:16:14 2020
  *
  * Target selection: ert.tlc
  * Embedded hardware selection: ARM Compatible->ARM Cortex
@@ -60,12 +60,20 @@ typedef struct {
   real_T error_beta;                   /* '<Root>/error_beta' */
   real_T u_alpha;                      /* '<Root>/u_alpha' */
   real_T u_beta;                       /* '<Root>/u_beta' */
+  real_T t_pgaina;                     /* '<Root>/t_pgaina' */
+  real_T t_dgaina;                     /* '<Root>/t_dgaina' */
+  real_T t_thrustin;                   /* '<Root>/t_thrustin' */
+  real_T t_motorcom[4];                /* '<Root>/t_motorcom' */
+  real_T t_betain;                     /* '<Root>/t_betain' */
+  real_T t_betae;                      /* '<Root>/t_betae' */
 } ExtY_single_qc_real_T;
 
 /* Parameters (default storage) */
 struct P_single_qc_real_T_ {
   real_T dgaina;                       /* Variable: dgaina
-                                        * Referenced by: '<S31>/Derivative Gain'
+                                        * Referenced by:
+                                        *   '<Root>/Constant2'
+                                        *   '<S31>/Derivative Gain'
                                         */
   real_T dgainb;                       /* Variable: dgainb
                                         * Referenced by: '<S81>/Derivative Gain'
@@ -77,7 +85,9 @@ struct P_single_qc_real_T_ {
                                         * Referenced by: '<S86>/Integral Gain'
                                         */
   real_T pgaina;                       /* Variable: pgaina
-                                        * Referenced by: '<S44>/Proportional Gain'
+                                        * Referenced by:
+                                        *   '<Root>/Constant1'
+                                        *   '<S44>/Proportional Gain'
                                         */
   real_T pgainb;                       /* Variable: pgainb
                                         * Referenced by: '<S94>/Proportional Gain'

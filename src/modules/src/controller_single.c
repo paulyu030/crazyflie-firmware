@@ -71,7 +71,7 @@ void controllerSingle(control_t *control, setpoint_t *setpoint,
 // log/param name can't be too long, otherwise error
 // only one log group is allowed
 
-LOG_GROUP_START(controller)
+LOG_GROUP_START(sctrl)
 LOG_ADD(LOG_FLOAT, M1, &single_qc_real_Y.m1)
 LOG_ADD(LOG_FLOAT, M2, &single_qc_real_Y.m2)
 LOG_ADD(LOG_FLOAT, M3, &single_qc_real_Y.m3)
@@ -81,7 +81,13 @@ LOG_ADD(LOG_FLOAT, error_alpha, &single_qc_real_Y.error_alpha)
 LOG_ADD(LOG_FLOAT, error_beta, &single_qc_real_Y.error_beta)
 LOG_ADD(LOG_FLOAT, u_alpha, &single_qc_real_Y.u_alpha)
 LOG_ADD(LOG_FLOAT, u_beta, &single_qc_real_Y.u_beta)
-LOG_GROUP_STOP(controller)
+
+LOG_ADD(LOG_FLOAT, t_be, &single_qc_real_Y.t_betae)
+LOG_ADD(LOG_FLOAT, t_bin, &single_qc_real_Y.t_betain)
+LOG_ADD(LOG_FLOAT, t_tin, &single_qc_real_Y.t_thrustin)
+LOG_ADD(LOG_FLOAT, t_pa, &single_qc_real_Y.t_pgaina)
+LOG_ADD(LOG_FLOAT, t_da, &single_qc_real_Y.t_dgaina)
+LOG_GROUP_STOP(sctrl)
 
 
 

@@ -3,9 +3,9 @@
  *
  * Code generated for Simulink model 'single_qc_real'.
  *
- * Model version                  : 1.23
+ * Model version                  : 1.25
  * Simulink Coder version         : 9.3 (R2020a) 18-Nov-2019
- * C/C++ source code generated on : Wed Apr 15 16:00:32 2020
+ * C/C++ source code generated on : Wed Apr 15 17:16:14 2020
  *
  * Target selection: ert.tlc
  * Embedded hardware selection: ARM Compatible->ARM Cortex
@@ -50,9 +50,11 @@ void single_qc_real_step(void)
   real_T thrust;
   real_T ftx;
   real_T fty;
+  real_T ftz;
   real_T rtb_Sum_f;
   real_T rtb_Sum1;
   real_T rtb_Sum;
+  real_T rtb_Saturation;
   real_T rtb_beta_e;
   real_T rtb_Tsamp;
   real_T rtb_Sum_b;
@@ -62,14 +64,31 @@ void single_qc_real_step(void)
   int8_T subsa_idx_1;
   real_T tmp_0;
   real_T u0;
-  real_T rtb_Sum_p;
+  real_T q_bi_1;
   int32_T R_bii_tmp;
-  real_T u0_tmp;
+  real_T q_bi_tmp;
+  real_T q_bi_tmp_tmp;
   static const real_T c[4] = { 0.70710678118654757, 0.0, 0.0,
     0.70710678118654746 };
 
   static const real_T d[4] = { -0.70710678118654757, 0.0, 0.0,
     0.70710678118654746 };
+
+  /* Gain: '<Root>/Gain' incorporates:
+   *  Inport: '<Root>/thrust'
+   */
+  rtb_Saturation = single_qc_real_P.Gain_Gain * single_qc_real_U.thrust;
+
+  /* Saturate: '<Root>/Saturation' */
+  if (rtb_Saturation > single_qc_real_P.Saturation_UpperSat) {
+    rtb_Saturation = single_qc_real_P.Saturation_UpperSat;
+  } else {
+    if (rtb_Saturation < single_qc_real_P.Saturation_LowerSat) {
+      rtb_Saturation = single_qc_real_P.Saturation_LowerSat;
+    }
+  }
+
+  /* End of Saturate: '<Root>/Saturation' */
 
   /* MATLAB Function: '<Root>/MATLAB Function' incorporates:
    *  Inport: '<Root>/index'
@@ -82,11 +101,11 @@ void single_qc_real_step(void)
    *  Inport: '<Root>/qz_IMU'
    *  Inport: '<Root>/qz_op'
    */
-  rtb_Sum_p = single_qc_real_U.index * 3.1415926535897931 / 4.0;
-  tmp[0] = cos(rtb_Sum_p);
+  u0 = single_qc_real_U.index * 3.1415926535897931 / 4.0;
+  tmp[0] = cos(u0);
   tmp[1] = 0.0;
   tmp[2] = 0.0;
-  tmp[3] = sin(rtb_Sum_p);
+  tmp[3] = sin(u0);
   q_bi_0[0] = single_qc_real_U.qw_op;
   q_bi_0[1] = single_qc_real_U.qx_op;
   q_bi_0[2] = single_qc_real_U.qy_op;
@@ -103,30 +122,30 @@ void single_qc_real_step(void)
   single_qc_real_quatmultiply(tmp, d, q_bi);
   single_qc_real_quatmultiply(c, q_bi, tmp);
   single_qc_real_quatmultiply(tmp, q_bi_0, q_bii);
-  rtb_Sum = 1.0 / sqrt(((q_bii[0] * q_bii[0] + q_bii[1] * q_bii[1]) + q_bii[2] *
-                        q_bii[2]) + q_bii[3] * q_bii[3]);
-  q_bi[0] = q_bii[0] * rtb_Sum;
-  q_bi[1] = q_bii[1] * rtb_Sum;
-  q_bi[2] = q_bii[2] * rtb_Sum;
-  q_bi[3] = q_bii[3] * rtb_Sum;
-  rtb_Sum = q_bi[3] * q_bi[3];
-  rtb_Tsamp = q_bi[2] * q_bi[2];
-  tempR[0] = 1.0 - (rtb_Tsamp + rtb_Sum) * 2.0;
-  rtb_Sum_f = q_bi[1] * q_bi[2];
-  rtb_Sum1 = q_bi[0] * q_bi[3];
-  tempR[1] = (rtb_Sum_f - rtb_Sum1) * 2.0;
-  rtb_Tsamp_c = q_bi[1] * q_bi[3];
-  rtb_Sum_b = q_bi[0] * q_bi[2];
-  tempR[2] = (rtb_Tsamp_c + rtb_Sum_b) * 2.0;
-  tempR[3] = (rtb_Sum_f + rtb_Sum1) * 2.0;
-  rtb_Sum_f = q_bi[1] * q_bi[1];
-  tempR[4] = 1.0 - (rtb_Sum_f + rtb_Sum) * 2.0;
-  rtb_Sum = q_bi[2] * q_bi[3];
-  rtb_Sum1 = q_bi[0] * q_bi[1];
-  tempR[5] = (rtb_Sum - rtb_Sum1) * 2.0;
-  tempR[6] = (rtb_Tsamp_c - rtb_Sum_b) * 2.0;
-  tempR[7] = (rtb_Sum + rtb_Sum1) * 2.0;
-  tempR[8] = 1.0 - (rtb_Sum_f + rtb_Tsamp) * 2.0;
+  rtb_beta_e = 1.0 / sqrt(((q_bii[0] * q_bii[0] + q_bii[1] * q_bii[1]) + q_bii[2]
+    * q_bii[2]) + q_bii[3] * q_bii[3]);
+  q_bi[0] = q_bii[0] * rtb_beta_e;
+  q_bi[1] = q_bii[1] * rtb_beta_e;
+  q_bi[2] = q_bii[2] * rtb_beta_e;
+  q_bi[3] = q_bii[3] * rtb_beta_e;
+  rtb_beta_e = q_bi[3] * q_bi[3];
+  rtb_Sum = q_bi[2] * q_bi[2];
+  tempR[0] = 1.0 - (rtb_Sum + rtb_beta_e) * 2.0;
+  rtb_Tsamp = q_bi[1] * q_bi[2];
+  rtb_Sum_f = q_bi[0] * q_bi[3];
+  tempR[1] = (rtb_Tsamp - rtb_Sum_f) * 2.0;
+  rtb_Sum1 = q_bi[1] * q_bi[3];
+  rtb_Tsamp_c = q_bi[0] * q_bi[2];
+  tempR[2] = (rtb_Sum1 + rtb_Tsamp_c) * 2.0;
+  tempR[3] = (rtb_Tsamp + rtb_Sum_f) * 2.0;
+  rtb_Tsamp = q_bi[1] * q_bi[1];
+  tempR[4] = 1.0 - (rtb_Tsamp + rtb_beta_e) * 2.0;
+  rtb_beta_e = q_bi[2] * q_bi[3];
+  rtb_Sum_f = q_bi[0] * q_bi[1];
+  tempR[5] = (rtb_beta_e - rtb_Sum_f) * 2.0;
+  tempR[6] = (rtb_Sum1 - rtb_Tsamp_c) * 2.0;
+  tempR[7] = (rtb_beta_e + rtb_Sum_f) * 2.0;
+  tempR[8] = 1.0 - (rtb_Tsamp + rtb_Sum) * 2.0;
   for (d_k = 0; d_k < 3; d_k++) {
     R_bii_tmp = (int8_T)(d_k + 1) - 1;
     R_bii[R_bii_tmp] = tempR[R_bii_tmp * 3];
@@ -186,24 +205,8 @@ void single_qc_real_step(void)
                single_qc_real_DW.Integrator_DSTATE_e) + (rtb_Tsamp_c -
     single_qc_real_DW.UD_DSTATE_e);
 
-  /* Gain: '<Root>/Gain' incorporates:
-   *  Inport: '<Root>/thrust'
-   */
-  u0 = single_qc_real_P.Gain_Gain * single_qc_real_U.thrust;
-
-  /* Saturate: '<Root>/Saturation' */
-  if (u0 > single_qc_real_P.Saturation_UpperSat) {
-    u0 = single_qc_real_P.Saturation_UpperSat;
-  } else {
-    if (u0 < single_qc_real_P.Saturation_LowerSat) {
-      u0 = single_qc_real_P.Saturation_LowerSat;
-    }
-  }
-
-  /* End of Saturate: '<Root>/Saturation' */
-
   /* MATLAB Function: '<Root>/MATLAB Function1' */
-  thrust = u0 / 4.0;
+  thrust = rtb_Saturation / 4.0;
 
   /* Product: '<S3>/Product' incorporates:
    *  Trigonometry: '<S3>/Trigonometric Function1'
@@ -226,17 +229,17 @@ void single_qc_real_step(void)
 
   /* Saturate: '<S3>/Saturation1' */
   if (rtb_Sum_b > single_qc_real_P.Saturation1_UpperSat) {
-    rtb_Sum_p = single_qc_real_P.Saturation1_UpperSat;
+    u0 = single_qc_real_P.Saturation1_UpperSat;
   } else if (rtb_Sum_b < single_qc_real_P.Saturation1_LowerSat) {
-    rtb_Sum_p = single_qc_real_P.Saturation1_LowerSat;
+    u0 = single_qc_real_P.Saturation1_LowerSat;
   } else {
-    rtb_Sum_p = rtb_Sum_b;
+    u0 = rtb_Sum_b;
   }
 
   /* End of Saturate: '<S3>/Saturation1' */
 
   /* MATLAB Function: '<Root>/MATLAB Function1' */
-  fty = rtb_Sum_p / 4.0 / 0.03165;
+  fty = u0 / 4.0 / 0.03165;
 
   /* Product: '<S3>/Product1' incorporates:
    *  Trigonometry: '<S3>/Trigonometric Function'
@@ -257,73 +260,93 @@ void single_qc_real_step(void)
   /* MATLAB Function: '<Root>/MATLAB Function1' incorporates:
    *  Constant: '<Root>/Constant'
    */
-  rtb_beta_e = u0 / 4.0 / 0.03165 * single_qc_real_P.torque_modifier;
-  u0_tmp = thrust + ftx;
-  u0 = ((u0_tmp - fty) - rtb_beta_e) / 0.1472 * 65535.0;
+  ftz = u0 / 4.0 / 0.03165 * single_qc_real_P.torque_modifier;
+  q_bi_tmp_tmp = thrust + ftx;
+  q_bi_tmp = ((q_bi_tmp_tmp - fty) - ftz) / 0.1472 * 65535.0;
 
-  /* Saturate: '<Root>/Saturation1' */
-  if (u0 > single_qc_real_P.Saturation1_UpperSat_m) {
-    u0 = single_qc_real_P.Saturation1_UpperSat_m;
+  /* Saturate: '<Root>/Saturation1' incorporates:
+   *  MATLAB Function: '<Root>/MATLAB Function1'
+   */
+  if (q_bi_tmp > single_qc_real_P.Saturation1_UpperSat_m) {
+    q_bi_1 = single_qc_real_P.Saturation1_UpperSat_m;
+  } else if (q_bi_tmp < single_qc_real_P.Saturation1_LowerSat_e) {
+    q_bi_1 = single_qc_real_P.Saturation1_LowerSat_e;
   } else {
-    if (u0 < single_qc_real_P.Saturation1_LowerSat_e) {
-      u0 = single_qc_real_P.Saturation1_LowerSat_e;
-    }
+    q_bi_1 = q_bi_tmp;
   }
 
   /* DataTypeConversion: '<Root>/Data Type Conversion2' */
-  rtb_Sum_p = fmod(floor(u0), 65536.0);
+  u0 = fmod(floor(q_bi_1), 65536.0);
+
+  /* Outport: '<Root>/t_motorcom' */
+  single_qc_real_Y.t_motorcom[0] = q_bi_tmp;
 
   /* MATLAB Function: '<Root>/MATLAB Function1' */
-  u0 = ((u0_tmp + fty) + rtb_beta_e) / 0.1472 * 65535.0;
+  q_bi_tmp = ((q_bi_tmp_tmp + fty) + ftz) / 0.1472 * 65535.0;
 
-  /* Saturate: '<Root>/Saturation1' */
-  if (u0 > single_qc_real_P.Saturation1_UpperSat_m) {
-    u0 = single_qc_real_P.Saturation1_UpperSat_m;
+  /* Saturate: '<Root>/Saturation1' incorporates:
+   *  MATLAB Function: '<Root>/MATLAB Function1'
+   */
+  if (q_bi_tmp > single_qc_real_P.Saturation1_UpperSat_m) {
+    q_bi_1 = single_qc_real_P.Saturation1_UpperSat_m;
+  } else if (q_bi_tmp < single_qc_real_P.Saturation1_LowerSat_e) {
+    q_bi_1 = single_qc_real_P.Saturation1_LowerSat_e;
   } else {
-    if (u0 < single_qc_real_P.Saturation1_LowerSat_e) {
-      u0 = single_qc_real_P.Saturation1_LowerSat_e;
-    }
+    q_bi_1 = q_bi_tmp;
   }
 
   /* DataTypeConversion: '<Root>/Data Type Conversion2' */
-  tmp_0 = fmod(floor(u0), 65536.0);
+  tmp_0 = fmod(floor(q_bi_1), 65536.0);
+
+  /* Outport: '<Root>/t_motorcom' */
+  single_qc_real_Y.t_motorcom[1] = q_bi_tmp;
 
   /* MATLAB Function: '<Root>/MATLAB Function1' */
-  u0_tmp = thrust - ftx;
-  u0 = ((u0_tmp + fty) - rtb_beta_e) / 0.1472 * 65535.0;
+  q_bi_tmp_tmp = thrust - ftx;
+  q_bi_tmp = ((q_bi_tmp_tmp + fty) - ftz) / 0.1472 * 65535.0;
 
-  /* Saturate: '<Root>/Saturation1' */
-  if (u0 > single_qc_real_P.Saturation1_UpperSat_m) {
-    u0 = single_qc_real_P.Saturation1_UpperSat_m;
+  /* Saturate: '<Root>/Saturation1' incorporates:
+   *  MATLAB Function: '<Root>/MATLAB Function1'
+   */
+  if (q_bi_tmp > single_qc_real_P.Saturation1_UpperSat_m) {
+    q_bi_1 = single_qc_real_P.Saturation1_UpperSat_m;
+  } else if (q_bi_tmp < single_qc_real_P.Saturation1_LowerSat_e) {
+    q_bi_1 = single_qc_real_P.Saturation1_LowerSat_e;
   } else {
-    if (u0 < single_qc_real_P.Saturation1_LowerSat_e) {
-      u0 = single_qc_real_P.Saturation1_LowerSat_e;
-    }
+    q_bi_1 = q_bi_tmp;
   }
 
   /* DataTypeConversion: '<Root>/Data Type Conversion2' */
-  thrust = fmod(floor(u0), 65536.0);
+  thrust = fmod(floor(q_bi_1), 65536.0);
+
+  /* Outport: '<Root>/t_motorcom' */
+  single_qc_real_Y.t_motorcom[2] = q_bi_tmp;
 
   /* MATLAB Function: '<Root>/MATLAB Function1' */
-  u0 = ((u0_tmp - fty) + rtb_beta_e) / 0.1472 * 65535.0;
+  q_bi_tmp = ((q_bi_tmp_tmp - fty) + ftz) / 0.1472 * 65535.0;
 
-  /* Saturate: '<Root>/Saturation1' */
-  if (u0 > single_qc_real_P.Saturation1_UpperSat_m) {
-    u0 = single_qc_real_P.Saturation1_UpperSat_m;
+  /* Saturate: '<Root>/Saturation1' incorporates:
+   *  MATLAB Function: '<Root>/MATLAB Function1'
+   */
+  if (q_bi_tmp > single_qc_real_P.Saturation1_UpperSat_m) {
+    q_bi_1 = single_qc_real_P.Saturation1_UpperSat_m;
+  } else if (q_bi_tmp < single_qc_real_P.Saturation1_LowerSat_e) {
+    q_bi_1 = single_qc_real_P.Saturation1_LowerSat_e;
   } else {
-    if (u0 < single_qc_real_P.Saturation1_LowerSat_e) {
-      u0 = single_qc_real_P.Saturation1_LowerSat_e;
-    }
+    q_bi_1 = q_bi_tmp;
   }
 
   /* DataTypeConversion: '<Root>/Data Type Conversion2' */
-  rtb_beta_e = fmod(floor(u0), 65536.0);
+  ftx = fmod(floor(q_bi_1), 65536.0);
+
+  /* Outport: '<Root>/t_motorcom' */
+  single_qc_real_Y.t_motorcom[3] = q_bi_tmp;
 
   /* Outport: '<Root>/m1' incorporates:
    *  DataTypeConversion: '<Root>/Data Type Conversion2'
    */
-  single_qc_real_Y.m1 = (uint16_T)(rtb_Sum_p < 0.0 ? (int32_T)(uint16_T)
-    -(int16_T)(uint16_T)-rtb_Sum_p : (int32_T)(uint16_T)rtb_Sum_p);
+  single_qc_real_Y.m1 = (uint16_T)(u0 < 0.0 ? (int32_T)(uint16_T)-(int16_T)
+    (uint16_T)-u0 : (int32_T)(uint16_T)u0);
 
   /* Outport: '<Root>/m2' incorporates:
    *  DataTypeConversion: '<Root>/Data Type Conversion2'
@@ -340,8 +363,8 @@ void single_qc_real_step(void)
   /* Outport: '<Root>/m4' incorporates:
    *  DataTypeConversion: '<Root>/Data Type Conversion2'
    */
-  single_qc_real_Y.m4 = (uint16_T)(rtb_beta_e < 0.0 ? (int32_T)(uint16_T)
-    -(int16_T)(uint16_T)-rtb_beta_e : (int32_T)(uint16_T)rtb_beta_e);
+  single_qc_real_Y.m4 = (uint16_T)(ftx < 0.0 ? (int32_T)(uint16_T)-(int16_T)
+    (uint16_T)-ftx : (int32_T)(uint16_T)ftx);
 
   /* Outport: '<Root>/u_beta' */
   single_qc_real_Y.u_beta = rtb_Sum_b;
@@ -354,6 +377,27 @@ void single_qc_real_step(void)
 
   /* Outport: '<Root>/error_alpha' */
   single_qc_real_Y.error_alpha = rtb_Sum;
+
+  /* Outport: '<Root>/t_betae' */
+  single_qc_real_Y.t_betae = rtb_beta_e;
+
+  /* Outport: '<Root>/t_thrustin' */
+  single_qc_real_Y.t_thrustin = rtb_Saturation;
+
+  /* Outport: '<Root>/t_pgaina' incorporates:
+   *  Constant: '<Root>/Constant1'
+   */
+  single_qc_real_Y.t_pgaina = single_qc_real_P.pgaina;
+
+  /* Outport: '<Root>/t_dgaina' incorporates:
+   *  Constant: '<Root>/Constant2'
+   */
+  single_qc_real_Y.t_dgaina = single_qc_real_P.dgaina;
+
+  /* Outport: '<Root>/t_betain' incorporates:
+   *  Inport: '<Root>/beta_desired'
+   */
+  single_qc_real_Y.t_betain = single_qc_real_U.beta_desired;
 
   /* Update for DiscreteIntegrator: '<S39>/Integrator' incorporates:
    *  Gain: '<S36>/Integral Gain'

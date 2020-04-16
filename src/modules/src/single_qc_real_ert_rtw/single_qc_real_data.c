@@ -3,9 +3,9 @@
  *
  * Code generated for Simulink model 'single_qc_real'.
  *
- * Model version                  : 1.23
+ * Model version                  : 1.25
  * Simulink Coder version         : 9.3 (R2020a) 18-Nov-2019
- * C/C++ source code generated on : Wed Apr 15 16:00:32 2020
+ * C/C++ source code generated on : Wed Apr 15 17:16:14 2020
  *
  * Target selection: ert.tlc
  * Embedded hardware selection: ARM Compatible->ARM Cortex
@@ -19,7 +19,9 @@
 /* Block parameters (default storage) */
 P_single_qc_real_T single_qc_real_P = {
   /* Variable: dgaina
-   * Referenced by: '<S31>/Derivative Gain'
+   * Referenced by:
+   *   '<Root>/Constant2'
+   *   '<S31>/Derivative Gain'
    */
   0.0002,
 
@@ -39,7 +41,9 @@ P_single_qc_real_T single_qc_real_P = {
   0.0,
 
   /* Variable: pgaina
-   * Referenced by: '<S44>/Proportional Gain'
+   * Referenced by:
+   *   '<Root>/Constant1'
+   *   '<S44>/Proportional Gain'
    */
   0.001,
 
