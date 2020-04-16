@@ -3,12 +3,12 @@
  *
  * Code generated for Simulink model 'single_qc_real'.
  *
- * Model version                  : 1.25
+ * Model version                  : 1.35
  * Simulink Coder version         : 9.3 (R2020a) 18-Nov-2019
- * C/C++ source code generated on : Wed Apr 15 17:16:14 2020
+ * C/C++ source code generated on : Thu Apr 16 01:47:08 2020
  *
  * Target selection: ert.tlc
- * Embedded hardware selection: ARM Compatible->ARM Cortex
+ * Embedded hardware selection: Intel->x86-64 (Windows64)
  * Code generation objective: Execution efficiency
  * Validation result: Not run
  */
@@ -26,12 +26,12 @@ ExtU_single_qc_real_T single_qc_real_U;
 ExtY_single_qc_real_T single_qc_real_Y;
 
 /* Forward declaration for local functions */
-static void single_qc_real_quatmultiply(const real_T q[4], const real_T r[4],
-  real_T qout[4]);
+static void single_qc_real_quatmultiply(const real32_T q[4], const real32_T r[4],
+  real32_T qout[4]);
 
 /* Function for MATLAB Function: '<Root>/MATLAB Function' */
-static void single_qc_real_quatmultiply(const real_T q[4], const real_T r[4],
-  real_T qout[4])
+static void single_qc_real_quatmultiply(const real32_T q[4], const real32_T r[4],
+  real32_T qout[4])
 {
   qout[0] = ((q[0] * r[0] - q[1] * r[1]) - q[2] * r[2]) - q[3] * r[3];
   qout[1] = (q[0] * r[1] + r[0] * q[1]) + (q[2] * r[3] - q[3] * r[2]);
@@ -42,37 +42,38 @@ static void single_qc_real_quatmultiply(const real_T q[4], const real_T r[4],
 /* Model step function */
 void single_qc_real_step(void)
 {
-  real_T q_bi[4];
-  real_T q_bii[4];
-  real_T R_bii[9];
-  real_T tempR[9];
+  real32_T q_bi[4];
+  real32_T q_bii[4];
+  real32_T R_bii[9];
+  real32_T tempR[9];
   int32_T d_k;
-  real_T thrust;
-  real_T ftx;
-  real_T fty;
-  real_T ftz;
-  real_T rtb_Sum_f;
-  real_T rtb_Sum1;
-  real_T rtb_Sum;
-  real_T rtb_Saturation;
-  real_T rtb_beta_e;
-  real_T rtb_Tsamp;
-  real_T rtb_Sum_b;
-  real_T rtb_Tsamp_c;
-  real_T tmp[4];
-  real_T q_bi_0[4];
+  real32_T thrust;
+  real32_T ftx;
+  real32_T fty;
+  real32_T ftz;
+  real32_T rtb_Sum2_p;
+  real32_T rtb_pgain_c;
+  real32_T rtb_Saturation;
+  real32_T rtb_beta_e;
+  real32_T rtb_Sum;
+  real32_T rtb_TSamp;
+  real32_T rtb_Sum1;
+  real32_T rtb_igain_d;
+  real32_T rtb_TSamp_n;
+  real32_T rtb_dgain_f;
+  real32_T rtb_Sum2;
+  real32_T tmp[4];
+  real32_T q_bi_0[4];
   int8_T subsa_idx_1;
-  real_T tmp_0;
-  real_T u0;
-  real_T q_bi_1;
+  real32_T tmp_0;
+  real32_T u0;
+  real32_T q_bi_1;
   int32_T R_bii_tmp;
-  real_T q_bi_tmp;
-  real_T q_bi_tmp_tmp;
-  static const real_T c[4] = { 0.70710678118654757, 0.0, 0.0,
-    0.70710678118654746 };
+  real32_T q_bi_tmp;
+  real32_T q_bi_tmp_tmp;
+  static const real32_T b[4] = { 0.707106769F, 0.0F, 0.0F, 0.707106769F };
 
-  static const real_T d[4] = { -0.70710678118654757, 0.0, 0.0,
-    0.70710678118654746 };
+  static const real32_T c[4] = { -0.707106769F, 0.0F, 0.0F, 0.707106769F };
 
   /* Gain: '<Root>/Gain' incorporates:
    *  Inport: '<Root>/thrust'
@@ -101,11 +102,11 @@ void single_qc_real_step(void)
    *  Inport: '<Root>/qz_IMU'
    *  Inport: '<Root>/qz_op'
    */
-  u0 = single_qc_real_U.index * 3.1415926535897931 / 4.0;
-  tmp[0] = cos(u0);
-  tmp[1] = 0.0;
-  tmp[2] = 0.0;
-  tmp[3] = sin(u0);
+  u0 = single_qc_real_U.index * 3.14159274F / 4.0F;
+  tmp[0] = cosf(u0);
+  tmp[1] = 0.0F;
+  tmp[2] = 0.0F;
+  tmp[3] = sinf(u0);
   q_bi_0[0] = single_qc_real_U.qw_op;
   q_bi_0[1] = single_qc_real_U.qx_op;
   q_bi_0[2] = single_qc_real_U.qy_op;
@@ -119,33 +120,33 @@ void single_qc_real_step(void)
   q_bi_0[1] = q_bi[1];
   q_bi_0[2] = q_bi[2];
   q_bi_0[3] = q_bi[3];
-  single_qc_real_quatmultiply(tmp, d, q_bi);
-  single_qc_real_quatmultiply(c, q_bi, tmp);
+  single_qc_real_quatmultiply(tmp, c, q_bi);
+  single_qc_real_quatmultiply(b, q_bi, tmp);
   single_qc_real_quatmultiply(tmp, q_bi_0, q_bii);
-  rtb_beta_e = 1.0 / sqrt(((q_bii[0] * q_bii[0] + q_bii[1] * q_bii[1]) + q_bii[2]
-    * q_bii[2]) + q_bii[3] * q_bii[3]);
+  rtb_beta_e = 1.0F / sqrtf(((q_bii[0] * q_bii[0] + q_bii[1] * q_bii[1]) +
+    q_bii[2] * q_bii[2]) + q_bii[3] * q_bii[3]);
   q_bi[0] = q_bii[0] * rtb_beta_e;
   q_bi[1] = q_bii[1] * rtb_beta_e;
   q_bi[2] = q_bii[2] * rtb_beta_e;
   q_bi[3] = q_bii[3] * rtb_beta_e;
   rtb_beta_e = q_bi[3] * q_bi[3];
   rtb_Sum = q_bi[2] * q_bi[2];
-  tempR[0] = 1.0 - (rtb_Sum + rtb_beta_e) * 2.0;
-  rtb_Tsamp = q_bi[1] * q_bi[2];
-  rtb_Sum_f = q_bi[0] * q_bi[3];
-  tempR[1] = (rtb_Tsamp - rtb_Sum_f) * 2.0;
+  tempR[0] = 1.0F - (rtb_Sum + rtb_beta_e) * 2.0F;
+  rtb_TSamp = q_bi[1] * q_bi[2];
+  rtb_Sum2_p = q_bi[0] * q_bi[3];
+  tempR[1] = (rtb_TSamp - rtb_Sum2_p) * 2.0F;
   rtb_Sum1 = q_bi[1] * q_bi[3];
-  rtb_Tsamp_c = q_bi[0] * q_bi[2];
-  tempR[2] = (rtb_Sum1 + rtb_Tsamp_c) * 2.0;
-  tempR[3] = (rtb_Tsamp + rtb_Sum_f) * 2.0;
-  rtb_Tsamp = q_bi[1] * q_bi[1];
-  tempR[4] = 1.0 - (rtb_Tsamp + rtb_beta_e) * 2.0;
+  rtb_pgain_c = q_bi[0] * q_bi[2];
+  tempR[2] = (rtb_Sum1 + rtb_pgain_c) * 2.0F;
+  tempR[3] = (rtb_TSamp + rtb_Sum2_p) * 2.0F;
+  rtb_TSamp = q_bi[1] * q_bi[1];
+  tempR[4] = 1.0F - (rtb_TSamp + rtb_beta_e) * 2.0F;
   rtb_beta_e = q_bi[2] * q_bi[3];
-  rtb_Sum_f = q_bi[0] * q_bi[1];
-  tempR[5] = (rtb_beta_e - rtb_Sum_f) * 2.0;
-  tempR[6] = (rtb_Sum1 - rtb_Tsamp_c) * 2.0;
-  tempR[7] = (rtb_beta_e + rtb_Sum_f) * 2.0;
-  tempR[8] = 1.0 - (rtb_Tsamp + rtb_Sum) * 2.0;
+  rtb_Sum2_p = q_bi[0] * q_bi[1];
+  tempR[5] = (rtb_beta_e - rtb_Sum2_p) * 2.0F;
+  tempR[6] = (rtb_Sum1 - rtb_pgain_c) * 2.0F;
+  tempR[7] = (rtb_beta_e + rtb_Sum2_p) * 2.0F;
+  tempR[8] = 1.0F - (rtb_TSamp + rtb_Sum) * 2.0F;
   for (d_k = 0; d_k < 3; d_k++) {
     R_bii_tmp = (int8_T)(d_k + 1) - 1;
     R_bii[R_bii_tmp] = tempR[R_bii_tmp * 3];
@@ -155,63 +156,89 @@ void single_qc_real_step(void)
     R_bii[subsa_idx_1 + 5] = tempR[(subsa_idx_1 - 1) * 3 + 2];
   }
 
-  rtb_beta_e = atan2(R_bii[6], R_bii[0]);
+  rtb_beta_e = atan2f(R_bii[6], R_bii[0]);
 
   /* Sum: '<S3>/Sum' incorporates:
    *  Inport: '<Root>/alpha_desired'
    *  MATLAB Function: '<Root>/MATLAB Function'
    */
-  rtb_Sum = single_qc_real_U.alpha_desired - atan2(-R_bii[7], R_bii[8]);
+  rtb_Sum = single_qc_real_U.alpha_desired - atan2f(-R_bii[7], R_bii[8]);
 
-  /* SampleTimeMath: '<S34>/Tsamp' incorporates:
-   *  Gain: '<S31>/Derivative Gain'
+  /* SampleTimeMath: '<S6>/TSamp'
    *
-   * About '<S34>/Tsamp':
+   * About '<S6>/TSamp':
    *  y = u * K where K = 1 / ( w * Ts )
    */
-  rtb_Tsamp = single_qc_real_P.dgaina * rtb_Sum * single_qc_real_P.Tsamp_WtEt;
+  rtb_TSamp = rtb_Sum * single_qc_real_P.TSamp_WtEt;
 
-  /* Sum: '<S48>/Sum' incorporates:
-   *  Delay: '<S32>/UD'
-   *  DiscreteIntegrator: '<S39>/Integrator'
-   *  Gain: '<S44>/Proportional Gain'
-   *  Sum: '<S32>/Diff'
+  /* Sum: '<S4>/Sum2' incorporates:
+   *  Gain: '<S4>/dgain'
+   *  Gain: '<S4>/igain'
+   *  Gain: '<S4>/pgain'
+   *  Memory: '<S4>/Memory'
+   *  Sum: '<S4>/Sum'
+   *  Sum: '<S6>/Diff'
+   *  UnitDelay: '<S6>/UD'
+   *
+   * Block description for '<S6>/Diff':
+   *
+   *  Add in CPU
+   *
+   * Block description for '<S6>/UD':
+   *
+   *  Store in Global RAM
    */
-  rtb_Sum_f = (single_qc_real_P.pgaina * rtb_Sum +
-               single_qc_real_DW.Integrator_DSTATE) + (rtb_Tsamp -
-    single_qc_real_DW.UD_DSTATE);
+  rtb_Sum2_p = ((single_qc_real_DW.Memory_PreviousInput + rtb_Sum) *
+                single_qc_real_P.igaina + single_qc_real_P.pgaina * rtb_Sum) +
+    (rtb_TSamp - single_qc_real_DW.UD_DSTATE) * single_qc_real_P.dgaina;
 
   /* Sum: '<S3>/Sum1' incorporates:
    *  Inport: '<Root>/beta_desired'
    */
   rtb_Sum1 = single_qc_real_U.beta_desired - rtb_beta_e;
 
-  /* SampleTimeMath: '<S84>/Tsamp' incorporates:
-   *  Gain: '<S81>/Derivative Gain'
+  /* Gain: '<S5>/pgain' */
+  rtb_pgain_c = single_qc_real_P.pgainb * rtb_Sum1;
+
+  /* Gain: '<S5>/igain' incorporates:
+   *  Memory: '<S5>/Memory'
+   *  Sum: '<S5>/Sum'
+   */
+  rtb_igain_d = (single_qc_real_DW.Memory_PreviousInput_d + rtb_Sum1) *
+    single_qc_real_P.igainb;
+
+  /* SampleTimeMath: '<S7>/TSamp'
    *
-   * About '<S84>/Tsamp':
+   * About '<S7>/TSamp':
    *  y = u * K where K = 1 / ( w * Ts )
    */
-  rtb_Tsamp_c = single_qc_real_P.dgainb * rtb_Sum1 *
-    single_qc_real_P.Tsamp_WtEt_c;
+  rtb_TSamp_n = rtb_Sum1 * single_qc_real_P.TSamp_WtEt_o;
 
-  /* Sum: '<S98>/Sum' incorporates:
-   *  Delay: '<S82>/UD'
-   *  DiscreteIntegrator: '<S89>/Integrator'
-   *  Gain: '<S94>/Proportional Gain'
-   *  Sum: '<S82>/Diff'
+  /* Gain: '<S5>/dgain' incorporates:
+   *  Sum: '<S7>/Diff'
+   *  UnitDelay: '<S7>/UD'
+   *
+   * Block description for '<S7>/Diff':
+   *
+   *  Add in CPU
+   *
+   * Block description for '<S7>/UD':
+   *
+   *  Store in Global RAM
    */
-  rtb_Sum_b = (single_qc_real_P.pgainb * rtb_Sum1 +
-               single_qc_real_DW.Integrator_DSTATE_e) + (rtb_Tsamp_c -
-    single_qc_real_DW.UD_DSTATE_e);
+  rtb_dgain_f = (rtb_TSamp_n - single_qc_real_DW.UD_DSTATE_l) *
+    single_qc_real_P.dgainb;
+
+  /* Sum: '<S5>/Sum2' */
+  rtb_Sum2 = (rtb_pgain_c + rtb_igain_d) + rtb_dgain_f;
 
   /* MATLAB Function: '<Root>/MATLAB Function1' */
-  thrust = rtb_Saturation / 4.0;
+  thrust = rtb_Saturation / 4.0F;
 
   /* Product: '<S3>/Product' incorporates:
    *  Trigonometry: '<S3>/Trigonometric Function1'
    */
-  u0 = cos(rtb_beta_e) * rtb_Sum_f;
+  u0 = cosf(rtb_beta_e) * rtb_Sum2_p;
 
   /* Saturate: '<S3>/Saturation' */
   if (u0 > single_qc_real_P.Saturation_UpperSat_b) {
@@ -225,26 +252,26 @@ void single_qc_real_step(void)
   /* End of Saturate: '<S3>/Saturation' */
 
   /* MATLAB Function: '<Root>/MATLAB Function1' */
-  ftx = u0 / 4.0 / 0.03165;
+  ftx = u0 / 4.0F / 0.03165F;
 
   /* Saturate: '<S3>/Saturation1' */
-  if (rtb_Sum_b > single_qc_real_P.Saturation1_UpperSat) {
+  if (rtb_Sum2 > single_qc_real_P.Saturation1_UpperSat) {
     u0 = single_qc_real_P.Saturation1_UpperSat;
-  } else if (rtb_Sum_b < single_qc_real_P.Saturation1_LowerSat) {
+  } else if (rtb_Sum2 < single_qc_real_P.Saturation1_LowerSat) {
     u0 = single_qc_real_P.Saturation1_LowerSat;
   } else {
-    u0 = rtb_Sum_b;
+    u0 = rtb_Sum2;
   }
 
   /* End of Saturate: '<S3>/Saturation1' */
 
   /* MATLAB Function: '<Root>/MATLAB Function1' */
-  fty = u0 / 4.0 / 0.03165;
+  fty = u0 / 4.0F / 0.03165F;
 
   /* Product: '<S3>/Product1' incorporates:
    *  Trigonometry: '<S3>/Trigonometric Function'
    */
-  u0 = rtb_Sum_f * sin(rtb_beta_e);
+  u0 = rtb_Sum2_p * sinf(rtb_beta_e);
 
   /* Saturate: '<S3>/Saturation2' */
   if (u0 > single_qc_real_P.Saturation2_UpperSat) {
@@ -260,9 +287,9 @@ void single_qc_real_step(void)
   /* MATLAB Function: '<Root>/MATLAB Function1' incorporates:
    *  Constant: '<Root>/Constant'
    */
-  ftz = u0 / 4.0 / 0.03165 * single_qc_real_P.torque_modifier;
+  ftz = u0 / 4.0F / 0.03165F * single_qc_real_P.torque_modifier;
   q_bi_tmp_tmp = thrust + ftx;
-  q_bi_tmp = ((q_bi_tmp_tmp - fty) - ftz) / 0.1472 * 65535.0;
+  q_bi_tmp = ((q_bi_tmp_tmp - fty) - ftz) / 0.1472F * 65535.0F;
 
   /* Saturate: '<Root>/Saturation1' incorporates:
    *  MATLAB Function: '<Root>/MATLAB Function1'
@@ -276,13 +303,13 @@ void single_qc_real_step(void)
   }
 
   /* DataTypeConversion: '<Root>/Data Type Conversion2' */
-  u0 = fmod(floor(q_bi_1), 65536.0);
+  u0 = fmodf(floorf(q_bi_1), 65536.0F);
 
   /* Outport: '<Root>/t_motorcom' */
   single_qc_real_Y.t_motorcom[0] = q_bi_tmp;
 
   /* MATLAB Function: '<Root>/MATLAB Function1' */
-  q_bi_tmp = ((q_bi_tmp_tmp + fty) + ftz) / 0.1472 * 65535.0;
+  q_bi_tmp = ((q_bi_tmp_tmp + fty) + ftz) / 0.1472F * 65535.0F;
 
   /* Saturate: '<Root>/Saturation1' incorporates:
    *  MATLAB Function: '<Root>/MATLAB Function1'
@@ -296,14 +323,14 @@ void single_qc_real_step(void)
   }
 
   /* DataTypeConversion: '<Root>/Data Type Conversion2' */
-  tmp_0 = fmod(floor(q_bi_1), 65536.0);
+  tmp_0 = fmodf(floorf(q_bi_1), 65536.0F);
 
   /* Outport: '<Root>/t_motorcom' */
   single_qc_real_Y.t_motorcom[1] = q_bi_tmp;
 
   /* MATLAB Function: '<Root>/MATLAB Function1' */
   q_bi_tmp_tmp = thrust - ftx;
-  q_bi_tmp = ((q_bi_tmp_tmp + fty) - ftz) / 0.1472 * 65535.0;
+  q_bi_tmp = ((q_bi_tmp_tmp + fty) - ftz) / 0.1472F * 65535.0F;
 
   /* Saturate: '<Root>/Saturation1' incorporates:
    *  MATLAB Function: '<Root>/MATLAB Function1'
@@ -317,13 +344,13 @@ void single_qc_real_step(void)
   }
 
   /* DataTypeConversion: '<Root>/Data Type Conversion2' */
-  thrust = fmod(floor(q_bi_1), 65536.0);
+  thrust = fmodf(floorf(q_bi_1), 65536.0F);
 
   /* Outport: '<Root>/t_motorcom' */
   single_qc_real_Y.t_motorcom[2] = q_bi_tmp;
 
   /* MATLAB Function: '<Root>/MATLAB Function1' */
-  q_bi_tmp = ((q_bi_tmp_tmp - fty) + ftz) / 0.1472 * 65535.0;
+  q_bi_tmp = ((q_bi_tmp_tmp - fty) + ftz) / 0.1472F * 65535.0F;
 
   /* Saturate: '<Root>/Saturation1' incorporates:
    *  MATLAB Function: '<Root>/MATLAB Function1'
@@ -337,7 +364,7 @@ void single_qc_real_step(void)
   }
 
   /* DataTypeConversion: '<Root>/Data Type Conversion2' */
-  ftx = fmod(floor(q_bi_1), 65536.0);
+  ftx = fmodf(floorf(q_bi_1), 65536.0F);
 
   /* Outport: '<Root>/t_motorcom' */
   single_qc_real_Y.t_motorcom[3] = q_bi_tmp;
@@ -345,35 +372,44 @@ void single_qc_real_step(void)
   /* Outport: '<Root>/m1' incorporates:
    *  DataTypeConversion: '<Root>/Data Type Conversion2'
    */
-  single_qc_real_Y.m1 = (uint16_T)(u0 < 0.0 ? (int32_T)(uint16_T)-(int16_T)
+  single_qc_real_Y.m1 = (uint16_T)(u0 < 0.0F ? (int32_T)(uint16_T)-(int16_T)
     (uint16_T)-u0 : (int32_T)(uint16_T)u0);
 
   /* Outport: '<Root>/m2' incorporates:
    *  DataTypeConversion: '<Root>/Data Type Conversion2'
    */
-  single_qc_real_Y.m2 = (uint16_T)(tmp_0 < 0.0 ? (int32_T)(uint16_T)-(int16_T)
+  single_qc_real_Y.m2 = (uint16_T)(tmp_0 < 0.0F ? (int32_T)(uint16_T)-(int16_T)
     (uint16_T)-tmp_0 : (int32_T)(uint16_T)tmp_0);
 
   /* Outport: '<Root>/m3' incorporates:
    *  DataTypeConversion: '<Root>/Data Type Conversion2'
    */
-  single_qc_real_Y.m3 = (uint16_T)(thrust < 0.0 ? (int32_T)(uint16_T)-(int16_T)
+  single_qc_real_Y.m3 = (uint16_T)(thrust < 0.0F ? (int32_T)(uint16_T)-(int16_T)
     (uint16_T)-thrust : (int32_T)(uint16_T)thrust);
 
   /* Outport: '<Root>/m4' incorporates:
    *  DataTypeConversion: '<Root>/Data Type Conversion2'
    */
-  single_qc_real_Y.m4 = (uint16_T)(ftx < 0.0 ? (int32_T)(uint16_T)-(int16_T)
+  single_qc_real_Y.m4 = (uint16_T)(ftx < 0.0F ? (int32_T)(uint16_T)-(int16_T)
     (uint16_T)-ftx : (int32_T)(uint16_T)ftx);
 
   /* Outport: '<Root>/u_beta' */
-  single_qc_real_Y.u_beta = rtb_Sum_b;
+  single_qc_real_Y.u_beta = rtb_Sum2;
+
+  /* Outport: '<Root>/t_dbout' */
+  single_qc_real_Y.t_dbout = rtb_dgain_f;
+
+  /* Outport: '<Root>/t_ibout' */
+  single_qc_real_Y.t_ibout = rtb_igain_d;
+
+  /* Outport: '<Root>/t_pbout' */
+  single_qc_real_Y.t_pbout = rtb_pgain_c;
 
   /* Outport: '<Root>/error_beta' */
   single_qc_real_Y.error_beta = rtb_Sum1;
 
   /* Outport: '<Root>/u_alpha' */
-  single_qc_real_Y.u_alpha = rtb_Sum_f;
+  single_qc_real_Y.u_alpha = rtb_Sum2_p;
 
   /* Outport: '<Root>/error_alpha' */
   single_qc_real_Y.error_alpha = rtb_Sum;
@@ -399,23 +435,27 @@ void single_qc_real_step(void)
    */
   single_qc_real_Y.t_betain = single_qc_real_U.beta_desired;
 
-  /* Update for DiscreteIntegrator: '<S39>/Integrator' incorporates:
-   *  Gain: '<S36>/Integral Gain'
+  /* Update for Memory: '<S4>/Memory' */
+  single_qc_real_DW.Memory_PreviousInput = rtb_Sum;
+
+  /* Update for UnitDelay: '<S6>/UD'
+   *
+   * Block description for '<S6>/UD':
+   *
+   *  Store in Global RAM
    */
-  single_qc_real_DW.Integrator_DSTATE += single_qc_real_P.igaina * rtb_Sum *
-    single_qc_real_P.Integrator_gainval;
+  single_qc_real_DW.UD_DSTATE = rtb_TSamp;
 
-  /* Update for Delay: '<S32>/UD' */
-  single_qc_real_DW.UD_DSTATE = rtb_Tsamp;
+  /* Update for Memory: '<S5>/Memory' */
+  single_qc_real_DW.Memory_PreviousInput_d = rtb_Sum1;
 
-  /* Update for DiscreteIntegrator: '<S89>/Integrator' incorporates:
-   *  Gain: '<S86>/Integral Gain'
+  /* Update for UnitDelay: '<S7>/UD'
+   *
+   * Block description for '<S7>/UD':
+   *
+   *  Store in Global RAM
    */
-  single_qc_real_DW.Integrator_DSTATE_e += single_qc_real_P.igainb * rtb_Sum1 *
-    single_qc_real_P.Integrator_gainval_i;
-
-  /* Update for Delay: '<S82>/UD' */
-  single_qc_real_DW.UD_DSTATE_e = rtb_Tsamp_c;
+  single_qc_real_DW.UD_DSTATE_l = rtb_TSamp_n;
 }
 
 /* Model initialize function */
@@ -434,20 +474,30 @@ void single_qc_real_initialize(void)
   (void) memset((void *)&single_qc_real_Y, 0,
                 sizeof(ExtY_single_qc_real_T));
 
-  /* InitializeConditions for DiscreteIntegrator: '<S39>/Integrator' */
-  single_qc_real_DW.Integrator_DSTATE =
-    single_qc_real_P.DiscretePIDController_InitialCo;
+  /* InitializeConditions for Memory: '<S4>/Memory' */
+  single_qc_real_DW.Memory_PreviousInput =
+    single_qc_real_P.Memory_InitialCondition;
 
-  /* InitializeConditions for Delay: '<S32>/UD' */
-  single_qc_real_DW.UD_DSTATE = single_qc_real_P.DiscretePIDController_Different;
+  /* InitializeConditions for UnitDelay: '<S6>/UD'
+   *
+   * Block description for '<S6>/UD':
+   *
+   *  Store in Global RAM
+   */
+  single_qc_real_DW.UD_DSTATE = single_qc_real_P.DiscreteDerivative2_ICPrevScale;
 
-  /* InitializeConditions for DiscreteIntegrator: '<S89>/Integrator' */
-  single_qc_real_DW.Integrator_DSTATE_e =
-    single_qc_real_P.DiscretePIDController1_InitialC;
+  /* InitializeConditions for Memory: '<S5>/Memory' */
+  single_qc_real_DW.Memory_PreviousInput_d =
+    single_qc_real_P.Memory_InitialCondition_g;
 
-  /* InitializeConditions for Delay: '<S82>/UD' */
-  single_qc_real_DW.UD_DSTATE_e =
-    single_qc_real_P.DiscretePIDController1_Differen;
+  /* InitializeConditions for UnitDelay: '<S7>/UD'
+   *
+   * Block description for '<S7>/UD':
+   *
+   *  Store in Global RAM
+   */
+  single_qc_real_DW.UD_DSTATE_l =
+    single_qc_real_P.DiscreteDerivative2_ICPrevSca_h;
 }
 
 /* Model terminate function */

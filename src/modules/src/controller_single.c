@@ -87,6 +87,10 @@ LOG_ADD(LOG_FLOAT, t_bin, &single_qc_real_Y.t_betain)
 LOG_ADD(LOG_FLOAT, t_tin, &single_qc_real_Y.t_thrustin)
 LOG_ADD(LOG_FLOAT, t_pa, &single_qc_real_Y.t_pgaina)
 LOG_ADD(LOG_FLOAT, t_da, &single_qc_real_Y.t_dgaina)
+
+LOG_ADD(LOG_FLOAT, t_pbout, &single_qc_real_Y.t_pbout)
+LOG_ADD(LOG_FLOAT, t_ibout, &single_qc_real_Y.t_ibout)
+LOG_ADD(LOG_FLOAT, t_dbout, &single_qc_real_Y.t_dbout)
 LOG_GROUP_STOP(sctrl)
 
 

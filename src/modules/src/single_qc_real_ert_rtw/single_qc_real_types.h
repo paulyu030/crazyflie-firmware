@@ -3,12 +3,12 @@
  *
  * Code generated for Simulink model 'single_qc_real'.
  *
- * Model version                  : 1.25
+ * Model version                  : 1.35
  * Simulink Coder version         : 9.3 (R2020a) 18-Nov-2019
- * C/C++ source code generated on : Wed Apr 15 17:16:14 2020
+ * C/C++ source code generated on : Thu Apr 16 01:47:08 2020
  *
  * Target selection: ert.tlc
- * Embedded hardware selection: ARM Compatible->ARM Cortex
+ * Embedded hardware selection: Intel->x86-64 (Windows64)
  * Code generation objective: Execution efficiency
  * Validation result: Not run
  */

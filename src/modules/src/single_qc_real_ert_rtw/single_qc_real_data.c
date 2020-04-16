@@ -3,12 +3,12 @@
  *
  * Code generated for Simulink model 'single_qc_real'.
  *
- * Model version                  : 1.25
+ * Model version                  : 1.35
  * Simulink Coder version         : 9.3 (R2020a) 18-Nov-2019
- * C/C++ source code generated on : Wed Apr 15 17:16:14 2020
+ * C/C++ source code generated on : Thu Apr 16 01:47:08 2020
  *
  * Target selection: ert.tlc
- * Embedded hardware selection: ARM Compatible->ARM Cortex
+ * Embedded hardware selection: Intel->x86-64 (Windows64)
  * Code generation objective: Execution efficiency
  * Validation result: Not run
  */
@@ -21,136 +21,126 @@ P_single_qc_real_T single_qc_real_P = {
   /* Variable: dgaina
    * Referenced by:
    *   '<Root>/Constant2'
-   *   '<S31>/Derivative Gain'
+   *   '<S4>/dgain'
    */
-  0.0002,
+  0.0002F,
 
   /* Variable: dgainb
-   * Referenced by: '<S81>/Derivative Gain'
+   * Referenced by: '<S5>/dgain'
    */
-  0.0002,
+  0.0002F,
 
   /* Variable: igaina
-   * Referenced by: '<S36>/Integral Gain'
+   * Referenced by: '<S4>/igain'
    */
-  0.0,
+  0.0F,
 
   /* Variable: igainb
-   * Referenced by: '<S86>/Integral Gain'
+   * Referenced by: '<S5>/igain'
    */
-  0.0,
+  0.0F,
 
   /* Variable: pgaina
    * Referenced by:
    *   '<Root>/Constant1'
-   *   '<S44>/Proportional Gain'
+   *   '<S4>/pgain'
    */
-  0.001,
+  0.001F,
 
   /* Variable: pgainb
-   * Referenced by: '<S94>/Proportional Gain'
+   * Referenced by: '<S5>/pgain'
    */
-  0.001,
+  0.001F,
 
   /* Variable: torque_modifier
    * Referenced by: '<Root>/Constant'
    */
-  1.0,
+  1.0F,
 
-  /* Mask Parameter: DiscretePIDController_Different
-   * Referenced by: '<S32>/UD'
+  /* Mask Parameter: DiscreteDerivative2_ICPrevScale
+   * Referenced by: '<S6>/UD'
    */
-  0.0,
+  0.0F,
 
-  /* Mask Parameter: DiscretePIDController1_Differen
-   * Referenced by: '<S82>/UD'
+  /* Mask Parameter: DiscreteDerivative2_ICPrevSca_h
+   * Referenced by: '<S7>/UD'
    */
-  0.0,
+  0.0F,
 
-  /* Mask Parameter: DiscretePIDController_InitialCo
-   * Referenced by: '<S39>/Integrator'
-   */
-  0.0,
-
-  /* Mask Parameter: DiscretePIDController1_InitialC
-   * Referenced by: '<S89>/Integrator'
-   */
-  0.0,
-
-  /* Expression: 0.5886/65535
+  /* Computed Parameter: Gain_Gain
    * Referenced by: '<Root>/Gain'
    */
-  8.9814602883955138E-6,
+  8.98146E-6F,
 
-  /* Expression: 0.5355
+  /* Computed Parameter: Saturation_UpperSat
    * Referenced by: '<Root>/Saturation'
    */
-  0.5355,
+  0.5355F,
 
-  /* Expression: 0
+  /* Computed Parameter: Saturation_LowerSat
    * Referenced by: '<Root>/Saturation'
    */
-  0.0,
+  0.0F,
 
-  /* Computed Parameter: Integrator_gainval
-   * Referenced by: '<S39>/Integrator'
+  /* Computed Parameter: Memory_InitialCondition
+   * Referenced by: '<S4>/Memory'
    */
-  0.002,
+  0.0F,
 
-  /* Computed Parameter: Tsamp_WtEt
-   * Referenced by: '<S34>/Tsamp'
+  /* Computed Parameter: TSamp_WtEt
+   * Referenced by: '<S6>/TSamp'
    */
-  500.0,
+  500.0F,
 
-  /* Expression: 5.6e-4
+  /* Computed Parameter: Saturation_UpperSat_b
    * Referenced by: '<S3>/Saturation'
    */
-  0.00056,
+  0.00056F,
 
-  /* Expression: -5.6e-4
+  /* Computed Parameter: Saturation_LowerSat_p
    * Referenced by: '<S3>/Saturation'
    */
-  -0.00056,
+  -0.00056F,
 
-  /* Computed Parameter: Integrator_gainval_i
-   * Referenced by: '<S89>/Integrator'
+  /* Computed Parameter: Memory_InitialCondition_g
+   * Referenced by: '<S5>/Memory'
    */
-  0.002,
+  0.0F,
 
-  /* Computed Parameter: Tsamp_WtEt_c
-   * Referenced by: '<S84>/Tsamp'
+  /* Computed Parameter: TSamp_WtEt_o
+   * Referenced by: '<S7>/TSamp'
    */
-  500.0,
+  500.0F,
 
-  /* Expression: 5.6e-4
+  /* Computed Parameter: Saturation1_UpperSat
    * Referenced by: '<S3>/Saturation1'
    */
-  0.00056,
+  0.00056F,
 
-  /* Expression: -5.6e-4
+  /* Computed Parameter: Saturation1_LowerSat
    * Referenced by: '<S3>/Saturation1'
    */
-  -0.00056,
+  -0.00056F,
 
-  /* Expression: 5.6e-4
+  /* Computed Parameter: Saturation2_UpperSat
    * Referenced by: '<S3>/Saturation2'
    */
-  0.00056,
+  0.00056F,
 
-  /* Expression: -5.6e-4
+  /* Computed Parameter: Saturation2_LowerSat
    * Referenced by: '<S3>/Saturation2'
    */
-  -0.00056,
+  -0.00056F,
 
-  /* Expression: 65535
+  /* Computed Parameter: Saturation1_UpperSat_m
    * Referenced by: '<Root>/Saturation1'
    */
-  65535.0,
+  65535.0F,
 
-  /* Expression: 0
+  /* Computed Parameter: Saturation1_LowerSat_e
    * Referenced by: '<Root>/Saturation1'
    */
-  0.0
+  0.0F
 };
 
 /*
