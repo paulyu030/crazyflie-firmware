@@ -3,9 +3,9 @@
  *
  * Code generated for Simulink model 'single_qc_real'.
  *
- * Model version                  : 1.35
+ * Model version                  : 1.43
  * Simulink Coder version         : 9.3 (R2020a) 18-Nov-2019
- * C/C++ source code generated on : Thu Apr 16 01:47:08 2020
+ * C/C++ source code generated on : Thu Apr 16 14:58:38 2020
  *
  * Target selection: ert.tlc
  * Embedded hardware selection: Intel->x86-64 (Windows64)
@@ -60,23 +60,20 @@ typedef struct {
   real32_T error_beta;                 /* '<Root>/error_beta' */
   real32_T u_alpha;                    /* '<Root>/u_alpha' */
   real32_T u_beta;                     /* '<Root>/u_beta' */
-  real32_T t_pgaina;                   /* '<Root>/t_pgaina' */
-  real32_T t_dgaina;                   /* '<Root>/t_dgaina' */
-  real32_T t_thrustin;                 /* '<Root>/t_thrustin' */
-  real32_T t_motorcom[4];              /* '<Root>/t_motorcom' */
   real32_T t_betain;                   /* '<Root>/t_betain' */
   real32_T t_betae;                    /* '<Root>/t_betae' */
-  real32_T t_pbout;                    /* '<Root>/t_pbout' */
-  real32_T t_ibout;                    /* '<Root>/t_ibout' */
-  real32_T t_dbout;                    /* '<Root>/t_dbout' */
+  real32_T t_alphain;                  /* '<Root>/t_alphain' */
+  real32_T t_alphae;                   /* '<Root>/t_alphae' */
+  real32_T t_m1;                       /* '<Root>/t_m1' */
+  real32_T t_m2;                       /* '<Root>/t_m2' */
+  real32_T t_m3;                       /* '<Root>/t_m3' */
+  real32_T t_m4;                       /* '<Root>/t_m4' */
 } ExtY_single_qc_real_T;
 
 /* Parameters (default storage) */
 struct P_single_qc_real_T_ {
   real32_T dgaina;                     /* Variable: dgaina
-                                        * Referenced by:
-                                        *   '<Root>/Constant2'
-                                        *   '<S4>/dgain'
+                                        * Referenced by: '<S4>/dgain'
                                         */
   real32_T dgainb;                     /* Variable: dgainb
                                         * Referenced by: '<S5>/dgain'
@@ -88,12 +85,19 @@ struct P_single_qc_real_T_ {
                                         * Referenced by: '<S5>/igain'
                                         */
   real32_T pgaina;                     /* Variable: pgaina
-                                        * Referenced by:
-                                        *   '<Root>/Constant1'
-                                        *   '<S4>/pgain'
+                                        * Referenced by: '<S4>/pgain'
                                         */
   real32_T pgainb;                     /* Variable: pgainb
                                         * Referenced by: '<S5>/pgain'
+                                        */
+  real32_T sat_tx;                     /* Variable: sat_tx
+                                        * Referenced by: '<S3>/Saturation'
+                                        */
+  real32_T sat_ty;                     /* Variable: sat_ty
+                                        * Referenced by: '<S3>/Saturation1'
+                                        */
+  real32_T sat_tz;                     /* Variable: sat_tz
+                                        * Referenced by: '<S3>/Saturation2'
                                         */
   real32_T torque_modifier;            /* Variable: torque_modifier
                                         * Referenced by: '<Root>/Constant'
@@ -122,12 +126,6 @@ struct P_single_qc_real_T_ {
   real32_T TSamp_WtEt;                 /* Computed Parameter: TSamp_WtEt
                                         * Referenced by: '<S6>/TSamp'
                                         */
-  real32_T Saturation_UpperSat_b;   /* Computed Parameter: Saturation_UpperSat_b
-                                     * Referenced by: '<S3>/Saturation'
-                                     */
-  real32_T Saturation_LowerSat_p;   /* Computed Parameter: Saturation_LowerSat_p
-                                     * Referenced by: '<S3>/Saturation'
-                                     */
   real32_T Memory_InitialCondition_g;
                                 /* Computed Parameter: Memory_InitialCondition_g
                                  * Referenced by: '<S5>/Memory'
@@ -136,23 +134,11 @@ struct P_single_qc_real_T_ {
                                         * Referenced by: '<S7>/TSamp'
                                         */
   real32_T Saturation1_UpperSat;     /* Computed Parameter: Saturation1_UpperSat
-                                      * Referenced by: '<S3>/Saturation1'
+                                      * Referenced by: '<Root>/Saturation1'
                                       */
   real32_T Saturation1_LowerSat;     /* Computed Parameter: Saturation1_LowerSat
-                                      * Referenced by: '<S3>/Saturation1'
+                                      * Referenced by: '<Root>/Saturation1'
                                       */
-  real32_T Saturation2_UpperSat;     /* Computed Parameter: Saturation2_UpperSat
-                                      * Referenced by: '<S3>/Saturation2'
-                                      */
-  real32_T Saturation2_LowerSat;     /* Computed Parameter: Saturation2_LowerSat
-                                      * Referenced by: '<S3>/Saturation2'
-                                      */
-  real32_T Saturation1_UpperSat_m; /* Computed Parameter: Saturation1_UpperSat_m
-                                    * Referenced by: '<Root>/Saturation1'
-                                    */
-  real32_T Saturation1_LowerSat_e; /* Computed Parameter: Saturation1_LowerSat_e
-                                    * Referenced by: '<Root>/Saturation1'
-                                    */
 };
 
 /* Block parameters (default storage) */

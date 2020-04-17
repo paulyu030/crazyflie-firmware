@@ -84,13 +84,14 @@ LOG_ADD(LOG_FLOAT, u_beta, &single_qc_real_Y.u_beta)
 
 LOG_ADD(LOG_FLOAT, t_be, &single_qc_real_Y.t_betae)
 LOG_ADD(LOG_FLOAT, t_bin, &single_qc_real_Y.t_betain)
-LOG_ADD(LOG_FLOAT, t_tin, &single_qc_real_Y.t_thrustin)
-LOG_ADD(LOG_FLOAT, t_pa, &single_qc_real_Y.t_pgaina)
-LOG_ADD(LOG_FLOAT, t_da, &single_qc_real_Y.t_dgaina)
+LOG_ADD(LOG_FLOAT, t_ae, &single_qc_real_Y.t_alphae)
+LOG_ADD(LOG_FLOAT, t_ain, &single_qc_real_Y.t_alphain)
 
-LOG_ADD(LOG_FLOAT, t_pbout, &single_qc_real_Y.t_pbout)
-LOG_ADD(LOG_FLOAT, t_ibout, &single_qc_real_Y.t_ibout)
-LOG_ADD(LOG_FLOAT, t_dbout, &single_qc_real_Y.t_dbout)
+LOG_ADD(LOG_FLOAT, t_m1, &single_qc_real_Y.t_m1)
+LOG_ADD(LOG_FLOAT, t_m2, &single_qc_real_Y.t_m2)
+LOG_ADD(LOG_FLOAT, t_m3, &single_qc_real_Y.t_m3)
+LOG_ADD(LOG_FLOAT, t_m4, &single_qc_real_Y.t_m4)
+
 LOG_GROUP_STOP(sctrl)
 
 
@@ -106,5 +107,9 @@ PARAM_ADD(PARAM_FLOAT, igainb, &single_qc_real_P.igainb)
 PARAM_ADD(PARAM_FLOAT, dgainb, &single_qc_real_P.dgainb)
 
 PARAM_ADD(PARAM_FLOAT, t_mod, &single_qc_real_P.torque_modifier)
+
+PARAM_ADD(PARAM_FLOAT, s_tx, &single_qc_real_P.sat_tx)
+PARAM_ADD(PARAM_FLOAT, s_ty, &single_qc_real_P.sat_ty)
+PARAM_ADD(PARAM_FLOAT, s_tz, &single_qc_real_P.sat_tz)
 PARAM_GROUP_STOP(controller_tune)
 
