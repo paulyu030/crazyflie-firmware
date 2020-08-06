@@ -3,9 +3,9 @@
  *
  * Code generated for Simulink model 'single_qc_ppid'.
  *
- * Model version                  : 1.51
+ * Model version                  : 1.53
  * Simulink Coder version         : 9.3 (R2020a) 18-Nov-2019
- * C/C++ source code generated on : Wed Aug  5 18:07:36 2020
+ * C/C++ source code generated on : Thu Aug  6 12:16:58 2020
  *
  * Target selection: ert.tlc
  * Embedded hardware selection: Intel->x86-64 (Windows64)
@@ -29,6 +29,23 @@ ExtY_single_qc_ppid_T single_qc_ppid_Y;
 static void single_qc_ppid_quatmultiply(const real32_T q[4], const real32_T r[4],
   real32_T qout[4]);
 
+/*
+ * Output and update for atomic system:
+ *    '<S4>/MATLAB Function'
+ *    '<S4>/MATLAB Function1'
+ *    '<S5>/MATLAB Function'
+ *    '<S5>/MATLAB Function1'
+ */
+void single_qc_ppid_MATLABFunction(real32_T rtu_value, boolean_T rtu_label,
+  real32_T *rty_newvalue)
+{
+  if (rtu_label) {
+    *rty_newvalue = 0.0F;
+  } else {
+    *rty_newvalue = rtu_value;
+  }
+}
+
 /* Function for MATLAB Function: '<Root>/MATLAB Function' */
 static void single_qc_ppid_quatmultiply(const real32_T q[4], const real32_T r[4],
   real32_T qout[4])
@@ -37,6 +54,42 @@ static void single_qc_ppid_quatmultiply(const real32_T q[4], const real32_T r[4]
   qout[1] = (q[0] * r[1] + r[0] * q[1]) + (q[2] * r[3] - q[3] * r[2]);
   qout[2] = (q[0] * r[2] + r[0] * q[2]) + (q[3] * r[1] - q[1] * r[3]);
   qout[3] = (q[0] * r[3] + r[0] * q[3]) + (q[1] * r[2] - q[2] * r[1]);
+}
+
+real32_T rt_atan2f_snf_ppid(real32_T u0, real32_T u1)
+{
+  real32_T y;
+  int32_T u0_0;
+  int32_T u1_0;
+  if (rtIsNaNF(u0) || rtIsNaNF(u1)) {
+    y = (rtNaNF);
+  } else if (rtIsInfF(u0) && rtIsInfF(u1)) {
+    if (u0 > 0.0F) {
+      u0_0 = 1;
+    } else {
+      u0_0 = -1;
+    }
+
+    if (u1 > 0.0F) {
+      u1_0 = 1;
+    } else {
+      u1_0 = -1;
+    }
+
+    y = atan2f((real32_T)u0_0, (real32_T)u1_0);
+  } else if (u1 == 0.0F) {
+    if (u0 > 0.0F) {
+      y = RT_PIF / 2.0F;
+    } else if (u0 < 0.0F) {
+      y = -(RT_PIF / 2.0F);
+    } else {
+      y = 0.0F;
+    }
+  } else {
+    y = atan2f(u0, u1);
+  }
+
+  return y;
 }
 
 /* Model step function */
@@ -50,9 +103,9 @@ void single_qc_ppid_step(void)
   real32_T thrust;
   real32_T ftx;
   real32_T fty;
-  real32_T ftz;
   real32_T rtb_Sum1;
-  real32_T rtb_Sum1_a;
+  real32_T rtb_newvalue_g;
+  real32_T rtb_newvalue;
   real32_T rtb_Sum_p;
   real32_T rtb_beta_e;
   real32_T rtb_alpha_e;
@@ -61,10 +114,10 @@ void single_qc_ppid_step(void)
   real32_T rtb_TSamp;
   real32_T rtb_Sum4;
   real32_T rtb_TSamp_l;
-  real32_T rtb_Sum3_b;
+  real32_T rtb_newvalue_d;
   real32_T rtb_Sum_l;
   real32_T rtb_TSamp_e;
-  real32_T rtb_Sum1_h;
+  real32_T rtb_newvalue_h;
   real32_T rtb_Sum4_b;
   real32_T rtb_TSamp_pg;
   real32_T tmp[4];
@@ -87,11 +140,11 @@ void single_qc_ppid_step(void)
    *  Inport: '<Root>/qz_IMU'
    *  Inport: '<Root>/qz_op'
    */
-  thrust = single_qc_ppid_U.index * 3.14159274F / 4.0F;
-  tmp[0] = cosf(thrust);
+  rtb_newvalue = single_qc_ppid_U.index * 3.14159274F / 4.0F;
+  tmp[0] = cosf(rtb_newvalue);
   tmp[1] = 0.0F;
   tmp[2] = 0.0F;
-  tmp[3] = sinf(thrust);
+  tmp[3] = sinf(rtb_newvalue);
   q_bi_0[0] = single_qc_ppid_U.qw_op;
   q_bi_0[1] = single_qc_ppid_U.qx_op;
   q_bi_0[2] = single_qc_ppid_U.qy_op;
@@ -141,8 +194,8 @@ void single_qc_ppid_step(void)
     R_bii[subsa_idx_1 + 5] = tempR[(subsa_idx_1 - 1) * 3 + 2];
   }
 
-  rtb_alpha_e = atan2f(-R_bii[7], R_bii[8]);
-  rtb_beta_e = atan2f(R_bii[6], R_bii[0]);
+  rtb_alpha_e = rt_atan2f_snf_ppid(-R_bii[7], R_bii[8]);
+  rtb_beta_e = rt_atan2f_snf_ppid(R_bii[6], R_bii[0]);
 
   /* End of MATLAB Function: '<Root>/MATLAB Function' */
 
@@ -218,117 +271,123 @@ void single_qc_ppid_step(void)
   /* Sum: '<S3>/Sum1' incorporates:
    *  Inport: '<Root>/beta_desired'
    */
-  rtb_Sum1_a = single_qc_ppid_U.beta_desired - rtb_beta_e;
+  rtb_newvalue_g = single_qc_ppid_U.beta_desired - rtb_beta_e;
 
   /* Sum: '<S5>/Sum' incorporates:
    *  Memory: '<S5>/Memory'
    */
-  rtb_Sum_l = single_qc_ppid_DW.Memory_PreviousInput_f + rtb_Sum1_a;
+  rtb_Sum_l = single_qc_ppid_DW.Memory_PreviousInput_n + rtb_newvalue_g;
 
-  /* SampleTimeMath: '<S9>/TSamp'
+  /* SampleTimeMath: '<S11>/TSamp'
    *
-   * About '<S9>/TSamp':
+   * About '<S11>/TSamp':
    *  y = u * K where K = 1 / ( w * Ts )
    */
-  rtb_TSamp_e = rtb_Sum1_a * single_qc_ppid_P.TSamp_WtEt_i;
+  rtb_TSamp_e = rtb_newvalue_g * single_qc_ppid_P.TSamp_WtEt_i;
 
   /* Sum: '<S5>/Sum3' incorporates:
    *  Gain: '<S5>/dgain'
    *  Gain: '<S5>/igain'
    *  Gain: '<S5>/pgain'
    *  Inport: '<Root>/beta_speed'
+   *  Sum: '<S11>/Diff'
    *  Sum: '<S5>/Sum2'
-   *  Sum: '<S9>/Diff'
-   *  UnitDelay: '<S9>/UD'
+   *  UnitDelay: '<S11>/UD'
    *
-   * Block description for '<S9>/Diff':
+   * Block description for '<S11>/Diff':
    *
    *  Add in CPU
    *
-   * Block description for '<S9>/UD':
+   * Block description for '<S11>/UD':
    *
    *  Store in Global RAM
    */
-  rtb_Sum3_b = ((single_qc_ppid_P.pgainb * rtb_Sum1_a + single_qc_ppid_P.igainb *
-                 rtb_Sum_l) + (rtb_TSamp_e - single_qc_ppid_DW.UD_DSTATE_g) *
-                single_qc_ppid_P.dgainb) - single_qc_ppid_U.beta_speed;
+  rtb_newvalue_d = ((single_qc_ppid_P.pgainb * rtb_newvalue_g +
+                     single_qc_ppid_P.igainb * rtb_Sum_l) + (rtb_TSamp_e -
+    single_qc_ppid_DW.UD_DSTATE_g) * single_qc_ppid_P.dgainb) -
+    single_qc_ppid_U.beta_speed;
 
   /* Sum: '<S5>/Sum4' incorporates:
    *  Memory: '<S5>/Memory1'
    */
-  rtb_Sum4_b = single_qc_ppid_DW.Memory1_PreviousInput_n + rtb_Sum3_b;
+  rtb_Sum4_b = single_qc_ppid_DW.Memory1_PreviousInput_b + rtb_newvalue_d;
 
-  /* SampleTimeMath: '<S8>/TSamp'
+  /* SampleTimeMath: '<S10>/TSamp'
    *
-   * About '<S8>/TSamp':
+   * About '<S10>/TSamp':
    *  y = u * K where K = 1 / ( w * Ts )
    */
-  rtb_TSamp_pg = rtb_Sum3_b * single_qc_ppid_P.TSamp_WtEt_j;
+  rtb_TSamp_pg = rtb_newvalue_d * single_qc_ppid_P.TSamp_WtEt_j;
 
   /* Sum: '<S5>/Sum1' incorporates:
    *  Gain: '<S5>/dgain1'
    *  Gain: '<S5>/igain1'
    *  Gain: '<S5>/pgain1'
-   *  Sum: '<S8>/Diff'
-   *  UnitDelay: '<S8>/UD'
+   *  Sum: '<S10>/Diff'
+   *  UnitDelay: '<S10>/UD'
    *
-   * Block description for '<S8>/Diff':
+   * Block description for '<S10>/Diff':
    *
    *  Add in CPU
    *
-   * Block description for '<S8>/UD':
+   * Block description for '<S10>/UD':
    *
    *  Store in Global RAM
    */
-  rtb_Sum1_h = (single_qc_ppid_P.pgainbs * rtb_Sum3_b + single_qc_ppid_P.igainbs
-                * rtb_Sum4_b) + (rtb_TSamp_pg - single_qc_ppid_DW.UD_DSTATE_d0) *
-    single_qc_ppid_P.dgainbs;
+  rtb_newvalue_h = (single_qc_ppid_P.pgainbs * rtb_newvalue_d +
+                    single_qc_ppid_P.igainbs * rtb_Sum4_b) + (rtb_TSamp_pg -
+    single_qc_ppid_DW.UD_DSTATE_d0) * single_qc_ppid_P.dgainbs;
+
+  /* Product: '<S3>/Product1' incorporates:
+   *  Trigonometry: '<S3>/Trigonometric Function'
+   */
+  rtb_newvalue = rtb_Sum1 * sinf(rtb_beta_e);
 
   /* Gain: '<Root>/Gain' incorporates:
    *  Inport: '<Root>/thrust'
    */
-  ftz = single_qc_ppid_P.Gain_Gain * single_qc_ppid_U.thrust;
+  ftx = single_qc_ppid_P.Gain_Gain * single_qc_ppid_U.thrust;
 
   /* Saturate: '<Root>/Saturation' */
-  if (ftz > single_qc_ppid_P.Saturation_UpperSat) {
-    ftz = single_qc_ppid_P.Saturation_UpperSat;
+  if (ftx > single_qc_ppid_P.Saturation_UpperSat) {
+    ftx = single_qc_ppid_P.Saturation_UpperSat;
   } else {
-    if (ftz < single_qc_ppid_P.Saturation_LowerSat) {
-      ftz = single_qc_ppid_P.Saturation_LowerSat;
+    if (ftx < single_qc_ppid_P.Saturation_LowerSat) {
+      ftx = single_qc_ppid_P.Saturation_LowerSat;
     }
   }
 
   /* End of Saturate: '<Root>/Saturation' */
 
   /* MATLAB Function: '<Root>/MATLAB Function1' */
-  thrust = ftz / 4.0F;
+  thrust = ftx / 4.0F;
 
   /* Product: '<S3>/Product' incorporates:
    *  Trigonometry: '<S3>/Trigonometric Function1'
    */
-  ftz = cosf(rtb_beta_e) * rtb_Sum1;
+  ftx = cosf(rtb_beta_e) * rtb_Sum1;
 
   /* Saturate: '<S3>/Saturation' */
-  if (ftz > single_qc_ppid_P.sat_tx) {
-    ftz = single_qc_ppid_P.sat_tx;
+  if (ftx > single_qc_ppid_P.sat_tx) {
+    ftx = single_qc_ppid_P.sat_tx;
   } else {
-    if (ftz < -single_qc_ppid_P.sat_tx) {
-      ftz = -single_qc_ppid_P.sat_tx;
+    if (ftx < -single_qc_ppid_P.sat_tx) {
+      ftx = -single_qc_ppid_P.sat_tx;
     }
   }
 
   /* End of Saturate: '<S3>/Saturation' */
 
   /* MATLAB Function: '<Root>/MATLAB Function1' */
-  ftx = ftz / 4.0F / 0.03165F;
+  ftx = ftx / 4.0F / 0.03165F;
 
   /* Saturate: '<S3>/Saturation1' */
-  if (rtb_Sum1_h > single_qc_ppid_P.sat_ty) {
+  if (rtb_newvalue_h > single_qc_ppid_P.sat_ty) {
     fty = single_qc_ppid_P.sat_ty;
-  } else if (rtb_Sum1_h < -single_qc_ppid_P.sat_ty) {
+  } else if (rtb_newvalue_h < -single_qc_ppid_P.sat_ty) {
     fty = -single_qc_ppid_P.sat_ty;
   } else {
-    fty = rtb_Sum1_h;
+    fty = rtb_newvalue_h;
   }
 
   /* End of Saturate: '<S3>/Saturation1' */
@@ -336,17 +395,12 @@ void single_qc_ppid_step(void)
   /* MATLAB Function: '<Root>/MATLAB Function1' */
   fty = fty / 4.0F / 0.03165F;
 
-  /* Product: '<S3>/Product1' incorporates:
-   *  Trigonometry: '<S3>/Trigonometric Function'
-   */
-  ftz = rtb_Sum1 * sinf(rtb_beta_e);
-
   /* Saturate: '<S3>/Saturation2' */
-  if (ftz > single_qc_ppid_P.sat_tz) {
-    ftz = single_qc_ppid_P.sat_tz;
+  if (rtb_newvalue > single_qc_ppid_P.sat_tz) {
+    rtb_newvalue = single_qc_ppid_P.sat_tz;
   } else {
-    if (ftz < -single_qc_ppid_P.sat_tz) {
-      ftz = -single_qc_ppid_P.sat_tz;
+    if (rtb_newvalue < -single_qc_ppid_P.sat_tz) {
+      rtb_newvalue = -single_qc_ppid_P.sat_tz;
     }
   }
 
@@ -355,85 +409,106 @@ void single_qc_ppid_step(void)
   /* MATLAB Function: '<Root>/MATLAB Function1' incorporates:
    *  Constant: '<Root>/Constant'
    */
-  ftz = ftz / 4.0F / 0.03165F * single_qc_ppid_P.torque_modifier;
+  rtb_newvalue = rtb_newvalue / 4.0F / 0.03165F *
+    single_qc_ppid_P.torque_modifier;
   q_bi_tmp = thrust + ftx;
-  q_bi[0] = ((q_bi_tmp - fty) - ftz) / 0.1472F * 65535.0F;
+  q_bi[0] = ((q_bi_tmp - fty) - rtb_newvalue) / 0.1472F * 65535.0F;
   thrust -= ftx;
-  q_bi[1] = ((thrust - fty) + ftz) / 0.1472F * 65535.0F;
-  q_bi[2] = ((thrust + fty) - ftz) / 0.1472F * 65535.0F;
-  q_bi[3] = ((q_bi_tmp + fty) + ftz) / 0.1472F * 65535.0F;
+  q_bi[1] = ((thrust - fty) + rtb_newvalue) / 0.1472F * 65535.0F;
+  q_bi[2] = ((thrust + fty) - rtb_newvalue) / 0.1472F * 65535.0F;
+  q_bi[3] = ((q_bi_tmp + fty) + rtb_newvalue) / 0.1472F * 65535.0F;
 
   /* Saturate: '<Root>/Saturation1' */
   if (q_bi[0] > single_qc_ppid_P.Saturation1_UpperSat) {
-    ftz = single_qc_ppid_P.Saturation1_UpperSat;
+    fty = single_qc_ppid_P.Saturation1_UpperSat;
   } else if (q_bi[0] < single_qc_ppid_P.Saturation1_LowerSat) {
-    ftz = single_qc_ppid_P.Saturation1_LowerSat;
+    fty = single_qc_ppid_P.Saturation1_LowerSat;
   } else {
-    ftz = q_bi[0];
+    fty = q_bi[0];
   }
 
   /* DataTypeConversion: '<Root>/Data Type Conversion2' */
-  thrust = fmodf(floorf(ftz), 65536.0F);
+  rtb_newvalue = floorf(fty);
+  if (rtIsNaNF(rtb_newvalue) || rtIsInfF(rtb_newvalue)) {
+    rtb_newvalue = 0.0F;
+  } else {
+    rtb_newvalue = fmodf(rtb_newvalue, 65536.0F);
+  }
 
   /* Saturate: '<Root>/Saturation1' */
   if (q_bi[1] > single_qc_ppid_P.Saturation1_UpperSat) {
-    ftz = single_qc_ppid_P.Saturation1_UpperSat;
+    fty = single_qc_ppid_P.Saturation1_UpperSat;
   } else if (q_bi[1] < single_qc_ppid_P.Saturation1_LowerSat) {
-    ftz = single_qc_ppid_P.Saturation1_LowerSat;
+    fty = single_qc_ppid_P.Saturation1_LowerSat;
   } else {
-    ftz = q_bi[1];
+    fty = q_bi[1];
   }
 
   /* DataTypeConversion: '<Root>/Data Type Conversion2' */
-  ftx = fmodf(floorf(ftz), 65536.0F);
+  thrust = floorf(fty);
+  if (rtIsNaNF(thrust) || rtIsInfF(thrust)) {
+    thrust = 0.0F;
+  } else {
+    thrust = fmodf(thrust, 65536.0F);
+  }
 
   /* Saturate: '<Root>/Saturation1' */
   if (q_bi[2] > single_qc_ppid_P.Saturation1_UpperSat) {
-    ftz = single_qc_ppid_P.Saturation1_UpperSat;
+    fty = single_qc_ppid_P.Saturation1_UpperSat;
   } else if (q_bi[2] < single_qc_ppid_P.Saturation1_LowerSat) {
-    ftz = single_qc_ppid_P.Saturation1_LowerSat;
+    fty = single_qc_ppid_P.Saturation1_LowerSat;
   } else {
-    ftz = q_bi[2];
+    fty = q_bi[2];
   }
 
   /* DataTypeConversion: '<Root>/Data Type Conversion2' */
-  fty = fmodf(floorf(ftz), 65536.0F);
+  ftx = floorf(fty);
+  if (rtIsNaNF(ftx) || rtIsInfF(ftx)) {
+    ftx = 0.0F;
+  } else {
+    ftx = fmodf(ftx, 65536.0F);
+  }
 
   /* Saturate: '<Root>/Saturation1' */
   if (q_bi[3] > single_qc_ppid_P.Saturation1_UpperSat) {
-    ftz = single_qc_ppid_P.Saturation1_UpperSat;
+    fty = single_qc_ppid_P.Saturation1_UpperSat;
   } else if (q_bi[3] < single_qc_ppid_P.Saturation1_LowerSat) {
-    ftz = single_qc_ppid_P.Saturation1_LowerSat;
+    fty = single_qc_ppid_P.Saturation1_LowerSat;
   } else {
-    ftz = q_bi[3];
+    fty = q_bi[3];
   }
 
   /* DataTypeConversion: '<Root>/Data Type Conversion2' */
-  ftz = fmodf(floorf(ftz), 65536.0F);
+  fty = floorf(fty);
+  if (rtIsNaNF(fty) || rtIsInfF(fty)) {
+    fty = 0.0F;
+  } else {
+    fty = fmodf(fty, 65536.0F);
+  }
 
   /* Outport: '<Root>/m1' incorporates:
    *  DataTypeConversion: '<Root>/Data Type Conversion2'
    */
-  single_qc_ppid_Y.m1 = (uint16_T)(thrust < 0.0F ? (int32_T)(uint16_T)-(int16_T)
-    (uint16_T)-thrust : (int32_T)(uint16_T)thrust);
+  single_qc_ppid_Y.m1 = (uint16_T)(rtb_newvalue < 0.0F ? (int32_T)(uint16_T)
+    -(int16_T)(uint16_T)-rtb_newvalue : (int32_T)(uint16_T)rtb_newvalue);
 
   /* Outport: '<Root>/m2' incorporates:
    *  DataTypeConversion: '<Root>/Data Type Conversion2'
    */
-  single_qc_ppid_Y.m2 = (uint16_T)(ftx < 0.0F ? (int32_T)(uint16_T)-(int16_T)
-    (uint16_T)-ftx : (int32_T)(uint16_T)ftx);
+  single_qc_ppid_Y.m2 = (uint16_T)(thrust < 0.0F ? (int32_T)(uint16_T)-(int16_T)
+    (uint16_T)-thrust : (int32_T)(uint16_T)thrust);
 
   /* Outport: '<Root>/m3' incorporates:
    *  DataTypeConversion: '<Root>/Data Type Conversion2'
    */
-  single_qc_ppid_Y.m3 = (uint16_T)(fty < 0.0F ? (int32_T)(uint16_T)-(int16_T)
-    (uint16_T)-fty : (int32_T)(uint16_T)fty);
+  single_qc_ppid_Y.m3 = (uint16_T)(ftx < 0.0F ? (int32_T)(uint16_T)-(int16_T)
+    (uint16_T)-ftx : (int32_T)(uint16_T)ftx);
 
   /* Outport: '<Root>/m4' incorporates:
    *  DataTypeConversion: '<Root>/Data Type Conversion2'
    */
-  single_qc_ppid_Y.m4 = (uint16_T)(ftz < 0.0F ? (int32_T)(uint16_T)-(int16_T)
-    (uint16_T)-ftz : (int32_T)(uint16_T)ftz);
+  single_qc_ppid_Y.m4 = (uint16_T)(fty < 0.0F ? (int32_T)(uint16_T)-(int16_T)
+    (uint16_T)-fty : (int32_T)(uint16_T)fty);
 
   /* Outport: '<Root>/t_m1' */
   single_qc_ppid_Y.t_m1 = q_bi[0];
@@ -448,19 +523,39 @@ void single_qc_ppid_step(void)
   single_qc_ppid_Y.t_m4 = q_bi[3];
 
   /* Outport: '<Root>/u_beta' */
-  single_qc_ppid_Y.u_beta = rtb_Sum1_h;
+  single_qc_ppid_Y.u_beta = rtb_newvalue_h;
+
+  /* MATLAB Function: '<S5>/MATLAB Function1' incorporates:
+   *  RelationalOperator: '<S5>/IsNaN1'
+   */
+  single_qc_ppid_MATLABFunction(rtb_Sum4_b, rtIsNaNF(rtb_Sum4_b), &rtb_newvalue);
 
   /* Outport: '<Root>/error_betas' */
-  single_qc_ppid_Y.error_betas = rtb_Sum3_b;
+  single_qc_ppid_Y.error_betas = rtb_newvalue_d;
+
+  /* MATLAB Function: '<S5>/MATLAB Function' incorporates:
+   *  RelationalOperator: '<S5>/IsNaN'
+   */
+  single_qc_ppid_MATLABFunction(rtb_Sum_l, rtIsNaNF(rtb_Sum_l), &rtb_newvalue_h);
 
   /* Outport: '<Root>/error_beta' */
-  single_qc_ppid_Y.error_beta = rtb_Sum1_a;
+  single_qc_ppid_Y.error_beta = rtb_newvalue_g;
 
   /* Outport: '<Root>/u_alpha' */
   single_qc_ppid_Y.u_alpha = rtb_Sum1;
 
+  /* MATLAB Function: '<S4>/MATLAB Function1' incorporates:
+   *  RelationalOperator: '<S4>/IsNaN1'
+   */
+  single_qc_ppid_MATLABFunction(rtb_Sum4, rtIsNaNF(rtb_Sum4), &rtb_newvalue_d);
+
   /* Outport: '<Root>/error_alphas' */
   single_qc_ppid_Y.error_alphas = rtb_Sum3;
+
+  /* MATLAB Function: '<S4>/MATLAB Function' incorporates:
+   *  RelationalOperator: '<S4>/IsNaN'
+   */
+  single_qc_ppid_MATLABFunction(rtb_Sum, rtIsNaNF(rtb_Sum), &rtb_newvalue_g);
 
   /* Outport: '<Root>/error_alpha' */
   single_qc_ppid_Y.error_alpha = rtb_Sum_p;
@@ -482,7 +577,7 @@ void single_qc_ppid_step(void)
   single_qc_ppid_Y.t_alphain = single_qc_ppid_U.alpha_desired;
 
   /* Update for Memory: '<S4>/Memory' */
-  single_qc_ppid_DW.Memory_PreviousInput = rtb_Sum;
+  single_qc_ppid_DW.Memory_PreviousInput = rtb_newvalue_g;
 
   /* Update for UnitDelay: '<S7>/UD'
    *
@@ -493,7 +588,7 @@ void single_qc_ppid_step(void)
   single_qc_ppid_DW.UD_DSTATE = rtb_TSamp;
 
   /* Update for Memory: '<S4>/Memory1' */
-  single_qc_ppid_DW.Memory1_PreviousInput = rtb_Sum4;
+  single_qc_ppid_DW.Memory1_PreviousInput = rtb_newvalue_d;
 
   /* Update for UnitDelay: '<S6>/UD'
    *
@@ -504,22 +599,22 @@ void single_qc_ppid_step(void)
   single_qc_ppid_DW.UD_DSTATE_d = rtb_TSamp_l;
 
   /* Update for Memory: '<S5>/Memory' */
-  single_qc_ppid_DW.Memory_PreviousInput_f = rtb_Sum_l;
+  single_qc_ppid_DW.Memory_PreviousInput_n = rtb_newvalue_h;
 
-  /* Update for UnitDelay: '<S9>/UD'
+  /* Update for UnitDelay: '<S11>/UD'
    *
-   * Block description for '<S9>/UD':
+   * Block description for '<S11>/UD':
    *
    *  Store in Global RAM
    */
   single_qc_ppid_DW.UD_DSTATE_g = rtb_TSamp_e;
 
   /* Update for Memory: '<S5>/Memory1' */
-  single_qc_ppid_DW.Memory1_PreviousInput_n = rtb_Sum4_b;
+  single_qc_ppid_DW.Memory1_PreviousInput_b = rtb_newvalue;
 
-  /* Update for UnitDelay: '<S8>/UD'
+  /* Update for UnitDelay: '<S10>/UD'
    *
-   * Block description for '<S8>/UD':
+   * Block description for '<S10>/UD':
    *
    *  Store in Global RAM
    */
@@ -530,6 +625,9 @@ void single_qc_ppid_step(void)
 void single_qc_ppid_initialize(void)
 {
   /* Registration code */
+
+  /* initialize non-finites */
+  rt_InitInfAndNaN(sizeof(real_T));
 
   /* states (dwork) */
   (void) memset((void *)&single_qc_ppid_DW, 0,
@@ -568,12 +666,12 @@ void single_qc_ppid_initialize(void)
     single_qc_ppid_P.DiscreteDerivative1_ICPrevScale;
 
   /* InitializeConditions for Memory: '<S5>/Memory' */
-  single_qc_ppid_DW.Memory_PreviousInput_f =
-    single_qc_ppid_P.Memory_InitialCondition_c;
+  single_qc_ppid_DW.Memory_PreviousInput_n =
+    single_qc_ppid_P.Memory_InitialCondition_a;
 
-  /* InitializeConditions for UnitDelay: '<S9>/UD'
+  /* InitializeConditions for UnitDelay: '<S11>/UD'
    *
-   * Block description for '<S9>/UD':
+   * Block description for '<S11>/UD':
    *
    *  Store in Global RAM
    */
@@ -581,12 +679,12 @@ void single_qc_ppid_initialize(void)
     single_qc_ppid_P.DiscreteDerivative2_ICPrevSca_c;
 
   /* InitializeConditions for Memory: '<S5>/Memory1' */
-  single_qc_ppid_DW.Memory1_PreviousInput_n =
+  single_qc_ppid_DW.Memory1_PreviousInput_b =
     single_qc_ppid_P.Memory1_InitialCondition_d;
 
-  /* InitializeConditions for UnitDelay: '<S8>/UD'
+  /* InitializeConditions for UnitDelay: '<S10>/UD'
    *
-   * Block description for '<S8>/UD':
+   * Block description for '<S10>/UD':
    *
    *  Store in Global RAM
    */

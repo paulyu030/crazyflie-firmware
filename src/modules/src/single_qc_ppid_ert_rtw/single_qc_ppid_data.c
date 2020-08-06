@@ -3,9 +3,9 @@
  *
  * Code generated for Simulink model 'single_qc_ppid'.
  *
- * Model version                  : 1.51
+ * Model version                  : 1.53
  * Simulink Coder version         : 9.3 (R2020a) 18-Nov-2019
- * C/C++ source code generated on : Wed Aug  5 18:07:36 2020
+ * C/C++ source code generated on : Thu Aug  6 12:16:58 2020
  *
  * Target selection: ert.tlc
  * Embedded hardware selection: Intel->x86-64 (Windows64)
@@ -109,12 +109,12 @@ P_single_qc_ppid_T single_qc_ppid_P = {
   0.0F,
 
   /* Mask Parameter: DiscreteDerivative2_ICPrevSca_c
-   * Referenced by: '<S9>/UD'
+   * Referenced by: '<S11>/UD'
    */
   0.0F,
 
   /* Mask Parameter: DiscreteDerivative1_ICPrevSca_d
-   * Referenced by: '<S8>/UD'
+   * Referenced by: '<S10>/UD'
    */
   0.0F,
 
@@ -153,13 +153,13 @@ P_single_qc_ppid_T single_qc_ppid_P = {
    */
   500.0F,
 
-  /* Computed Parameter: Memory_InitialCondition_c
+  /* Computed Parameter: Memory_InitialCondition_a
    * Referenced by: '<S5>/Memory'
    */
   0.0F,
 
   /* Computed Parameter: TSamp_WtEt_i
-   * Referenced by: '<S9>/TSamp'
+   * Referenced by: '<S11>/TSamp'
    */
   500.0F,
 
@@ -169,7 +169,7 @@ P_single_qc_ppid_T single_qc_ppid_P = {
   0.0F,
 
   /* Computed Parameter: TSamp_WtEt_j
-   * Referenced by: '<S8>/TSamp'
+   * Referenced by: '<S10>/TSamp'
    */
   500.0F,
 

@@ -3,9 +3,9 @@
  *
  * Code generated for Simulink model 'single_qc_ppid'.
  *
- * Model version                  : 1.51
+ * Model version                  : 1.53
  * Simulink Coder version         : 9.3 (R2020a) 18-Nov-2019
- * C/C++ source code generated on : Wed Aug  5 18:07:36 2020
+ * C/C++ source code generated on : Thu Aug  6 12:16:58 2020
  *
  * Target selection: ert.tlc
  * Embedded hardware selection: Intel->x86-64 (Windows64)
@@ -23,6 +23,9 @@
 #endif                                 /* single_qc_ppid_COMMON_INCLUDES_ */
 
 #include "single_qc_ppid_types.h"
+#include "rt_defines.h"
+#include "rt_nonfinite.h"
+#include "rtGetInf.h"
 
 /* Macros for accessing real-time model data structure */
 
@@ -30,12 +33,12 @@
 typedef struct {
   real32_T UD_DSTATE;                  /* '<S7>/UD' */
   real32_T UD_DSTATE_d;                /* '<S6>/UD' */
-  real32_T UD_DSTATE_g;                /* '<S9>/UD' */
-  real32_T UD_DSTATE_d0;               /* '<S8>/UD' */
+  real32_T UD_DSTATE_g;                /* '<S11>/UD' */
+  real32_T UD_DSTATE_d0;               /* '<S10>/UD' */
   real32_T Memory_PreviousInput;       /* '<S4>/Memory' */
   real32_T Memory1_PreviousInput;      /* '<S4>/Memory1' */
-  real32_T Memory_PreviousInput_f;     /* '<S5>/Memory' */
-  real32_T Memory1_PreviousInput_n;    /* '<S5>/Memory1' */
+  real32_T Memory_PreviousInput_n;     /* '<S5>/Memory' */
+  real32_T Memory1_PreviousInput_b;    /* '<S5>/Memory1' */
 } DW_single_qc_ppid_T;
 
 /* External inputs (root inport signals with default storage) */
@@ -138,11 +141,11 @@ struct P_single_qc_ppid_T_ {
                                */
   real32_T DiscreteDerivative2_ICPrevSca_c;
                               /* Mask Parameter: DiscreteDerivative2_ICPrevSca_c
-                               * Referenced by: '<S9>/UD'
+                               * Referenced by: '<S11>/UD'
                                */
   real32_T DiscreteDerivative1_ICPrevSca_d;
                               /* Mask Parameter: DiscreteDerivative1_ICPrevSca_d
-                               * Referenced by: '<S8>/UD'
+                               * Referenced by: '<S10>/UD'
                                */
   real32_T Gain_Gain;                  /* Computed Parameter: Gain_Gain
                                         * Referenced by: '<Root>/Gain'
@@ -167,19 +170,19 @@ struct P_single_qc_ppid_T_ {
   real32_T TSamp_WtEt_d;               /* Computed Parameter: TSamp_WtEt_d
                                         * Referenced by: '<S6>/TSamp'
                                         */
-  real32_T Memory_InitialCondition_c;
-                                /* Computed Parameter: Memory_InitialCondition_c
+  real32_T Memory_InitialCondition_a;
+                                /* Computed Parameter: Memory_InitialCondition_a
                                  * Referenced by: '<S5>/Memory'
                                  */
   real32_T TSamp_WtEt_i;               /* Computed Parameter: TSamp_WtEt_i
-                                        * Referenced by: '<S9>/TSamp'
+                                        * Referenced by: '<S11>/TSamp'
                                         */
   real32_T Memory1_InitialCondition_d;
                                /* Computed Parameter: Memory1_InitialCondition_d
                                 * Referenced by: '<S5>/Memory1'
                                 */
   real32_T TSamp_WtEt_j;               /* Computed Parameter: TSamp_WtEt_j
-                                        * Referenced by: '<S8>/TSamp'
+                                        * Referenced by: '<S10>/TSamp'
                                         */
   real32_T Saturation1_UpperSat;     /* Computed Parameter: Saturation1_UpperSat
                                       * Referenced by: '<Root>/Saturation1'
@@ -211,8 +214,8 @@ extern void single_qc_ppid_terminate(void);
  *
  * Block '<S6>/Data Type Duplicate' : Unused code path elimination
  * Block '<S7>/Data Type Duplicate' : Unused code path elimination
- * Block '<S8>/Data Type Duplicate' : Unused code path elimination
- * Block '<S9>/Data Type Duplicate' : Unused code path elimination
+ * Block '<S10>/Data Type Duplicate' : Unused code path elimination
+ * Block '<S11>/Data Type Duplicate' : Unused code path elimination
  * Block '<Root>/Data Type Conversion1' : Eliminate redundant data type conversion
  */
 
@@ -238,8 +241,12 @@ extern void single_qc_ppid_terminate(void);
  * '<S5>'   : 'single_qc_ppid/transformed_PID/PIDb'
  * '<S6>'   : 'single_qc_ppid/transformed_PID/PIDa/Discrete Derivative1'
  * '<S7>'   : 'single_qc_ppid/transformed_PID/PIDa/Discrete Derivative2'
- * '<S8>'   : 'single_qc_ppid/transformed_PID/PIDb/Discrete Derivative1'
- * '<S9>'   : 'single_qc_ppid/transformed_PID/PIDb/Discrete Derivative2'
+ * '<S8>'   : 'single_qc_ppid/transformed_PID/PIDa/MATLAB Function'
+ * '<S9>'   : 'single_qc_ppid/transformed_PID/PIDa/MATLAB Function1'
+ * '<S10>'  : 'single_qc_ppid/transformed_PID/PIDb/Discrete Derivative1'
+ * '<S11>'  : 'single_qc_ppid/transformed_PID/PIDb/Discrete Derivative2'
+ * '<S12>'  : 'single_qc_ppid/transformed_PID/PIDb/MATLAB Function'
+ * '<S13>'  : 'single_qc_ppid/transformed_PID/PIDb/MATLAB Function1'
  */
 #endif                                 /* RTW_HEADER_single_qc_ppid_h_ */
 

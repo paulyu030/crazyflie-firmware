@@ -2,7 +2,7 @@
 ## Makefile generated for Simulink model 'single_qc_ppid'. 
 ## 
 ## Makefile     : single_qc_ppid.mk
-## Generated on : Wed Aug 05 18:07:43 2020
+## Generated on : Thu Aug 06 12:17:05 2020
 ## MATLAB Coder version: 5.0 (R2020a)
 ## 
 ## Build Info:
@@ -189,7 +189,7 @@ DEFINES = $(DEFINES_BUILD_ARGS) $(DEFINES_CUSTOM) $(DEFINES_OPTS) $(DEFINES_STAN
 ## SOURCE FILES
 ###########################################################################
 
-SRCS = $(START_DIR)\single_qc_ppid_ert_rtw\single_qc_ppid.c $(START_DIR)\single_qc_ppid_ert_rtw\single_qc_ppid_data.c
+SRCS = $(START_DIR)\single_qc_ppid_ert_rtw\rtGetInf.c $(START_DIR)\single_qc_ppid_ert_rtw\rtGetNaN.c $(START_DIR)\single_qc_ppid_ert_rtw\rt_nonfinite.c $(START_DIR)\single_qc_ppid_ert_rtw\single_qc_ppid.c $(START_DIR)\single_qc_ppid_ert_rtw\single_qc_ppid_data.c
 
 MAIN_SRC = $(START_DIR)\single_qc_ppid_ert_rtw\ert_main.c
 
@@ -199,7 +199,7 @@ ALL_SRCS = $(SRCS) $(MAIN_SRC)
 ## OBJECTS
 ###########################################################################
 
-OBJS = single_qc_ppid.obj single_qc_ppid_data.obj
+OBJS = rtGetInf.obj rtGetNaN.obj rt_nonfinite.obj single_qc_ppid.obj single_qc_ppid_data.obj
 
 MAIN_OBJ = ert_main.obj
 
@@ -358,6 +358,18 @@ $(PRODUCT) : $(OBJS) $(PREBUILT_OBJS) $(MAIN_OBJ)
 
 ert_main.obj : $(START_DIR)\single_qc_ppid_ert_rtw\ert_main.c
 	$(CC) $(CFLAGS) -Fo"$@" $(START_DIR)\single_qc_ppid_ert_rtw\ert_main.c
+
+
+rtGetInf.obj : $(START_DIR)\single_qc_ppid_ert_rtw\rtGetInf.c
+	$(CC) $(CFLAGS) -Fo"$@" $(START_DIR)\single_qc_ppid_ert_rtw\rtGetInf.c
+
+
+rtGetNaN.obj : $(START_DIR)\single_qc_ppid_ert_rtw\rtGetNaN.c
+	$(CC) $(CFLAGS) -Fo"$@" $(START_DIR)\single_qc_ppid_ert_rtw\rtGetNaN.c
+
+
+rt_nonfinite.obj : $(START_DIR)\single_qc_ppid_ert_rtw\rt_nonfinite.c
+	$(CC) $(CFLAGS) -Fo"$@" $(START_DIR)\single_qc_ppid_ert_rtw\rt_nonfinite.c
 
 
 single_qc_ppid.obj : $(START_DIR)\single_qc_ppid_ert_rtw\single_qc_ppid.c
