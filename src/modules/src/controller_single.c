@@ -72,13 +72,9 @@ void controllerSingle(control_t *control, setpoint_t *setpoint,
 // only one log group is allowed
 
 LOG_GROUP_START(sctrl)
-LOG_ADD(LOG_FLOAT, M1, &single_qc_real_Y.m1)
-LOG_ADD(LOG_FLOAT, M2, &single_qc_real_Y.m2)
-LOG_ADD(LOG_FLOAT, M3, &single_qc_real_Y.m3)
-LOG_ADD(LOG_FLOAT, M4, &single_qc_real_Y.m4)
 
-LOG_ADD(LOG_FLOAT, error_alpha, &single_qc_real_Y.error_alpha)
-LOG_ADD(LOG_FLOAT, error_beta, &single_qc_real_Y.error_beta)
+LOG_ADD(LOG_FLOAT, e_alpha, &single_qc_real_Y.error_alpha)
+LOG_ADD(LOG_FLOAT, e_beta, &single_qc_real_Y.error_beta)
 LOG_ADD(LOG_FLOAT, u_alpha, &single_qc_real_Y.u_alpha)
 LOG_ADD(LOG_FLOAT, u_beta, &single_qc_real_Y.u_beta)
 
@@ -97,7 +93,7 @@ LOG_GROUP_STOP(sctrl)
 
 
 
-PARAM_GROUP_START(controller_tune)
+PARAM_GROUP_START(sparam)
 PARAM_ADD(PARAM_FLOAT, pgaina, &single_qc_real_P.pgaina)
 PARAM_ADD(PARAM_FLOAT, igaina, &single_qc_real_P.igaina)
 PARAM_ADD(PARAM_FLOAT, dgaina, &single_qc_real_P.dgaina)
@@ -111,5 +107,5 @@ PARAM_ADD(PARAM_FLOAT, t_mod, &single_qc_real_P.torque_modifier)
 PARAM_ADD(PARAM_FLOAT, s_tx, &single_qc_real_P.sat_tx)
 PARAM_ADD(PARAM_FLOAT, s_ty, &single_qc_real_P.sat_ty)
 PARAM_ADD(PARAM_FLOAT, s_tz, &single_qc_real_P.sat_tz)
-PARAM_GROUP_STOP(controller_tune)
+PARAM_GROUP_STOP(sparam)
 

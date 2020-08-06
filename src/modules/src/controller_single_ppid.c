@@ -1,4 +1,4 @@
-#define DEBUG_MODULE "Single_ppid"
+#define DEBUG_MODULE "SinglePPID"
 
 #include "stabilizer.h"
 #include "stabilizer_types.h"
@@ -74,11 +74,7 @@ void controllerSinglePPID(control_t *control, setpoint_t *setpoint,
 // log/param name can't be too long, otherwise error
 // only one log group is allowed
 
-LOG_GROUP_START(sctrl)
-LOG_ADD(LOG_FLOAT, M1, &single_qc_ppid_Y.m1)
-LOG_ADD(LOG_FLOAT, M2, &single_qc_ppid_Y.m2)
-LOG_ADD(LOG_FLOAT, M3, &single_qc_ppid_Y.m3)
-LOG_ADD(LOG_FLOAT, M4, &single_qc_ppid_Y.m4)
+LOG_GROUP_START(sctrl_ppid)
 
 LOG_ADD(LOG_FLOAT, e_alpha, &single_qc_ppid_Y.error_alpha)
 LOG_ADD(LOG_FLOAT, e_beta, &single_qc_ppid_Y.error_beta)
@@ -100,12 +96,12 @@ LOG_ADD(LOG_FLOAT, t_m2, &single_qc_ppid_Y.t_m2)
 LOG_ADD(LOG_FLOAT, t_m3, &single_qc_ppid_Y.t_m3)
 LOG_ADD(LOG_FLOAT, t_m4, &single_qc_ppid_Y.t_m4)
 
-LOG_GROUP_STOP(sctrl)
+LOG_GROUP_STOP(sctrl_ppid)
 
 
 
 
-PARAM_GROUP_START(controller_tune)
+PARAM_GROUP_START(sparam_ppid)
 PARAM_ADD(PARAM_FLOAT, pgaina, &single_qc_ppid_P.pgaina)
 PARAM_ADD(PARAM_FLOAT, igaina, &single_qc_ppid_P.igaina)
 PARAM_ADD(PARAM_FLOAT, dgaina, &single_qc_ppid_P.dgaina)
@@ -114,10 +110,18 @@ PARAM_ADD(PARAM_FLOAT, pgainb, &single_qc_ppid_P.pgainb)
 PARAM_ADD(PARAM_FLOAT, igainb, &single_qc_ppid_P.igainb)
 PARAM_ADD(PARAM_FLOAT, dgainb, &single_qc_ppid_P.dgainb)
 
+PARAM_ADD(PARAM_FLOAT, pgainas, &single_qc_ppid_P.pgainas)
+PARAM_ADD(PARAM_FLOAT, igainas, &single_qc_ppid_P.igainas)
+PARAM_ADD(PARAM_FLOAT, dgainas, &single_qc_ppid_P.dgainas)
+
+PARAM_ADD(PARAM_FLOAT, pgainbs, &single_qc_ppid_P.pgainbs)
+PARAM_ADD(PARAM_FLOAT, igainbs, &single_qc_ppid_P.igainbs)
+PARAM_ADD(PARAM_FLOAT, dgainbs, &single_qc_ppid_P.dgainbs)
+
 PARAM_ADD(PARAM_FLOAT, t_mod, &single_qc_ppid_P.torque_modifier)
 
 PARAM_ADD(PARAM_FLOAT, s_tx, &single_qc_ppid_P.sat_tx)
 PARAM_ADD(PARAM_FLOAT, s_ty, &single_qc_ppid_P.sat_ty)
 PARAM_ADD(PARAM_FLOAT, s_tz, &single_qc_ppid_P.sat_tz)
-PARAM_GROUP_STOP(controller_tune)
+PARAM_GROUP_STOP(sparam_ppid)
 

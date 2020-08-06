@@ -3,9 +3,9 @@
  *
  * Code generated for Simulink model 'single_qc_real'.
  *
- * Model version                  : 1.43
+ * Model version                  : 1.45
  * Simulink Coder version         : 9.3 (R2020a) 18-Nov-2019
- * C/C++ source code generated on : Thu Apr 16 14:58:38 2020
+ * C/C++ source code generated on : Wed Aug  5 21:01:58 2020
  *
  * Target selection: ert.tlc
  * Embedded hardware selection: Intel->x86-64 (Windows64)
@@ -52,12 +52,14 @@ void single_qc_real_step(void)
   real32_T fty;
   real32_T ftz;
   real32_T rtb_Sum2;
-  real32_T rtb_Sum2_p;
+  real32_T rtb_Sum1;
+  real32_T rtb_Sum_p;
   real32_T rtb_beta_e;
   real32_T rtb_alpha_e;
   real32_T rtb_Sum;
   real32_T rtb_TSamp;
-  real32_T rtb_Sum1;
+  real32_T rtb_Sum2_p;
+  real32_T rtb_Sum_c;
   real32_T rtb_TSamp_n;
   real32_T tmp[4];
   real32_T q_bi_0[4];
@@ -109,21 +111,21 @@ void single_qc_real_step(void)
   rtb_alpha_e = q_bi[3] * q_bi[3];
   rtb_beta_e = q_bi[2] * q_bi[2];
   tempR[0] = 1.0F - (rtb_beta_e + rtb_alpha_e) * 2.0F;
-  rtb_Sum = q_bi[1] * q_bi[2];
-  rtb_TSamp = q_bi[0] * q_bi[3];
-  tempR[1] = (rtb_Sum - rtb_TSamp) * 2.0F;
-  rtb_Sum2 = q_bi[1] * q_bi[3];
-  rtb_Sum1 = q_bi[0] * q_bi[2];
-  tempR[2] = (rtb_Sum2 + rtb_Sum1) * 2.0F;
-  tempR[3] = (rtb_Sum + rtb_TSamp) * 2.0F;
-  rtb_Sum = q_bi[1] * q_bi[1];
-  tempR[4] = 1.0F - (rtb_Sum + rtb_alpha_e) * 2.0F;
+  rtb_Sum_p = q_bi[1] * q_bi[2];
+  rtb_Sum = q_bi[0] * q_bi[3];
+  tempR[1] = (rtb_Sum_p - rtb_Sum) * 2.0F;
+  rtb_TSamp = q_bi[1] * q_bi[3];
+  rtb_Sum2 = q_bi[0] * q_bi[2];
+  tempR[2] = (rtb_TSamp + rtb_Sum2) * 2.0F;
+  tempR[3] = (rtb_Sum_p + rtb_Sum) * 2.0F;
+  rtb_Sum_p = q_bi[1] * q_bi[1];
+  tempR[4] = 1.0F - (rtb_Sum_p + rtb_alpha_e) * 2.0F;
   rtb_alpha_e = q_bi[2] * q_bi[3];
-  rtb_TSamp = q_bi[0] * q_bi[1];
-  tempR[5] = (rtb_alpha_e - rtb_TSamp) * 2.0F;
-  tempR[6] = (rtb_Sum2 - rtb_Sum1) * 2.0F;
-  tempR[7] = (rtb_alpha_e + rtb_TSamp) * 2.0F;
-  tempR[8] = 1.0F - (rtb_Sum + rtb_beta_e) * 2.0F;
+  rtb_Sum = q_bi[0] * q_bi[1];
+  tempR[5] = (rtb_alpha_e - rtb_Sum) * 2.0F;
+  tempR[6] = (rtb_TSamp - rtb_Sum2) * 2.0F;
+  tempR[7] = (rtb_alpha_e + rtb_Sum) * 2.0F;
+  tempR[8] = 1.0F - (rtb_Sum_p + rtb_beta_e) * 2.0F;
   for (d_k = 0; d_k < 3; d_k++) {
     R_bii_tmp = (int8_T)(d_k + 1) - 1;
     R_bii[R_bii_tmp] = tempR[R_bii_tmp * 3];
@@ -141,21 +143,24 @@ void single_qc_real_step(void)
   /* Sum: '<S3>/Sum' incorporates:
    *  Inport: '<Root>/alpha_desired'
    */
-  rtb_Sum = single_qc_real_U.alpha_desired - rtb_alpha_e;
+  rtb_Sum_p = single_qc_real_U.alpha_desired - rtb_alpha_e;
+
+  /* Sum: '<S4>/Sum' incorporates:
+   *  Memory: '<S4>/Memory'
+   */
+  rtb_Sum = single_qc_real_DW.Memory_PreviousInput + rtb_Sum_p;
 
   /* SampleTimeMath: '<S6>/TSamp'
    *
    * About '<S6>/TSamp':
    *  y = u * K where K = 1 / ( w * Ts )
    */
-  rtb_TSamp = rtb_Sum * single_qc_real_P.TSamp_WtEt;
+  rtb_TSamp = rtb_Sum_p * single_qc_real_P.TSamp_WtEt;
 
   /* Sum: '<S4>/Sum2' incorporates:
    *  Gain: '<S4>/dgain'
    *  Gain: '<S4>/igain'
    *  Gain: '<S4>/pgain'
-   *  Memory: '<S4>/Memory'
-   *  Sum: '<S4>/Sum'
    *  Sum: '<S6>/Diff'
    *  UnitDelay: '<S6>/UD'
    *
@@ -167,14 +172,19 @@ void single_qc_real_step(void)
    *
    *  Store in Global RAM
    */
-  rtb_Sum2 = ((single_qc_real_DW.Memory_PreviousInput + rtb_Sum) *
-              single_qc_real_P.igaina + single_qc_real_P.pgaina * rtb_Sum) +
-    (rtb_TSamp - single_qc_real_DW.UD_DSTATE) * single_qc_real_P.dgaina;
+  rtb_Sum2 = (single_qc_real_P.pgaina * rtb_Sum_p + single_qc_real_P.igaina *
+              rtb_Sum) + (rtb_TSamp - single_qc_real_DW.UD_DSTATE) *
+    single_qc_real_P.dgaina;
 
   /* Sum: '<S3>/Sum1' incorporates:
    *  Inport: '<Root>/beta_desired'
    */
   rtb_Sum1 = single_qc_real_U.beta_desired - rtb_beta_e;
+
+  /* Sum: '<S5>/Sum' incorporates:
+   *  Memory: '<S5>/Memory'
+   */
+  rtb_Sum_c = single_qc_real_DW.Memory_PreviousInput_d + rtb_Sum1;
 
   /* SampleTimeMath: '<S7>/TSamp'
    *
@@ -187,8 +197,6 @@ void single_qc_real_step(void)
    *  Gain: '<S5>/dgain'
    *  Gain: '<S5>/igain'
    *  Gain: '<S5>/pgain'
-   *  Memory: '<S5>/Memory'
-   *  Sum: '<S5>/Sum'
    *  Sum: '<S7>/Diff'
    *  UnitDelay: '<S7>/UD'
    *
@@ -200,9 +208,9 @@ void single_qc_real_step(void)
    *
    *  Store in Global RAM
    */
-  rtb_Sum2_p = ((single_qc_real_DW.Memory_PreviousInput_d + rtb_Sum1) *
-                single_qc_real_P.igainb + single_qc_real_P.pgainb * rtb_Sum1) +
-    (rtb_TSamp_n - single_qc_real_DW.UD_DSTATE_l) * single_qc_real_P.dgainb;
+  rtb_Sum2_p = (single_qc_real_P.pgainb * rtb_Sum1 + single_qc_real_P.igainb *
+                rtb_Sum_c) + (rtb_TSamp_n - single_qc_real_DW.UD_DSTATE_l) *
+    single_qc_real_P.dgainb;
 
   /* Gain: '<Root>/Gain' incorporates:
    *  Inport: '<Root>/thrust'
@@ -377,7 +385,7 @@ void single_qc_real_step(void)
   single_qc_real_Y.u_alpha = rtb_Sum2;
 
   /* Outport: '<Root>/error_alpha' */
-  single_qc_real_Y.error_alpha = rtb_Sum;
+  single_qc_real_Y.error_alpha = rtb_Sum_p;
 
   /* Outport: '<Root>/t_betae' */
   single_qc_real_Y.t_betae = rtb_beta_e;
@@ -407,7 +415,7 @@ void single_qc_real_step(void)
   single_qc_real_DW.UD_DSTATE = rtb_TSamp;
 
   /* Update for Memory: '<S5>/Memory' */
-  single_qc_real_DW.Memory_PreviousInput_d = rtb_Sum1;
+  single_qc_real_DW.Memory_PreviousInput_d = rtb_Sum_c;
 
   /* Update for UnitDelay: '<S7>/UD'
    *

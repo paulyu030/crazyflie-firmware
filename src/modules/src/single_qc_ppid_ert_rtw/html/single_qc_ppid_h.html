@@ -21,11 +21,11 @@
 <tr name="5" id="5">
 <td><a id="l5" class='ln'>5</a></td><td><span class="ct"> *</span></td></tr>
 <tr name="6" id="6">
-<td><a id="l6" class='ln'>6</a></td><td><span class="ct"> * Model version                  : 1.50</span></td></tr>
+<td><a id="l6" class='ln'>6</a></td><td><span class="ct"> * Model version                  : 1.51</span></td></tr>
 <tr name="7" id="7">
 <td><a id="l7" class='ln'>7</a></td><td><span class="ct"> * Simulink Coder version         : 9.3 (R2020a) 18-Nov-2019</span></td></tr>
 <tr name="8" id="8">
-<td><a id="l8" class='ln'>8</a></td><td><span class="ct"> * C/C++ source code generated on : Tue Aug  4 04:04:37 2020</span></td></tr>
+<td><a id="l8" class='ln'>8</a></td><td><span class="ct"> * C/C++ source code generated on : Wed Aug  5 18:07:36 2020</span></td></tr>
 <tr name="9" id="9">
 <td><a id="l9" class='ln'>9</a></td><td><span class="ct"> *</span></td></tr>
 <tr name="10" id="10">
@@ -71,21 +71,21 @@
 <tr name="30" id="30">
 <td><a id="l30" class='ln'>30</a></td><td><span class="kw">typedef</span> <span class="kw">struct</span> <span class="br">{</span></td></tr>
 <tr name="31" id="31">
-<td><a id="l31" class='ln'>31</a></td><td>  <a id="31c3" class="tk">real32_T</a> <a id="31c12" class="tk">DiscreteTimeIntegrator_DSTATE</a>;<span class="ct">/* '&lt;S4&gt;/Discrete-Time Integrator' */</span></td></tr>
+<td><a id="l31" class='ln'>31</a></td><td>  <a id="31c3" class="tk">real32_T</a> <a id="31c12" class="tk">UD_DSTATE</a>;                  <span class="ct">/* '&lt;S7&gt;/UD' */</span></td></tr>
 <tr name="32" id="32">
-<td><a id="l32" class='ln'>32</a></td><td>  <a id="32c3" class="tk">real32_T</a> <a id="32c12" class="tk">UD_DSTATE</a>;                  <span class="ct">/* '&lt;S7&gt;/UD' */</span></td></tr>
+<td><a id="l32" class='ln'>32</a></td><td>  <a id="32c3" class="tk">real32_T</a> <a id="32c12" class="tk">UD_DSTATE_d</a>;                <span class="ct">/* '&lt;S6&gt;/UD' */</span></td></tr>
 <tr name="33" id="33">
-<td><a id="l33" class='ln'>33</a></td><td>  <a id="33c3" class="tk">real32_T</a> <a id="33c12" class="tk">DiscreteTimeIntegrator1_DSTATE</a>;<span class="ct">/* '&lt;S4&gt;/Discrete-Time Integrator1' */</span></td></tr>
+<td><a id="l33" class='ln'>33</a></td><td>  <a id="33c3" class="tk">real32_T</a> <a id="33c12" class="tk">UD_DSTATE_g</a>;                <span class="ct">/* '&lt;S9&gt;/UD' */</span></td></tr>
 <tr name="34" id="34">
-<td><a id="l34" class='ln'>34</a></td><td>  <a id="34c3" class="tk">real32_T</a> <a id="34c12" class="tk">UD_DSTATE_d</a>;                <span class="ct">/* '&lt;S6&gt;/UD' */</span></td></tr>
+<td><a id="l34" class='ln'>34</a></td><td>  <a id="34c3" class="tk">real32_T</a> <a id="34c12" class="tk">UD_DSTATE_d0</a>;               <span class="ct">/* '&lt;S8&gt;/UD' */</span></td></tr>
 <tr name="35" id="35">
-<td><a id="l35" class='ln'>35</a></td><td>  <a id="35c3" class="tk">real32_T</a> <a id="35c12" class="tk">DiscreteTimeIntegrator_DSTATE_a</a>;<span class="ct">/* '&lt;S5&gt;/Discrete-Time Integrator' */</span></td></tr>
+<td><a id="l35" class='ln'>35</a></td><td>  <a id="35c3" class="tk">real32_T</a> <a id="35c12" class="tk">Memory_PreviousInput</a>;       <span class="ct">/* '&lt;S4&gt;/Memory' */</span></td></tr>
 <tr name="36" id="36">
-<td><a id="l36" class='ln'>36</a></td><td>  <a id="36c3" class="tk">real32_T</a> <a id="36c12" class="tk">UD_DSTATE_g</a>;                <span class="ct">/* '&lt;S9&gt;/UD' */</span></td></tr>
+<td><a id="l36" class='ln'>36</a></td><td>  <a id="36c3" class="tk">real32_T</a> <a id="36c12" class="tk">Memory1_PreviousInput</a>;      <span class="ct">/* '&lt;S4&gt;/Memory1' */</span></td></tr>
 <tr name="37" id="37">
-<td><a id="l37" class='ln'>37</a></td><td>  <a id="37c3" class="tk">real32_T</a> <a id="37c12" class="tk">DiscreteTimeIntegrator1_DSTAT_o</a>;<span class="ct">/* '&lt;S5&gt;/Discrete-Time Integrator1' */</span></td></tr>
+<td><a id="l37" class='ln'>37</a></td><td>  <a id="37c3" class="tk">real32_T</a> <a id="37c12" class="tk">Memory_PreviousInput_f</a>;     <span class="ct">/* '&lt;S5&gt;/Memory' */</span></td></tr>
 <tr name="38" id="38">
-<td><a id="l38" class='ln'>38</a></td><td>  <a id="38c3" class="tk">real32_T</a> <a id="38c12" class="tk">UD_DSTATE_d0</a>;               <span class="ct">/* '&lt;S8&gt;/UD' */</span></td></tr>
+<td><a id="l38" class='ln'>38</a></td><td>  <a id="38c3" class="tk">real32_T</a> <a id="38c12" class="tk">Memory1_PreviousInput_n</a>;    <span class="ct">/* '&lt;S5&gt;/Memory1' */</span></td></tr>
 <tr name="39" id="39">
 <td><a id="l39" class='ln'>39</a></td><td><span class="br">}</span> <a id="39c3" class="tk">DW_single_qc_ppid_T</a>;</td></tr>
 <tr name="40" id="40">
@@ -321,293 +321,197 @@
 <tr name="155" id="155">
 <td><a id="l155" class='ln'>155</a></td><td><span class="ct">                                       */</span></td></tr>
 <tr name="156" id="156">
-<td><a id="l156" class='ln'>156</a></td><td>  <a id="156c3" class="tk">real32_T</a> <a id="156c12" class="tk">DiscreteTimeIntegrator_gainval</a>;</td></tr>
+<td><a id="l156" class='ln'>156</a></td><td>  <a id="156c3" class="tk">real32_T</a> <a id="156c12" class="tk">Memory_InitialCondition</a>;</td></tr>
 <tr name="157" id="157">
-<td><a id="l157" class='ln'>157</a></td><td>                           <span class="ct">/* Computed Parameter: DiscreteTimeIntegrator_gainval</span></td></tr>
+<td><a id="l157" class='ln'>157</a></td><td>                                  <span class="ct">/* Computed Parameter: Memory_InitialCondition</span></td></tr>
 <tr name="158" id="158">
-<td><a id="l158" class='ln'>158</a></td><td><span class="ct">                            * Referenced by: '&lt;S4&gt;/Discrete-Time Integrator'</span></td></tr>
+<td><a id="l158" class='ln'>158</a></td><td><span class="ct">                                   * Referenced by: '&lt;S4&gt;/Memory'</span></td></tr>
 <tr name="159" id="159">
-<td><a id="l159" class='ln'>159</a></td><td><span class="ct">                            */</span></td></tr>
+<td><a id="l159" class='ln'>159</a></td><td><span class="ct">                                   */</span></td></tr>
 <tr name="160" id="160">
-<td><a id="l160" class='ln'>160</a></td><td>  <a id="160c3" class="tk">real32_T</a> <a id="160c12" class="tk">DiscreteTimeIntegrator_IC</a>;</td></tr>
+<td><a id="l160" class='ln'>160</a></td><td>  <a id="160c3" class="tk">real32_T</a> <a id="160c12" class="tk">TSamp_WtEt</a>;                 <span class="ct">/* Computed Parameter: TSamp_WtEt</span></td></tr>
 <tr name="161" id="161">
-<td><a id="l161" class='ln'>161</a></td><td>                                <span class="ct">/* Computed Parameter: DiscreteTimeIntegrator_IC</span></td></tr>
+<td><a id="l161" class='ln'>161</a></td><td><span class="ct">                                        * Referenced by: '&lt;S7&gt;/TSamp'</span></td></tr>
 <tr name="162" id="162">
-<td><a id="l162" class='ln'>162</a></td><td><span class="ct">                                 * Referenced by: '&lt;S4&gt;/Discrete-Time Integrator'</span></td></tr>
+<td><a id="l162" class='ln'>162</a></td><td><span class="ct">                                        */</span></td></tr>
 <tr name="163" id="163">
-<td><a id="l163" class='ln'>163</a></td><td><span class="ct">                                 */</span></td></tr>
+<td><a id="l163" class='ln'>163</a></td><td>  <a id="163c3" class="tk">real32_T</a> <a id="163c12" class="tk">Memory1_InitialCondition</a>;</td></tr>
 <tr name="164" id="164">
-<td><a id="l164" class='ln'>164</a></td><td>  <a id="164c3" class="tk">real32_T</a> <a id="164c12" class="tk">DiscreteTimeIntegrator_UpperSat</a>;</td></tr>
+<td><a id="l164" class='ln'>164</a></td><td>                                 <span class="ct">/* Computed Parameter: Memory1_InitialCondition</span></td></tr>
 <tr name="165" id="165">
-<td><a id="l165" class='ln'>165</a></td><td>                          <span class="ct">/* Computed Parameter: DiscreteTimeIntegrator_UpperSat</span></td></tr>
+<td><a id="l165" class='ln'>165</a></td><td><span class="ct">                                  * Referenced by: '&lt;S4&gt;/Memory1'</span></td></tr>
 <tr name="166" id="166">
-<td><a id="l166" class='ln'>166</a></td><td><span class="ct">                           * Referenced by: '&lt;S4&gt;/Discrete-Time Integrator'</span></td></tr>
+<td><a id="l166" class='ln'>166</a></td><td><span class="ct">                                  */</span></td></tr>
 <tr name="167" id="167">
-<td><a id="l167" class='ln'>167</a></td><td><span class="ct">                           */</span></td></tr>
+<td><a id="l167" class='ln'>167</a></td><td>  <a id="167c3" class="tk">real32_T</a> <a id="167c12" class="tk">TSamp_WtEt_d</a>;               <span class="ct">/* Computed Parameter: TSamp_WtEt_d</span></td></tr>
 <tr name="168" id="168">
-<td><a id="l168" class='ln'>168</a></td><td>  <a id="168c3" class="tk">real32_T</a> <a id="168c12" class="tk">DiscreteTimeIntegrator_LowerSat</a>;</td></tr>
+<td><a id="l168" class='ln'>168</a></td><td><span class="ct">                                        * Referenced by: '&lt;S6&gt;/TSamp'</span></td></tr>
 <tr name="169" id="169">
-<td><a id="l169" class='ln'>169</a></td><td>                          <span class="ct">/* Computed Parameter: DiscreteTimeIntegrator_LowerSat</span></td></tr>
+<td><a id="l169" class='ln'>169</a></td><td><span class="ct">                                        */</span></td></tr>
 <tr name="170" id="170">
-<td><a id="l170" class='ln'>170</a></td><td><span class="ct">                           * Referenced by: '&lt;S4&gt;/Discrete-Time Integrator'</span></td></tr>
+<td><a id="l170" class='ln'>170</a></td><td>  <a id="170c3" class="tk">real32_T</a> <a id="170c12" class="tk">Memory_InitialCondition_c</a>;</td></tr>
 <tr name="171" id="171">
-<td><a id="l171" class='ln'>171</a></td><td><span class="ct">                           */</span></td></tr>
+<td><a id="l171" class='ln'>171</a></td><td>                                <span class="ct">/* Computed Parameter: Memory_InitialCondition_c</span></td></tr>
 <tr name="172" id="172">
-<td><a id="l172" class='ln'>172</a></td><td>  <a id="172c3" class="tk">real32_T</a> <a id="172c12" class="tk">TSamp_WtEt</a>;                 <span class="ct">/* Computed Parameter: TSamp_WtEt</span></td></tr>
+<td><a id="l172" class='ln'>172</a></td><td><span class="ct">                                 * Referenced by: '&lt;S5&gt;/Memory'</span></td></tr>
 <tr name="173" id="173">
-<td><a id="l173" class='ln'>173</a></td><td><span class="ct">                                        * Referenced by: '&lt;S7&gt;/TSamp'</span></td></tr>
+<td><a id="l173" class='ln'>173</a></td><td><span class="ct">                                 */</span></td></tr>
 <tr name="174" id="174">
-<td><a id="l174" class='ln'>174</a></td><td><span class="ct">                                        */</span></td></tr>
+<td><a id="l174" class='ln'>174</a></td><td>  <a id="174c3" class="tk">real32_T</a> <a id="174c12" class="tk">TSamp_WtEt_i</a>;               <span class="ct">/* Computed Parameter: TSamp_WtEt_i</span></td></tr>
 <tr name="175" id="175">
-<td><a id="l175" class='ln'>175</a></td><td>  <a id="175c3" class="tk">real32_T</a> <a id="175c12" class="tk">DiscreteTimeIntegrator1_gainval</a>;</td></tr>
+<td><a id="l175" class='ln'>175</a></td><td><span class="ct">                                        * Referenced by: '&lt;S9&gt;/TSamp'</span></td></tr>
 <tr name="176" id="176">
-<td><a id="l176" class='ln'>176</a></td><td>                          <span class="ct">/* Computed Parameter: DiscreteTimeIntegrator1_gainval</span></td></tr>
+<td><a id="l176" class='ln'>176</a></td><td><span class="ct">                                        */</span></td></tr>
 <tr name="177" id="177">
-<td><a id="l177" class='ln'>177</a></td><td><span class="ct">                           * Referenced by: '&lt;S4&gt;/Discrete-Time Integrator1'</span></td></tr>
+<td><a id="l177" class='ln'>177</a></td><td>  <a id="177c3" class="tk">real32_T</a> <a id="177c12" class="tk">Memory1_InitialCondition_d</a>;</td></tr>
 <tr name="178" id="178">
-<td><a id="l178" class='ln'>178</a></td><td><span class="ct">                           */</span></td></tr>
+<td><a id="l178" class='ln'>178</a></td><td>                               <span class="ct">/* Computed Parameter: Memory1_InitialCondition_d</span></td></tr>
 <tr name="179" id="179">
-<td><a id="l179" class='ln'>179</a></td><td>  <a id="179c3" class="tk">real32_T</a> <a id="179c12" class="tk">DiscreteTimeIntegrator1_IC</a>;</td></tr>
+<td><a id="l179" class='ln'>179</a></td><td><span class="ct">                                * Referenced by: '&lt;S5&gt;/Memory1'</span></td></tr>
 <tr name="180" id="180">
-<td><a id="l180" class='ln'>180</a></td><td>                               <span class="ct">/* Computed Parameter: DiscreteTimeIntegrator1_IC</span></td></tr>
+<td><a id="l180" class='ln'>180</a></td><td><span class="ct">                                */</span></td></tr>
 <tr name="181" id="181">
-<td><a id="l181" class='ln'>181</a></td><td><span class="ct">                                * Referenced by: '&lt;S4&gt;/Discrete-Time Integrator1'</span></td></tr>
+<td><a id="l181" class='ln'>181</a></td><td>  <a id="181c3" class="tk">real32_T</a> <a id="181c12" class="tk">TSamp_WtEt_j</a>;               <span class="ct">/* Computed Parameter: TSamp_WtEt_j</span></td></tr>
 <tr name="182" id="182">
-<td><a id="l182" class='ln'>182</a></td><td><span class="ct">                                */</span></td></tr>
+<td><a id="l182" class='ln'>182</a></td><td><span class="ct">                                        * Referenced by: '&lt;S8&gt;/TSamp'</span></td></tr>
 <tr name="183" id="183">
-<td><a id="l183" class='ln'>183</a></td><td>  <a id="183c3" class="tk">real32_T</a> <a id="183c12" class="tk">DiscreteTimeIntegrator1_UpperSa</a>;</td></tr>
+<td><a id="l183" class='ln'>183</a></td><td><span class="ct">                                        */</span></td></tr>
 <tr name="184" id="184">
-<td><a id="l184" class='ln'>184</a></td><td>                          <span class="ct">/* Computed Parameter: DiscreteTimeIntegrator1_UpperSa</span></td></tr>
+<td><a id="l184" class='ln'>184</a></td><td>  <a id="184c3" class="tk">real32_T</a> <a id="184c12" class="tk">Saturation1_UpperSat</a>;     <span class="ct">/* Computed Parameter: Saturation1_UpperSat</span></td></tr>
 <tr name="185" id="185">
-<td><a id="l185" class='ln'>185</a></td><td><span class="ct">                           * Referenced by: '&lt;S4&gt;/Discrete-Time Integrator1'</span></td></tr>
+<td><a id="l185" class='ln'>185</a></td><td><span class="ct">                                      * Referenced by: '&lt;Root&gt;/Saturation1'</span></td></tr>
 <tr name="186" id="186">
-<td><a id="l186" class='ln'>186</a></td><td><span class="ct">                           */</span></td></tr>
+<td><a id="l186" class='ln'>186</a></td><td><span class="ct">                                      */</span></td></tr>
 <tr name="187" id="187">
-<td><a id="l187" class='ln'>187</a></td><td>  <a id="187c3" class="tk">real32_T</a> <a id="187c12" class="tk">DiscreteTimeIntegrator1_LowerSa</a>;</td></tr>
+<td><a id="l187" class='ln'>187</a></td><td>  <a id="187c3" class="tk">real32_T</a> <a id="187c12" class="tk">Saturation1_LowerSat</a>;     <span class="ct">/* Computed Parameter: Saturation1_LowerSat</span></td></tr>
 <tr name="188" id="188">
-<td><a id="l188" class='ln'>188</a></td><td>                          <span class="ct">/* Computed Parameter: DiscreteTimeIntegrator1_LowerSa</span></td></tr>
+<td><a id="l188" class='ln'>188</a></td><td><span class="ct">                                      * Referenced by: '&lt;Root&gt;/Saturation1'</span></td></tr>
 <tr name="189" id="189">
-<td><a id="l189" class='ln'>189</a></td><td><span class="ct">                           * Referenced by: '&lt;S4&gt;/Discrete-Time Integrator1'</span></td></tr>
+<td><a id="l189" class='ln'>189</a></td><td><span class="ct">                                      */</span></td></tr>
 <tr name="190" id="190">
-<td><a id="l190" class='ln'>190</a></td><td><span class="ct">                           */</span></td></tr>
+<td><a id="l190" class='ln'>190</a></td><td><span class="br">}</span>;</td></tr>
 <tr name="191" id="191">
-<td><a id="l191" class='ln'>191</a></td><td>  <a id="191c3" class="tk">real32_T</a> <a id="191c12" class="tk">TSamp_WtEt_d</a>;               <span class="ct">/* Computed Parameter: TSamp_WtEt_d</span></td></tr>
+<td><a id="l191" class='ln'>191</a></td><td></td></tr>
 <tr name="192" id="192">
-<td><a id="l192" class='ln'>192</a></td><td><span class="ct">                                        * Referenced by: '&lt;S6&gt;/TSamp'</span></td></tr>
+<td><a id="l192" class='ln'>192</a></td><td><span class="ct">/* Block parameters (default storage) */</span></td></tr>
 <tr name="193" id="193">
-<td><a id="l193" class='ln'>193</a></td><td><span class="ct">                                        */</span></td></tr>
+<td><a id="l193" class='ln'>193</a></td><td><span class="kw">extern</span> <a id="193c8" class="tk">P_single_qc_ppid_T</a> <a id="193c27" class="tk">single_qc_ppid_P</a>;</td></tr>
 <tr name="194" id="194">
-<td><a id="l194" class='ln'>194</a></td><td>  <a id="194c3" class="tk">real32_T</a> <a id="194c12" class="tk">DiscreteTimeIntegrator_gainva_h</a>;</td></tr>
+<td><a id="l194" class='ln'>194</a></td><td></td></tr>
 <tr name="195" id="195">
-<td><a id="l195" class='ln'>195</a></td><td>                          <span class="ct">/* Computed Parameter: DiscreteTimeIntegrator_gainva_h</span></td></tr>
+<td><a id="l195" class='ln'>195</a></td><td><span class="ct">/* Block states (default storage) */</span></td></tr>
 <tr name="196" id="196">
-<td><a id="l196" class='ln'>196</a></td><td><span class="ct">                           * Referenced by: '&lt;S5&gt;/Discrete-Time Integrator'</span></td></tr>
+<td><a id="l196" class='ln'>196</a></td><td><span class="kw">extern</span> <a id="196c8" class="tk">DW_single_qc_ppid_T</a> <a id="196c28" class="tk">single_qc_ppid_DW</a>;</td></tr>
 <tr name="197" id="197">
-<td><a id="l197" class='ln'>197</a></td><td><span class="ct">                           */</span></td></tr>
+<td><a id="l197" class='ln'>197</a></td><td></td></tr>
 <tr name="198" id="198">
-<td><a id="l198" class='ln'>198</a></td><td>  <a id="198c3" class="tk">real32_T</a> <a id="198c12" class="tk">DiscreteTimeIntegrator_IC_a</a>;</td></tr>
+<td><a id="l198" class='ln'>198</a></td><td><span class="ct">/* External inputs (root inport signals with default storage) */</span></td></tr>
 <tr name="199" id="199">
-<td><a id="l199" class='ln'>199</a></td><td>                              <span class="ct">/* Computed Parameter: DiscreteTimeIntegrator_IC_a</span></td></tr>
+<td><a id="l199" class='ln'>199</a></td><td><span class="kw">extern</span> <a id="199c8" class="tk">ExtU_single_qc_ppid_T</a> <a id="199c30" class="tk">single_qc_ppid_U</a>;</td></tr>
 <tr name="200" id="200">
-<td><a id="l200" class='ln'>200</a></td><td><span class="ct">                               * Referenced by: '&lt;S5&gt;/Discrete-Time Integrator'</span></td></tr>
+<td><a id="l200" class='ln'>200</a></td><td></td></tr>
 <tr name="201" id="201">
-<td><a id="l201" class='ln'>201</a></td><td><span class="ct">                               */</span></td></tr>
+<td><a id="l201" class='ln'>201</a></td><td><span class="ct">/* External outputs (root outports fed by signals with default storage) */</span></td></tr>
 <tr name="202" id="202">
-<td><a id="l202" class='ln'>202</a></td><td>  <a id="202c3" class="tk">real32_T</a> <a id="202c12" class="tk">DiscreteTimeIntegrator_UpperS_f</a>;</td></tr>
+<td><a id="l202" class='ln'>202</a></td><td><span class="kw">extern</span> <a id="202c8" class="tk">ExtY_single_qc_ppid_T</a> <a id="202c30" class="tk">single_qc_ppid_Y</a>;</td></tr>
 <tr name="203" id="203">
-<td><a id="l203" class='ln'>203</a></td><td>                          <span class="ct">/* Computed Parameter: DiscreteTimeIntegrator_UpperS_f</span></td></tr>
+<td><a id="l203" class='ln'>203</a></td><td></td></tr>
 <tr name="204" id="204">
-<td><a id="l204" class='ln'>204</a></td><td><span class="ct">                           * Referenced by: '&lt;S5&gt;/Discrete-Time Integrator'</span></td></tr>
+<td><a id="l204" class='ln'>204</a></td><td><span class="ct">/* Model entry point functions */</span></td></tr>
 <tr name="205" id="205">
-<td><a id="l205" class='ln'>205</a></td><td><span class="ct">                           */</span></td></tr>
+<td><a id="l205" class='ln'>205</a></td><td><span class="kw">extern</span> <span class="kw">void</span> <a id="205c13" class="tk">single_qc_ppid_initialize</a>(<span class="kw">void</span>);</td></tr>
 <tr name="206" id="206">
-<td><a id="l206" class='ln'>206</a></td><td>  <a id="206c3" class="tk">real32_T</a> <a id="206c12" class="tk">DiscreteTimeIntegrator_LowerS_g</a>;</td></tr>
+<td><a id="l206" class='ln'>206</a></td><td><span class="kw">extern</span> <span class="kw">void</span> <a id="206c13" class="tk">single_qc_ppid_step</a>(<span class="kw">void</span>);</td></tr>
 <tr name="207" id="207">
-<td><a id="l207" class='ln'>207</a></td><td>                          <span class="ct">/* Computed Parameter: DiscreteTimeIntegrator_LowerS_g</span></td></tr>
+<td><a id="l207" class='ln'>207</a></td><td><span class="kw">extern</span> <span class="kw">void</span> <a id="207c13" class="tk">single_qc_ppid_terminate</a>(<span class="kw">void</span>);</td></tr>
 <tr name="208" id="208">
-<td><a id="l208" class='ln'>208</a></td><td><span class="ct">                           * Referenced by: '&lt;S5&gt;/Discrete-Time Integrator'</span></td></tr>
+<td><a id="l208" class='ln'>208</a></td><td></td></tr>
 <tr name="209" id="209">
-<td><a id="l209" class='ln'>209</a></td><td><span class="ct">                           */</span></td></tr>
+<td><a id="l209" class='ln'>209</a></td><td><span class="ct">/*-</span></td></tr>
 <tr name="210" id="210">
-<td><a id="l210" class='ln'>210</a></td><td>  <a id="210c3" class="tk">real32_T</a> <a id="210c12" class="tk">TSamp_WtEt_i</a>;               <span class="ct">/* Computed Parameter: TSamp_WtEt_i</span></td></tr>
+<td><a id="l210" class='ln'>210</a></td><td><span class="ct"> * These blocks were eliminated from the model due to optimizations:</span></td></tr>
 <tr name="211" id="211">
-<td><a id="l211" class='ln'>211</a></td><td><span class="ct">                                        * Referenced by: '&lt;S9&gt;/TSamp'</span></td></tr>
+<td><a id="l211" class='ln'>211</a></td><td><span class="ct"> *</span></td></tr>
 <tr name="212" id="212">
-<td><a id="l212" class='ln'>212</a></td><td><span class="ct">                                        */</span></td></tr>
+<td><a id="l212" class='ln'>212</a></td><td><span class="ct"> * Block '&lt;S6&gt;/Data Type Duplicate' : Unused code path elimination</span></td></tr>
 <tr name="213" id="213">
-<td><a id="l213" class='ln'>213</a></td><td>  <a id="213c3" class="tk">real32_T</a> <a id="213c12" class="tk">DiscreteTimeIntegrator1_gainv_m</a>;</td></tr>
+<td><a id="l213" class='ln'>213</a></td><td><span class="ct"> * Block '&lt;S7&gt;/Data Type Duplicate' : Unused code path elimination</span></td></tr>
 <tr name="214" id="214">
-<td><a id="l214" class='ln'>214</a></td><td>                          <span class="ct">/* Computed Parameter: DiscreteTimeIntegrator1_gainv_m</span></td></tr>
+<td><a id="l214" class='ln'>214</a></td><td><span class="ct"> * Block '&lt;S8&gt;/Data Type Duplicate' : Unused code path elimination</span></td></tr>
 <tr name="215" id="215">
-<td><a id="l215" class='ln'>215</a></td><td><span class="ct">                           * Referenced by: '&lt;S5&gt;/Discrete-Time Integrator1'</span></td></tr>
+<td><a id="l215" class='ln'>215</a></td><td><span class="ct"> * Block '&lt;S9&gt;/Data Type Duplicate' : Unused code path elimination</span></td></tr>
 <tr name="216" id="216">
-<td><a id="l216" class='ln'>216</a></td><td><span class="ct">                           */</span></td></tr>
+<td><a id="l216" class='ln'>216</a></td><td><span class="ct"> * Block '&lt;Root&gt;/Data Type Conversion1' : Eliminate redundant data type conversion</span></td></tr>
 <tr name="217" id="217">
-<td><a id="l217" class='ln'>217</a></td><td>  <a id="217c3" class="tk">real32_T</a> <a id="217c12" class="tk">DiscreteTimeIntegrator1_IC_n</a>;</td></tr>
+<td><a id="l217" class='ln'>217</a></td><td><span class="ct"> */</span></td></tr>
 <tr name="218" id="218">
-<td><a id="l218" class='ln'>218</a></td><td>                             <span class="ct">/* Computed Parameter: DiscreteTimeIntegrator1_IC_n</span></td></tr>
+<td><a id="l218" class='ln'>218</a></td><td></td></tr>
 <tr name="219" id="219">
-<td><a id="l219" class='ln'>219</a></td><td><span class="ct">                              * Referenced by: '&lt;S5&gt;/Discrete-Time Integrator1'</span></td></tr>
+<td><a id="l219" class='ln'>219</a></td><td><span class="ct">/*-</span></td></tr>
 <tr name="220" id="220">
-<td><a id="l220" class='ln'>220</a></td><td><span class="ct">                              */</span></td></tr>
+<td><a id="l220" class='ln'>220</a></td><td><span class="ct"> * The generated code includes comments that allow you to trace directly</span></td></tr>
 <tr name="221" id="221">
-<td><a id="l221" class='ln'>221</a></td><td>  <a id="221c3" class="tk">real32_T</a> <a id="221c12" class="tk">DiscreteTimeIntegrator1_Upper_b</a>;</td></tr>
+<td><a id="l221" class='ln'>221</a></td><td><span class="ct"> * back to the appropriate location in the model.  The basic format</span></td></tr>
 <tr name="222" id="222">
-<td><a id="l222" class='ln'>222</a></td><td>                          <span class="ct">/* Computed Parameter: DiscreteTimeIntegrator1_Upper_b</span></td></tr>
+<td><a id="l222" class='ln'>222</a></td><td><span class="ct"> * is &lt;system&gt;/block_name, where system is the system number (uniquely</span></td></tr>
 <tr name="223" id="223">
-<td><a id="l223" class='ln'>223</a></td><td><span class="ct">                           * Referenced by: '&lt;S5&gt;/Discrete-Time Integrator1'</span></td></tr>
+<td><a id="l223" class='ln'>223</a></td><td><span class="ct"> * assigned by Simulink) and block_name is the name of the block.</span></td></tr>
 <tr name="224" id="224">
-<td><a id="l224" class='ln'>224</a></td><td><span class="ct">                           */</span></td></tr>
+<td><a id="l224" class='ln'>224</a></td><td><span class="ct"> *</span></td></tr>
 <tr name="225" id="225">
-<td><a id="l225" class='ln'>225</a></td><td>  <a id="225c3" class="tk">real32_T</a> <a id="225c12" class="tk">DiscreteTimeIntegrator1_Lower_m</a>;</td></tr>
+<td><a id="l225" class='ln'>225</a></td><td><span class="ct"> * Use the MATLAB hilite_system command to trace the generated code back</span></td></tr>
 <tr name="226" id="226">
-<td><a id="l226" class='ln'>226</a></td><td>                          <span class="ct">/* Computed Parameter: DiscreteTimeIntegrator1_Lower_m</span></td></tr>
+<td><a id="l226" class='ln'>226</a></td><td><span class="ct"> * to the model.  For example,</span></td></tr>
 <tr name="227" id="227">
-<td><a id="l227" class='ln'>227</a></td><td><span class="ct">                           * Referenced by: '&lt;S5&gt;/Discrete-Time Integrator1'</span></td></tr>
+<td><a id="l227" class='ln'>227</a></td><td><span class="ct"> *</span></td></tr>
 <tr name="228" id="228">
-<td><a id="l228" class='ln'>228</a></td><td><span class="ct">                           */</span></td></tr>
+<td><a id="l228" class='ln'>228</a></td><td><span class="ct"> * hilite_system('&lt;S3&gt;')    - opens system 3</span></td></tr>
 <tr name="229" id="229">
-<td><a id="l229" class='ln'>229</a></td><td>  <a id="229c3" class="tk">real32_T</a> <a id="229c12" class="tk">TSamp_WtEt_j</a>;               <span class="ct">/* Computed Parameter: TSamp_WtEt_j</span></td></tr>
+<td><a id="l229" class='ln'>229</a></td><td><span class="ct"> * hilite_system('&lt;S3&gt;/Kp') - opens and selects block Kp which resides in S3</span></td></tr>
 <tr name="230" id="230">
-<td><a id="l230" class='ln'>230</a></td><td><span class="ct">                                        * Referenced by: '&lt;S8&gt;/TSamp'</span></td></tr>
+<td><a id="l230" class='ln'>230</a></td><td><span class="ct"> *</span></td></tr>
 <tr name="231" id="231">
-<td><a id="l231" class='ln'>231</a></td><td><span class="ct">                                        */</span></td></tr>
+<td><a id="l231" class='ln'>231</a></td><td><span class="ct"> * Here is the system hierarchy for this model</span></td></tr>
 <tr name="232" id="232">
-<td><a id="l232" class='ln'>232</a></td><td>  <a id="232c3" class="tk">real32_T</a> <a id="232c12" class="tk">Saturation1_UpperSat</a>;     <span class="ct">/* Computed Parameter: Saturation1_UpperSat</span></td></tr>
+<td><a id="l232" class='ln'>232</a></td><td><span class="ct"> *</span></td></tr>
 <tr name="233" id="233">
-<td><a id="l233" class='ln'>233</a></td><td><span class="ct">                                      * Referenced by: '&lt;Root&gt;/Saturation1'</span></td></tr>
+<td><a id="l233" class='ln'>233</a></td><td><span class="ct"> * '&lt;Root&gt;' : 'single_qc_ppid'</span></td></tr>
 <tr name="234" id="234">
-<td><a id="l234" class='ln'>234</a></td><td><span class="ct">                                      */</span></td></tr>
+<td><a id="l234" class='ln'>234</a></td><td><span class="ct"> * '&lt;S1&gt;'   : 'single_qc_ppid/MATLAB Function'</span></td></tr>
 <tr name="235" id="235">
-<td><a id="l235" class='ln'>235</a></td><td>  <a id="235c3" class="tk">real32_T</a> <a id="235c12" class="tk">Saturation1_LowerSat</a>;     <span class="ct">/* Computed Parameter: Saturation1_LowerSat</span></td></tr>
+<td><a id="l235" class='ln'>235</a></td><td><span class="ct"> * '&lt;S2&gt;'   : 'single_qc_ppid/MATLAB Function1'</span></td></tr>
 <tr name="236" id="236">
-<td><a id="l236" class='ln'>236</a></td><td><span class="ct">                                      * Referenced by: '&lt;Root&gt;/Saturation1'</span></td></tr>
+<td><a id="l236" class='ln'>236</a></td><td><span class="ct"> * '&lt;S3&gt;'   : 'single_qc_ppid/transformed_PID'</span></td></tr>
 <tr name="237" id="237">
-<td><a id="l237" class='ln'>237</a></td><td><span class="ct">                                      */</span></td></tr>
+<td><a id="l237" class='ln'>237</a></td><td><span class="ct"> * '&lt;S4&gt;'   : 'single_qc_ppid/transformed_PID/PIDa'</span></td></tr>
 <tr name="238" id="238">
-<td><a id="l238" class='ln'>238</a></td><td><span class="br">}</span>;</td></tr>
+<td><a id="l238" class='ln'>238</a></td><td><span class="ct"> * '&lt;S5&gt;'   : 'single_qc_ppid/transformed_PID/PIDb'</span></td></tr>
 <tr name="239" id="239">
-<td><a id="l239" class='ln'>239</a></td><td></td></tr>
+<td><a id="l239" class='ln'>239</a></td><td><span class="ct"> * '&lt;S6&gt;'   : 'single_qc_ppid/transformed_PID/PIDa/Discrete Derivative1'</span></td></tr>
 <tr name="240" id="240">
-<td><a id="l240" class='ln'>240</a></td><td><span class="ct">/* Block parameters (default storage) */</span></td></tr>
+<td><a id="l240" class='ln'>240</a></td><td><span class="ct"> * '&lt;S7&gt;'   : 'single_qc_ppid/transformed_PID/PIDa/Discrete Derivative2'</span></td></tr>
 <tr name="241" id="241">
-<td><a id="l241" class='ln'>241</a></td><td><span class="kw">extern</span> <a id="241c8" class="tk">P_single_qc_ppid_T</a> <a id="241c27" class="tk">single_qc_ppid_P</a>;</td></tr>
+<td><a id="l241" class='ln'>241</a></td><td><span class="ct"> * '&lt;S8&gt;'   : 'single_qc_ppid/transformed_PID/PIDb/Discrete Derivative1'</span></td></tr>
 <tr name="242" id="242">
-<td><a id="l242" class='ln'>242</a></td><td></td></tr>
+<td><a id="l242" class='ln'>242</a></td><td><span class="ct"> * '&lt;S9&gt;'   : 'single_qc_ppid/transformed_PID/PIDb/Discrete Derivative2'</span></td></tr>
 <tr name="243" id="243">
-<td><a id="l243" class='ln'>243</a></td><td><span class="ct">/* Block states (default storage) */</span></td></tr>
+<td><a id="l243" class='ln'>243</a></td><td><span class="ct"> */</span></td></tr>
 <tr name="244" id="244">
-<td><a id="l244" class='ln'>244</a></td><td><span class="kw">extern</span> <a id="244c8" class="tk">DW_single_qc_ppid_T</a> <a id="244c28" class="tk">single_qc_ppid_DW</a>;</td></tr>
+<td><a id="l244" class='ln'>244</a></td><td><span class="pp">#endif</span>                                 <span class="ct">/* RTW_HEADER_single_qc_ppid_h_ */</span></td></tr>
 <tr name="245" id="245">
 <td><a id="l245" class='ln'>245</a></td><td></td></tr>
 <tr name="246" id="246">
-<td><a id="l246" class='ln'>246</a></td><td><span class="ct">/* External inputs (root inport signals with default storage) */</span></td></tr>
+<td><a id="l246" class='ln'>246</a></td><td><span class="ct">/*</span></td></tr>
 <tr name="247" id="247">
-<td><a id="l247" class='ln'>247</a></td><td><span class="kw">extern</span> <a id="247c8" class="tk">ExtU_single_qc_ppid_T</a> <a id="247c30" class="tk">single_qc_ppid_U</a>;</td></tr>
+<td><a id="l247" class='ln'>247</a></td><td><span class="ct"> * File trailer for generated code.</span></td></tr>
 <tr name="248" id="248">
-<td><a id="l248" class='ln'>248</a></td><td></td></tr>
+<td><a id="l248" class='ln'>248</a></td><td><span class="ct"> *</span></td></tr>
 <tr name="249" id="249">
-<td><a id="l249" class='ln'>249</a></td><td><span class="ct">/* External outputs (root outports fed by signals with default storage) */</span></td></tr>
+<td><a id="l249" class='ln'>249</a></td><td><span class="ct"> * [EOF]</span></td></tr>
 <tr name="250" id="250">
-<td><a id="l250" class='ln'>250</a></td><td><span class="kw">extern</span> <a id="250c8" class="tk">ExtY_single_qc_ppid_T</a> <a id="250c30" class="tk">single_qc_ppid_Y</a>;</td></tr>
+<td><a id="l250" class='ln'>250</a></td><td><span class="ct"> */</span></td></tr>
 <tr name="251" id="251">
 <td><a id="l251" class='ln'>251</a></td><td></td></tr>
-<tr name="252" id="252">
-<td><a id="l252" class='ln'>252</a></td><td><span class="ct">/* Model entry point functions */</span></td></tr>
-<tr name="253" id="253">
-<td><a id="l253" class='ln'>253</a></td><td><span class="kw">extern</span> <span class="kw">void</span> <a id="253c13" class="tk">single_qc_ppid_initialize</a>(<span class="kw">void</span>);</td></tr>
-<tr name="254" id="254">
-<td><a id="l254" class='ln'>254</a></td><td><span class="kw">extern</span> <span class="kw">void</span> <a id="254c13" class="tk">single_qc_ppid_step</a>(<span class="kw">void</span>);</td></tr>
-<tr name="255" id="255">
-<td><a id="l255" class='ln'>255</a></td><td><span class="kw">extern</span> <span class="kw">void</span> <a id="255c13" class="tk">single_qc_ppid_terminate</a>(<span class="kw">void</span>);</td></tr>
-<tr name="256" id="256">
-<td><a id="l256" class='ln'>256</a></td><td></td></tr>
-<tr name="257" id="257">
-<td><a id="l257" class='ln'>257</a></td><td><span class="ct">/*-</span></td></tr>
-<tr name="258" id="258">
-<td><a id="l258" class='ln'>258</a></td><td><span class="ct"> * These blocks were eliminated from the model due to optimizations:</span></td></tr>
-<tr name="259" id="259">
-<td><a id="l259" class='ln'>259</a></td><td><span class="ct"> *</span></td></tr>
-<tr name="260" id="260">
-<td><a id="l260" class='ln'>260</a></td><td><span class="ct"> * Block '&lt;S6&gt;/Data Type Duplicate' : Unused code path elimination</span></td></tr>
-<tr name="261" id="261">
-<td><a id="l261" class='ln'>261</a></td><td><span class="ct"> * Block '&lt;S7&gt;/Data Type Duplicate' : Unused code path elimination</span></td></tr>
-<tr name="262" id="262">
-<td><a id="l262" class='ln'>262</a></td><td><span class="ct"> * Block '&lt;S8&gt;/Data Type Duplicate' : Unused code path elimination</span></td></tr>
-<tr name="263" id="263">
-<td><a id="l263" class='ln'>263</a></td><td><span class="ct"> * Block '&lt;S9&gt;/Data Type Duplicate' : Unused code path elimination</span></td></tr>
-<tr name="264" id="264">
-<td><a id="l264" class='ln'>264</a></td><td><span class="ct"> * Block '&lt;Root&gt;/Data Type Conversion1' : Eliminate redundant data type conversion</span></td></tr>
-<tr name="265" id="265">
-<td><a id="l265" class='ln'>265</a></td><td><span class="ct"> */</span></td></tr>
-<tr name="266" id="266">
-<td><a id="l266" class='ln'>266</a></td><td></td></tr>
-<tr name="267" id="267">
-<td><a id="l267" class='ln'>267</a></td><td><span class="ct">/*-</span></td></tr>
-<tr name="268" id="268">
-<td><a id="l268" class='ln'>268</a></td><td><span class="ct"> * The generated code includes comments that allow you to trace directly</span></td></tr>
-<tr name="269" id="269">
-<td><a id="l269" class='ln'>269</a></td><td><span class="ct"> * back to the appropriate location in the model.  The basic format</span></td></tr>
-<tr name="270" id="270">
-<td><a id="l270" class='ln'>270</a></td><td><span class="ct"> * is &lt;system&gt;/block_name, where system is the system number (uniquely</span></td></tr>
-<tr name="271" id="271">
-<td><a id="l271" class='ln'>271</a></td><td><span class="ct"> * assigned by Simulink) and block_name is the name of the block.</span></td></tr>
-<tr name="272" id="272">
-<td><a id="l272" class='ln'>272</a></td><td><span class="ct"> *</span></td></tr>
-<tr name="273" id="273">
-<td><a id="l273" class='ln'>273</a></td><td><span class="ct"> * Use the MATLAB hilite_system command to trace the generated code back</span></td></tr>
-<tr name="274" id="274">
-<td><a id="l274" class='ln'>274</a></td><td><span class="ct"> * to the model.  For example,</span></td></tr>
-<tr name="275" id="275">
-<td><a id="l275" class='ln'>275</a></td><td><span class="ct"> *</span></td></tr>
-<tr name="276" id="276">
-<td><a id="l276" class='ln'>276</a></td><td><span class="ct"> * hilite_system('&lt;S3&gt;')    - opens system 3</span></td></tr>
-<tr name="277" id="277">
-<td><a id="l277" class='ln'>277</a></td><td><span class="ct"> * hilite_system('&lt;S3&gt;/Kp') - opens and selects block Kp which resides in S3</span></td></tr>
-<tr name="278" id="278">
-<td><a id="l278" class='ln'>278</a></td><td><span class="ct"> *</span></td></tr>
-<tr name="279" id="279">
-<td><a id="l279" class='ln'>279</a></td><td><span class="ct"> * Here is the system hierarchy for this model</span></td></tr>
-<tr name="280" id="280">
-<td><a id="l280" class='ln'>280</a></td><td><span class="ct"> *</span></td></tr>
-<tr name="281" id="281">
-<td><a id="l281" class='ln'>281</a></td><td><span class="ct"> * '&lt;Root&gt;' : 'single_qc_ppid'</span></td></tr>
-<tr name="282" id="282">
-<td><a id="l282" class='ln'>282</a></td><td><span class="ct"> * '&lt;S1&gt;'   : 'single_qc_ppid/MATLAB Function'</span></td></tr>
-<tr name="283" id="283">
-<td><a id="l283" class='ln'>283</a></td><td><span class="ct"> * '&lt;S2&gt;'   : 'single_qc_ppid/MATLAB Function1'</span></td></tr>
-<tr name="284" id="284">
-<td><a id="l284" class='ln'>284</a></td><td><span class="ct"> * '&lt;S3&gt;'   : 'single_qc_ppid/transformed_PID'</span></td></tr>
-<tr name="285" id="285">
-<td><a id="l285" class='ln'>285</a></td><td><span class="ct"> * '&lt;S4&gt;'   : 'single_qc_ppid/transformed_PID/PIDa'</span></td></tr>
-<tr name="286" id="286">
-<td><a id="l286" class='ln'>286</a></td><td><span class="ct"> * '&lt;S5&gt;'   : 'single_qc_ppid/transformed_PID/PIDb'</span></td></tr>
-<tr name="287" id="287">
-<td><a id="l287" class='ln'>287</a></td><td><span class="ct"> * '&lt;S6&gt;'   : 'single_qc_ppid/transformed_PID/PIDa/Discrete Derivative1'</span></td></tr>
-<tr name="288" id="288">
-<td><a id="l288" class='ln'>288</a></td><td><span class="ct"> * '&lt;S7&gt;'   : 'single_qc_ppid/transformed_PID/PIDa/Discrete Derivative2'</span></td></tr>
-<tr name="289" id="289">
-<td><a id="l289" class='ln'>289</a></td><td><span class="ct"> * '&lt;S8&gt;'   : 'single_qc_ppid/transformed_PID/PIDb/Discrete Derivative1'</span></td></tr>
-<tr name="290" id="290">
-<td><a id="l290" class='ln'>290</a></td><td><span class="ct"> * '&lt;S9&gt;'   : 'single_qc_ppid/transformed_PID/PIDb/Discrete Derivative2'</span></td></tr>
-<tr name="291" id="291">
-<td><a id="l291" class='ln'>291</a></td><td><span class="ct"> */</span></td></tr>
-<tr name="292" id="292">
-<td><a id="l292" class='ln'>292</a></td><td><span class="pp">#endif</span>                                 <span class="ct">/* RTW_HEADER_single_qc_ppid_h_ */</span></td></tr>
-<tr name="293" id="293">
-<td><a id="l293" class='ln'>293</a></td><td></td></tr>
-<tr name="294" id="294">
-<td><a id="l294" class='ln'>294</a></td><td><span class="ct">/*</span></td></tr>
-<tr name="295" id="295">
-<td><a id="l295" class='ln'>295</a></td><td><span class="ct"> * File trailer for generated code.</span></td></tr>
-<tr name="296" id="296">
-<td><a id="l296" class='ln'>296</a></td><td><span class="ct"> *</span></td></tr>
-<tr name="297" id="297">
-<td><a id="l297" class='ln'>297</a></td><td><span class="ct"> * [EOF]</span></td></tr>
-<tr name="298" id="298">
-<td><a id="l298" class='ln'>298</a></td><td><span class="ct"> */</span></td></tr>
-<tr name="299" id="299">
-<td><a id="l299" class='ln'>299</a></td><td></td></tr>
 </table>
 </pre>
 </body>
