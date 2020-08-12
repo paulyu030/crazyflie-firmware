@@ -3,9 +3,9 @@
  *
  * Code generated for Simulink model 'single_qc_real'.
  *
- * Model version                  : 1.48
+ * Model version                  : 1.52
  * Simulink Coder version         : 9.3 (R2020a) 18-Nov-2019
- * C/C++ source code generated on : Thu Aug  6 12:07:03 2020
+ * C/C++ source code generated on : Tue Aug 11 11:29:18 2020
  *
  * Target selection: ert.tlc
  * Embedded hardware selection: ARM Compatible->ARM Cortex
@@ -68,16 +68,6 @@ P_single_qc_real_T single_qc_real_P = {
    */
   1.0F,
 
-  /* Mask Parameter: DiscreteDerivative2_ICPrevScale
-   * Referenced by: '<S6>/UD'
-   */
-  0.0F,
-
-  /* Mask Parameter: DiscreteDerivative2_ICPrevSca_h
-   * Referenced by: '<S8>/UD'
-   */
-  0.0F,
-
   /* Computed Parameter: Gain_Gain
    * Referenced by: '<Root>/Gain'
    */
@@ -98,20 +88,30 @@ P_single_qc_real_T single_qc_real_P = {
    */
   0.0F,
 
-  /* Computed Parameter: TSamp_WtEt
-   * Referenced by: '<S6>/TSamp'
+  /* Computed Parameter: Memory1_InitialCondition
+   * Referenced by: '<S4>/Memory1'
    */
-  500.0F,
+  0.0F,
+
+  /* Computed Parameter: dgain1_Gain
+   * Referenced by: '<S4>/dgain1'
+   */
+  250.0F,
 
   /* Computed Parameter: Memory_InitialCondition_o
    * Referenced by: '<S5>/Memory'
    */
   0.0F,
 
-  /* Computed Parameter: TSamp_WtEt_o
-   * Referenced by: '<S8>/TSamp'
+  /* Computed Parameter: Memory2_InitialCondition
+   * Referenced by: '<S5>/Memory2'
    */
-  500.0F,
+  0.0F,
+
+  /* Computed Parameter: dgain1_Gain_c
+   * Referenced by: '<S5>/dgain1'
+   */
+  250.0F,
 
   /* Computed Parameter: Saturation1_UpperSat
    * Referenced by: '<Root>/Saturation1'
@@ -120,6 +120,16 @@ P_single_qc_real_T single_qc_real_P = {
 
   /* Computed Parameter: Saturation1_LowerSat
    * Referenced by: '<Root>/Saturation1'
+   */
+  0.0F,
+
+  /* Computed Parameter: Memory2_InitialCondition_j
+   * Referenced by: '<S4>/Memory2'
+   */
+  0.0F,
+
+  /* Computed Parameter: Memory1_InitialCondition_l
+   * Referenced by: '<S5>/Memory1'
    */
   0.0F
 };

@@ -3,9 +3,9 @@
  *
  * Code generated for Simulink model 'single_qc_real'.
  *
- * Model version                  : 1.48
+ * Model version                  : 1.52
  * Simulink Coder version         : 9.3 (R2020a) 18-Nov-2019
- * C/C++ source code generated on : Thu Aug  6 12:07:03 2020
+ * C/C++ source code generated on : Tue Aug 11 11:29:18 2020
  *
  * Target selection: ert.tlc
  * Embedded hardware selection: ARM Compatible->ARM Cortex
@@ -102,16 +102,14 @@ void single_qc_real_step(void)
   real32_T ftx;
   real32_T fty;
   real32_T rtb_Sum2;
-  real32_T rtb_Sum1;
+  real32_T rtb_newvalue_a;
   real32_T rtb_newvalue;
-  real32_T rtb_Sum_p;
   real32_T rtb_beta_e;
   real32_T rtb_alpha_e;
   real32_T rtb_Sum;
-  real32_T rtb_TSamp;
-  real32_T rtb_newvalue_a;
-  real32_T rtb_Sum_c;
-  real32_T rtb_TSamp_n;
+  real32_T rtb_Sum_j;
+  real32_T rtb_Sum1_ne;
+  real32_T rtb_Sum_kz;
   real32_T tmp[4];
   real32_T q_bi_0[4];
   int8_T subsa_idx_1;
@@ -162,21 +160,21 @@ void single_qc_real_step(void)
   rtb_alpha_e = q_bi[3] * q_bi[3];
   rtb_beta_e = q_bi[2] * q_bi[2];
   tempR[0] = 1.0F - (rtb_beta_e + rtb_alpha_e) * 2.0F;
-  rtb_Sum_p = q_bi[1] * q_bi[2];
-  rtb_Sum = q_bi[0] * q_bi[3];
-  tempR[1] = (rtb_Sum_p - rtb_Sum) * 2.0F;
-  rtb_TSamp = q_bi[1] * q_bi[3];
-  rtb_Sum2 = q_bi[0] * q_bi[2];
-  tempR[2] = (rtb_TSamp + rtb_Sum2) * 2.0F;
-  tempR[3] = (rtb_Sum_p + rtb_Sum) * 2.0F;
-  rtb_Sum_p = q_bi[1] * q_bi[1];
-  tempR[4] = 1.0F - (rtb_Sum_p + rtb_alpha_e) * 2.0F;
+  rtb_Sum = q_bi[1] * q_bi[2];
+  rtb_Sum_j = q_bi[0] * q_bi[3];
+  tempR[1] = (rtb_Sum - rtb_Sum_j) * 2.0F;
+  rtb_Sum2 = q_bi[1] * q_bi[3];
+  rtb_Sum1_ne = q_bi[0] * q_bi[2];
+  tempR[2] = (rtb_Sum2 + rtb_Sum1_ne) * 2.0F;
+  tempR[3] = (rtb_Sum + rtb_Sum_j) * 2.0F;
+  rtb_Sum = q_bi[1] * q_bi[1];
+  tempR[4] = 1.0F - (rtb_Sum + rtb_alpha_e) * 2.0F;
   rtb_alpha_e = q_bi[2] * q_bi[3];
-  rtb_Sum = q_bi[0] * q_bi[1];
-  tempR[5] = (rtb_alpha_e - rtb_Sum) * 2.0F;
-  tempR[6] = (rtb_TSamp - rtb_Sum2) * 2.0F;
-  tempR[7] = (rtb_alpha_e + rtb_Sum) * 2.0F;
-  tempR[8] = 1.0F - (rtb_Sum_p + rtb_beta_e) * 2.0F;
+  rtb_Sum_j = q_bi[0] * q_bi[1];
+  tempR[5] = (rtb_alpha_e - rtb_Sum_j) * 2.0F;
+  tempR[6] = (rtb_Sum2 - rtb_Sum1_ne) * 2.0F;
+  tempR[7] = (rtb_alpha_e + rtb_Sum_j) * 2.0F;
+  tempR[8] = 1.0F - (rtb_Sum + rtb_beta_e) * 2.0F;
   for (d_k = 0; d_k < 3; d_k++) {
     R_bii_tmp = (int8_T)(d_k + 1) - 1;
     R_bii[R_bii_tmp] = tempR[R_bii_tmp * 3];
@@ -194,74 +192,47 @@ void single_qc_real_step(void)
   /* Sum: '<S3>/Sum' incorporates:
    *  Inport: '<Root>/alpha_desired'
    */
-  rtb_Sum_p = single_qc_real_U.alpha_desired - rtb_alpha_e;
+  rtb_Sum = single_qc_real_U.alpha_desired - rtb_alpha_e;
 
   /* Sum: '<S4>/Sum' incorporates:
    *  Memory: '<S4>/Memory'
    */
-  rtb_Sum = single_qc_real_DW.Memory_PreviousInput + rtb_Sum_p;
-
-  /* SampleTimeMath: '<S6>/TSamp'
-   *
-   * About '<S6>/TSamp':
-   *  y = u * K where K = 1 / ( w * Ts )
-   */
-  rtb_TSamp = rtb_Sum_p * single_qc_real_P.TSamp_WtEt;
+  rtb_Sum_j = single_qc_real_DW.Memory_PreviousInput + rtb_Sum;
 
   /* Sum: '<S4>/Sum2' incorporates:
    *  Gain: '<S4>/dgain'
+   *  Gain: '<S4>/dgain1'
    *  Gain: '<S4>/igain'
    *  Gain: '<S4>/pgain'
-   *  Sum: '<S6>/Diff'
-   *  UnitDelay: '<S6>/UD'
-   *
-   * Block description for '<S6>/Diff':
-   *
-   *  Add in CPU
-   *
-   * Block description for '<S6>/UD':
-   *
-   *  Store in Global RAM
+   *  Memory: '<S4>/Memory1'
+   *  Sum: '<S4>/Sum1'
    */
-  rtb_Sum2 = (single_qc_real_P.pgaina * rtb_Sum_p + single_qc_real_P.igaina *
-              rtb_Sum) + (rtb_TSamp - single_qc_real_DW.UD_DSTATE) *
-    single_qc_real_P.dgaina;
+  rtb_Sum2 = (rtb_Sum - single_qc_real_DW.Memory1_PreviousInput) *
+    single_qc_real_P.dgain1_Gain * single_qc_real_P.dgaina +
+    (single_qc_real_P.pgaina * rtb_Sum + single_qc_real_P.igaina * rtb_Sum_j);
 
   /* Sum: '<S3>/Sum1' incorporates:
    *  Inport: '<Root>/beta_desired'
    */
-  rtb_Sum1 = single_qc_real_U.beta_desired - rtb_beta_e;
+  rtb_Sum1_ne = single_qc_real_U.beta_desired - rtb_beta_e;
 
   /* Sum: '<S5>/Sum' incorporates:
    *  Memory: '<S5>/Memory'
    */
-  rtb_Sum_c = single_qc_real_DW.Memory_PreviousInput_l + rtb_Sum1;
-
-  /* SampleTimeMath: '<S8>/TSamp'
-   *
-   * About '<S8>/TSamp':
-   *  y = u * K where K = 1 / ( w * Ts )
-   */
-  rtb_TSamp_n = rtb_Sum1 * single_qc_real_P.TSamp_WtEt_o;
+  rtb_Sum_kz = single_qc_real_DW.Memory_PreviousInput_l + rtb_Sum1_ne;
 
   /* Sum: '<S5>/Sum2' incorporates:
    *  Gain: '<S5>/dgain'
+   *  Gain: '<S5>/dgain1'
    *  Gain: '<S5>/igain'
    *  Gain: '<S5>/pgain'
-   *  Sum: '<S8>/Diff'
-   *  UnitDelay: '<S8>/UD'
-   *
-   * Block description for '<S8>/Diff':
-   *
-   *  Add in CPU
-   *
-   * Block description for '<S8>/UD':
-   *
-   *  Store in Global RAM
+   *  Memory: '<S5>/Memory2'
+   *  Sum: '<S5>/Sum1'
    */
-  rtb_newvalue_a = (single_qc_real_P.pgainb * rtb_Sum1 + single_qc_real_P.igainb
-                    * rtb_Sum_c) + (rtb_TSamp_n - single_qc_real_DW.UD_DSTATE_l)
-    * single_qc_real_P.dgainb;
+  rtb_newvalue_a = (rtb_Sum1_ne - single_qc_real_DW.Memory2_PreviousInput) *
+    single_qc_real_P.dgain1_Gain_c * single_qc_real_P.dgainb +
+    (single_qc_real_P.pgainb * rtb_Sum1_ne + single_qc_real_P.igainb *
+     rtb_Sum_kz);
 
   /* Product: '<S3>/Product1' incorporates:
    *  Trigonometry: '<S3>/Trigonometric Function'
@@ -453,10 +424,10 @@ void single_qc_real_step(void)
   /* MATLAB Function: '<S5>/MATLAB Function' incorporates:
    *  RelationalOperator: '<S5>/IsNaN'
    */
-  single_qc_real_MATLABFunction(rtb_Sum_c, rtIsNaNF(rtb_Sum_c), &rtb_newvalue);
+  single_qc_real_MATLABFunction(rtb_Sum_kz, rtIsNaNF(rtb_Sum_kz), &rtb_newvalue);
 
   /* Outport: '<Root>/error_beta' */
-  single_qc_real_Y.error_beta = rtb_Sum1;
+  single_qc_real_Y.error_beta = rtb_Sum1_ne;
 
   /* Outport: '<Root>/u_alpha' */
   single_qc_real_Y.u_alpha = rtb_Sum2;
@@ -464,10 +435,10 @@ void single_qc_real_step(void)
   /* MATLAB Function: '<S4>/MATLAB Function' incorporates:
    *  RelationalOperator: '<S4>/IsNaN'
    */
-  single_qc_real_MATLABFunction(rtb_Sum, rtIsNaNF(rtb_Sum), &rtb_newvalue_a);
+  single_qc_real_MATLABFunction(rtb_Sum_j, rtIsNaNF(rtb_Sum_j), &rtb_newvalue_a);
 
   /* Outport: '<Root>/error_alpha' */
-  single_qc_real_Y.error_alpha = rtb_Sum_p;
+  single_qc_real_Y.error_alpha = rtb_Sum;
 
   /* Outport: '<Root>/t_betae' */
   single_qc_real_Y.t_betae = rtb_beta_e;
@@ -488,24 +459,26 @@ void single_qc_real_step(void)
   /* Update for Memory: '<S4>/Memory' */
   single_qc_real_DW.Memory_PreviousInput = rtb_newvalue_a;
 
-  /* Update for UnitDelay: '<S6>/UD'
-   *
-   * Block description for '<S6>/UD':
-   *
-   *  Store in Global RAM
+  /* Update for Memory: '<S4>/Memory1' incorporates:
+   *  Memory: '<S4>/Memory2'
    */
-  single_qc_real_DW.UD_DSTATE = rtb_TSamp;
+  single_qc_real_DW.Memory1_PreviousInput =
+    single_qc_real_DW.Memory2_PreviousInput_f;
 
   /* Update for Memory: '<S5>/Memory' */
   single_qc_real_DW.Memory_PreviousInput_l = rtb_newvalue;
 
-  /* Update for UnitDelay: '<S8>/UD'
-   *
-   * Block description for '<S8>/UD':
-   *
-   *  Store in Global RAM
+  /* Update for Memory: '<S5>/Memory2' incorporates:
+   *  Memory: '<S5>/Memory1'
    */
-  single_qc_real_DW.UD_DSTATE_l = rtb_TSamp_n;
+  single_qc_real_DW.Memory2_PreviousInput =
+    single_qc_real_DW.Memory1_PreviousInput_o;
+
+  /* Update for Memory: '<S4>/Memory2' */
+  single_qc_real_DW.Memory2_PreviousInput_f = rtb_Sum;
+
+  /* Update for Memory: '<S5>/Memory1' */
+  single_qc_real_DW.Memory1_PreviousInput_o = rtb_Sum1_ne;
 }
 
 /* Model initialize function */
@@ -531,26 +504,25 @@ void single_qc_real_initialize(void)
   single_qc_real_DW.Memory_PreviousInput =
     single_qc_real_P.Memory_InitialCondition;
 
-  /* InitializeConditions for UnitDelay: '<S6>/UD'
-   *
-   * Block description for '<S6>/UD':
-   *
-   *  Store in Global RAM
-   */
-  single_qc_real_DW.UD_DSTATE = single_qc_real_P.DiscreteDerivative2_ICPrevScale;
+  /* InitializeConditions for Memory: '<S4>/Memory1' */
+  single_qc_real_DW.Memory1_PreviousInput =
+    single_qc_real_P.Memory1_InitialCondition;
 
   /* InitializeConditions for Memory: '<S5>/Memory' */
   single_qc_real_DW.Memory_PreviousInput_l =
     single_qc_real_P.Memory_InitialCondition_o;
 
-  /* InitializeConditions for UnitDelay: '<S8>/UD'
-   *
-   * Block description for '<S8>/UD':
-   *
-   *  Store in Global RAM
-   */
-  single_qc_real_DW.UD_DSTATE_l =
-    single_qc_real_P.DiscreteDerivative2_ICPrevSca_h;
+  /* InitializeConditions for Memory: '<S5>/Memory2' */
+  single_qc_real_DW.Memory2_PreviousInput =
+    single_qc_real_P.Memory2_InitialCondition;
+
+  /* InitializeConditions for Memory: '<S4>/Memory2' */
+  single_qc_real_DW.Memory2_PreviousInput_f =
+    single_qc_real_P.Memory2_InitialCondition_j;
+
+  /* InitializeConditions for Memory: '<S5>/Memory1' */
+  single_qc_real_DW.Memory1_PreviousInput_o =
+    single_qc_real_P.Memory1_InitialCondition_l;
 }
 
 /* Model terminate function */

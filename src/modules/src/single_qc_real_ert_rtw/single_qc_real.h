@@ -3,9 +3,9 @@
  *
  * Code generated for Simulink model 'single_qc_real'.
  *
- * Model version                  : 1.48
+ * Model version                  : 1.52
  * Simulink Coder version         : 9.3 (R2020a) 18-Nov-2019
- * C/C++ source code generated on : Thu Aug  6 12:07:03 2020
+ * C/C++ source code generated on : Tue Aug 11 11:29:18 2020
  *
  * Target selection: ert.tlc
  * Embedded hardware selection: ARM Compatible->ARM Cortex
@@ -31,10 +31,12 @@
 
 /* Block states (default storage) for system '<Root>' */
 typedef struct {
-  real32_T UD_DSTATE;                  /* '<S6>/UD' */
-  real32_T UD_DSTATE_l;                /* '<S8>/UD' */
   real32_T Memory_PreviousInput;       /* '<S4>/Memory' */
+  real32_T Memory1_PreviousInput;      /* '<S4>/Memory1' */
   real32_T Memory_PreviousInput_l;     /* '<S5>/Memory' */
+  real32_T Memory2_PreviousInput;      /* '<S5>/Memory2' */
+  real32_T Memory2_PreviousInput_f;    /* '<S4>/Memory2' */
+  real32_T Memory1_PreviousInput_o;    /* '<S5>/Memory1' */
 } DW_single_qc_real_T;
 
 /* External inputs (root inport signals with default storage) */
@@ -105,14 +107,6 @@ struct P_single_qc_real_T_ {
   real32_T torque_modifier;            /* Variable: torque_modifier
                                         * Referenced by: '<Root>/Constant'
                                         */
-  real32_T DiscreteDerivative2_ICPrevScale;
-                              /* Mask Parameter: DiscreteDerivative2_ICPrevScale
-                               * Referenced by: '<S6>/UD'
-                               */
-  real32_T DiscreteDerivative2_ICPrevSca_h;
-                              /* Mask Parameter: DiscreteDerivative2_ICPrevSca_h
-                               * Referenced by: '<S8>/UD'
-                               */
   real32_T Gain_Gain;                  /* Computed Parameter: Gain_Gain
                                         * Referenced by: '<Root>/Gain'
                                         */
@@ -126,15 +120,23 @@ struct P_single_qc_real_T_ {
                                   /* Computed Parameter: Memory_InitialCondition
                                    * Referenced by: '<S4>/Memory'
                                    */
-  real32_T TSamp_WtEt;                 /* Computed Parameter: TSamp_WtEt
-                                        * Referenced by: '<S6>/TSamp'
+  real32_T Memory1_InitialCondition;
+                                 /* Computed Parameter: Memory1_InitialCondition
+                                  * Referenced by: '<S4>/Memory1'
+                                  */
+  real32_T dgain1_Gain;                /* Computed Parameter: dgain1_Gain
+                                        * Referenced by: '<S4>/dgain1'
                                         */
   real32_T Memory_InitialCondition_o;
                                 /* Computed Parameter: Memory_InitialCondition_o
                                  * Referenced by: '<S5>/Memory'
                                  */
-  real32_T TSamp_WtEt_o;               /* Computed Parameter: TSamp_WtEt_o
-                                        * Referenced by: '<S8>/TSamp'
+  real32_T Memory2_InitialCondition;
+                                 /* Computed Parameter: Memory2_InitialCondition
+                                  * Referenced by: '<S5>/Memory2'
+                                  */
+  real32_T dgain1_Gain_c;              /* Computed Parameter: dgain1_Gain_c
+                                        * Referenced by: '<S5>/dgain1'
                                         */
   real32_T Saturation1_UpperSat;     /* Computed Parameter: Saturation1_UpperSat
                                       * Referenced by: '<Root>/Saturation1'
@@ -142,6 +144,14 @@ struct P_single_qc_real_T_ {
   real32_T Saturation1_LowerSat;     /* Computed Parameter: Saturation1_LowerSat
                                       * Referenced by: '<Root>/Saturation1'
                                       */
+  real32_T Memory2_InitialCondition_j;
+                               /* Computed Parameter: Memory2_InitialCondition_j
+                                * Referenced by: '<S4>/Memory2'
+                                */
+  real32_T Memory1_InitialCondition_l;
+                               /* Computed Parameter: Memory1_InitialCondition_l
+                                * Referenced by: '<S5>/Memory1'
+                                */
 };
 
 /* Block parameters (default storage) */
@@ -164,8 +174,6 @@ extern void single_qc_real_terminate(void);
 /*-
  * These blocks were eliminated from the model due to optimizations:
  *
- * Block '<S6>/Data Type Duplicate' : Unused code path elimination
- * Block '<S8>/Data Type Duplicate' : Unused code path elimination
  * Block '<Root>/Data Type Conversion1' : Eliminate redundant data type conversion
  */
 
@@ -189,10 +197,8 @@ extern void single_qc_real_terminate(void);
  * '<S3>'   : 'single_qc_real/transformed_PID'
  * '<S4>'   : 'single_qc_real/transformed_PID/PIDa'
  * '<S5>'   : 'single_qc_real/transformed_PID/PIDb'
- * '<S6>'   : 'single_qc_real/transformed_PID/PIDa/Discrete Derivative2'
- * '<S7>'   : 'single_qc_real/transformed_PID/PIDa/MATLAB Function'
- * '<S8>'   : 'single_qc_real/transformed_PID/PIDb/Discrete Derivative2'
- * '<S9>'   : 'single_qc_real/transformed_PID/PIDb/MATLAB Function'
+ * '<S6>'   : 'single_qc_real/transformed_PID/PIDa/MATLAB Function'
+ * '<S7>'   : 'single_qc_real/transformed_PID/PIDb/MATLAB Function'
  */
 #endif                                 /* RTW_HEADER_single_qc_real_h_ */
 
