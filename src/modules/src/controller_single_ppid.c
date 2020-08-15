@@ -54,7 +54,7 @@ void controllerSinglePPID(control_t *control, setpoint_t *setpoint,
 
   single_qc_ppid_step();
 
-  if (setpoint->thrust < 100)
+  if (setpoint->thrust < 0.000898f)
   {
     motorsSetRatio(0, 0);
     motorsSetRatio(1, 0);

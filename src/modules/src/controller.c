@@ -11,7 +11,7 @@
 #include "controller_single_ppid.h"
 
 // #define DEFAULT_CONTROLLER ControllerTypePID
-#define DEFAULT_CONTROLLER ControllerTypeSingle
+#define DEFAULT_CONTROLLER ControllerTypeSinglePPID
 static ControllerType currentController = ControllerTypeAny;
 
 static void initController();

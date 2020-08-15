@@ -3,9 +3,9 @@
  *
  * Code generated for Simulink model 'single_qc_ppid'.
  *
- * Model version                  : 1.53
+ * Model version                  : 1.61
  * Simulink Coder version         : 9.3 (R2020a) 18-Nov-2019
- * C/C++ source code generated on : Thu Aug  6 12:16:58 2020
+ * C/C++ source code generated on : Sat Aug 15 12:44:36 2020
  *
  * Target selection: ert.tlc
  * Embedded hardware selection: Intel->x86-64 (Windows64)
@@ -21,22 +21,22 @@ P_single_qc_ppid_T single_qc_ppid_P = {
   /* Variable: dgaina
    * Referenced by: '<S4>/dgain'
    */
-  0.0002F,
+  0.4F,
 
   /* Variable: dgainas
    * Referenced by: '<S4>/dgain1'
    */
-  0.0002F,
+  4.0E-5F,
 
   /* Variable: dgainb
    * Referenced by: '<S5>/dgain'
    */
-  0.0002F,
+  0.5F,
 
   /* Variable: dgainbs
    * Referenced by: '<S5>/dgain1'
    */
-  0.0002F,
+  5.0E-5F,
 
   /* Variable: igaina
    * Referenced by: '<S4>/igain'
@@ -46,7 +46,7 @@ P_single_qc_ppid_T single_qc_ppid_P = {
   /* Variable: igainas
    * Referenced by: '<S4>/igain1'
    */
-  0.0F,
+  1.0E-5F,
 
   /* Variable: igainb
    * Referenced by: '<S5>/igain'
@@ -56,27 +56,27 @@ P_single_qc_ppid_T single_qc_ppid_P = {
   /* Variable: igainbs
    * Referenced by: '<S5>/igain1'
    */
-  0.0F,
+  2.0E-5F,
 
   /* Variable: pgaina
    * Referenced by: '<S4>/pgain'
    */
-  0.001F,
+  5.0F,
 
   /* Variable: pgainas
    * Referenced by: '<S4>/pgain1'
    */
-  0.001F,
+  0.002F,
 
   /* Variable: pgainb
    * Referenced by: '<S5>/pgain'
    */
-  0.001F,
+  8.0F,
 
   /* Variable: pgainbs
    * Referenced by: '<S5>/pgain1'
    */
-  0.001F,
+  0.003F,
 
   /* Variable: sat_tx
    * Referenced by: '<S3>/Saturation'
@@ -98,35 +98,10 @@ P_single_qc_ppid_T single_qc_ppid_P = {
    */
   1.0F,
 
-  /* Mask Parameter: DiscreteDerivative2_ICPrevScale
-   * Referenced by: '<S7>/UD'
-   */
-  0.0F,
-
-  /* Mask Parameter: DiscreteDerivative1_ICPrevScale
-   * Referenced by: '<S6>/UD'
-   */
-  0.0F,
-
-  /* Mask Parameter: DiscreteDerivative2_ICPrevSca_c
-   * Referenced by: '<S11>/UD'
-   */
-  0.0F,
-
-  /* Mask Parameter: DiscreteDerivative1_ICPrevSca_d
-   * Referenced by: '<S10>/UD'
-   */
-  0.0F,
-
-  /* Computed Parameter: Gain_Gain
-   * Referenced by: '<Root>/Gain'
-   */
-  8.98146E-6F,
-
   /* Computed Parameter: Saturation_UpperSat
    * Referenced by: '<Root>/Saturation'
    */
-  0.5886F,
+  1.0F,
 
   /* Computed Parameter: Saturation_LowerSat
    * Referenced by: '<Root>/Saturation'
@@ -138,8 +113,13 @@ P_single_qc_ppid_T single_qc_ppid_P = {
    */
   0.0F,
 
-  /* Computed Parameter: TSamp_WtEt
-   * Referenced by: '<S7>/TSamp'
+  /* Computed Parameter: Memory2_InitialCondition
+   * Referenced by: '<S4>/Memory2'
+   */
+  0.0F,
+
+  /* Computed Parameter: dgain2_Gain
+   * Referenced by: '<S4>/dgain2'
    */
   500.0F,
 
@@ -148,8 +128,13 @@ P_single_qc_ppid_T single_qc_ppid_P = {
    */
   0.0F,
 
-  /* Computed Parameter: TSamp_WtEt_d
-   * Referenced by: '<S6>/TSamp'
+  /* Computed Parameter: Memory3_InitialCondition
+   * Referenced by: '<S4>/Memory3'
+   */
+  0.0F,
+
+  /* Computed Parameter: dgain3_Gain
+   * Referenced by: '<S4>/dgain3'
    */
   500.0F,
 
@@ -158,8 +143,13 @@ P_single_qc_ppid_T single_qc_ppid_P = {
    */
   0.0F,
 
-  /* Computed Parameter: TSamp_WtEt_i
-   * Referenced by: '<S11>/TSamp'
+  /* Computed Parameter: Memory2_InitialCondition_c
+   * Referenced by: '<S5>/Memory2'
+   */
+  0.0F,
+
+  /* Computed Parameter: dgain2_Gain_l
+   * Referenced by: '<S5>/dgain2'
    */
   500.0F,
 
@@ -168,8 +158,13 @@ P_single_qc_ppid_T single_qc_ppid_P = {
    */
   0.0F,
 
-  /* Computed Parameter: TSamp_WtEt_j
-   * Referenced by: '<S10>/TSamp'
+  /* Computed Parameter: Memory3_InitialCondition_o
+   * Referenced by: '<S5>/Memory3'
+   */
+  0.0F,
+
+  /* Computed Parameter: dgain3_Gain_h
+   * Referenced by: '<S5>/dgain3'
    */
   500.0F,
 
@@ -180,6 +175,26 @@ P_single_qc_ppid_T single_qc_ppid_P = {
 
   /* Computed Parameter: Saturation1_LowerSat
    * Referenced by: '<Root>/Saturation1'
+   */
+  0.0F,
+
+  /* Computed Parameter: Memory4_InitialCondition
+   * Referenced by: '<S4>/Memory4'
+   */
+  0.0F,
+
+  /* Computed Parameter: Memory5_InitialCondition
+   * Referenced by: '<S4>/Memory5'
+   */
+  0.0F,
+
+  /* Computed Parameter: Memory4_InitialCondition_a
+   * Referenced by: '<S5>/Memory4'
+   */
+  0.0F,
+
+  /* Computed Parameter: Memory5_InitialCondition_p
+   * Referenced by: '<S5>/Memory5'
    */
   0.0F
 };
