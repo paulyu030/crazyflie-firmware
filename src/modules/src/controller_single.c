@@ -51,7 +51,7 @@ void controllerSingle(control_t *control, setpoint_t *setpoint,
 
   single_qc_real_step();
 
-  if (setpoint->thrust < 100)
+  if (setpoint->thrust < 0.000898f)
   {
     motorsSetRatio(0, 0);
     motorsSetRatio(1, 0);
