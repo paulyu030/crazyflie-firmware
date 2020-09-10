@@ -34,18 +34,18 @@ void controllerSingle(control_t *control, setpoint_t *setpoint,
 {
   single_qc_real_U.index = setpoint->attitude.roll;
 
-  single_qc_real_U.qw_op = setpoint->attitudeQuaternion.w;
-  single_qc_real_U.qx_op = setpoint->attitudeQuaternion.x;
-  single_qc_real_U.qy_op = setpoint->attitudeQuaternion.y;
-  single_qc_real_U.qz_op = setpoint->attitudeQuaternion.z;
+  single_qc_real_U.qw_op = setpoint->attitudeQuaternion.w; //1
+  single_qc_real_U.qx_op = setpoint->attitudeQuaternion.x; //0
+  single_qc_real_U.qy_op = setpoint->attitudeQuaternion.y; //0
+  single_qc_real_U.qz_op = setpoint->attitudeQuaternion.z; //0
 
   single_qc_real_U.qw_IMU = state->attitudeQuaternion.w;
   single_qc_real_U.qx_IMU = state->attitudeQuaternion.x;
   single_qc_real_U.qy_IMU = state->attitudeQuaternion.y;
   single_qc_real_U.qz_IMU = state->attitudeQuaternion.z;
 
-  single_qc_real_U.alpha_desired = setpoint->attitude.pitch;
-  single_qc_real_U.beta_desired = setpoint->attitude.yaw;
+  single_qc_real_U.alpha_desired = setpoint->attitude.pitch; // desired tau_x
+  single_qc_real_U.beta_desired = setpoint->attitude.yaw; // no meaning
 
   single_qc_real_U.thrust = setpoint->thrust;
 
@@ -73,15 +73,8 @@ void controllerSingle(control_t *control, setpoint_t *setpoint,
 
 LOG_GROUP_START(sctrl)
 
-LOG_ADD(LOG_FLOAT, e_alpha, &single_qc_real_Y.error_alpha)
-LOG_ADD(LOG_FLOAT, e_beta, &single_qc_real_Y.error_beta)
-LOG_ADD(LOG_FLOAT, u_alpha, &single_qc_real_Y.u_alpha)
-LOG_ADD(LOG_FLOAT, u_beta, &single_qc_real_Y.u_beta)
-
 LOG_ADD(LOG_FLOAT, t_be, &single_qc_real_Y.t_betae)
-LOG_ADD(LOG_FLOAT, t_bin, &single_qc_real_Y.t_betain)
 LOG_ADD(LOG_FLOAT, t_ae, &single_qc_real_Y.t_alphae)
-LOG_ADD(LOG_FLOAT, t_ain, &single_qc_real_Y.t_alphain)
 
 LOG_ADD(LOG_FLOAT, t_m1, &single_qc_real_Y.t_m1)
 LOG_ADD(LOG_FLOAT, t_m2, &single_qc_real_Y.t_m2)
@@ -89,23 +82,4 @@ LOG_ADD(LOG_FLOAT, t_m3, &single_qc_real_Y.t_m3)
 LOG_ADD(LOG_FLOAT, t_m4, &single_qc_real_Y.t_m4)
 
 LOG_GROUP_STOP(sctrl)
-
-
-
-
-PARAM_GROUP_START(sparam)
-PARAM_ADD(PARAM_FLOAT, pgaina, &single_qc_real_P.pgaina)
-PARAM_ADD(PARAM_FLOAT, igaina, &single_qc_real_P.igaina)
-PARAM_ADD(PARAM_FLOAT, dgaina, &single_qc_real_P.dgaina)
-
-PARAM_ADD(PARAM_FLOAT, pgainb, &single_qc_real_P.pgainb)
-PARAM_ADD(PARAM_FLOAT, igainb, &single_qc_real_P.igainb)
-PARAM_ADD(PARAM_FLOAT, dgainb, &single_qc_real_P.dgainb)
-
-PARAM_ADD(PARAM_FLOAT, t_mod, &single_qc_real_P.torque_modifier)
-
-PARAM_ADD(PARAM_FLOAT, s_tx, &single_qc_real_P.sat_tx)
-PARAM_ADD(PARAM_FLOAT, s_ty, &single_qc_real_P.sat_ty)
-PARAM_ADD(PARAM_FLOAT, s_tz, &single_qc_real_P.sat_tz)
-PARAM_GROUP_STOP(sparam)
 
