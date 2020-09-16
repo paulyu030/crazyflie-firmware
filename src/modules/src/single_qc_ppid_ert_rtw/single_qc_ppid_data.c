@@ -3,9 +3,9 @@
  *
  * Code generated for Simulink model 'single_qc_ppid'.
  *
- * Model version                  : 1.61
+ * Model version                  : 1.66
  * Simulink Coder version         : 9.3 (R2020a) 18-Nov-2019
- * C/C++ source code generated on : Sat Aug 15 12:44:36 2020
+ * C/C++ source code generated on : Tue Sep 15 21:21:08 2020
  *
  * Target selection: ert.tlc
  * Embedded hardware selection: Intel->x86-64 (Windows64)
@@ -101,7 +101,7 @@ P_single_qc_ppid_T single_qc_ppid_P = {
   /* Computed Parameter: Saturation_UpperSat
    * Referenced by: '<Root>/Saturation'
    */
-  1.0F,
+  0.7F,
 
   /* Computed Parameter: Saturation_LowerSat
    * Referenced by: '<Root>/Saturation'

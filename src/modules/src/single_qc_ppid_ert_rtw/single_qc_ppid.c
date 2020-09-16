@@ -3,9 +3,9 @@
  *
  * Code generated for Simulink model 'single_qc_ppid'.
  *
- * Model version                  : 1.61
+ * Model version                  : 1.66
  * Simulink Coder version         : 9.3 (R2020a) 18-Nov-2019
- * C/C++ source code generated on : Sat Aug 15 12:44:36 2020
+ * C/C++ source code generated on : Tue Sep 15 21:21:08 2020
  *
  * Target selection: ert.tlc
  * Embedded hardware selection: Intel->x86-64 (Windows64)
@@ -37,12 +37,16 @@ static void single_qc_ppid_quatmultiply(const real32_T q[4], const real32_T r[4]
  *    '<S5>/MATLAB Function1'
  */
 void single_qc_ppid_MATLABFunction(real32_T rtu_value, boolean_T rtu_label,
-  real32_T *rty_newvalue)
+  real32_T rtu_thrust, real32_T *rty_newvalue)
 {
-  if (rtu_label) {
-    *rty_newvalue = 0.0F;
+  if (rtu_thrust > 1.0E-5F) {
+    if (rtu_label) {
+      *rty_newvalue = 0.0F;
+    } else {
+      *rty_newvalue = rtu_value;
+    }
   } else {
-    *rty_newvalue = rtu_value;
+    *rty_newvalue = 0.0F;
   }
 }
 
@@ -105,9 +109,10 @@ void single_qc_ppid_step(void)
   real32_T ftz;
   real32_T f2;
   real32_T f3;
-  real32_T rtb_newvalue_d;
-  real32_T rtb_newvalue_h;
-  real32_T rtb_newvalue_g;
+  real32_T rtb_newvalue_o;
+  real32_T rtb_newvalue_a;
+  real32_T rtb_newvalue_m;
+  real32_T rtb_Saturation;
   real32_T rtb_beta_e;
   real32_T rtb_alpha_e;
   real32_T rtb_Sum;
@@ -121,12 +126,25 @@ void single_qc_ppid_step(void)
   real32_T tmp[4];
   int8_T subsa_idx_1;
   int32_T R_bii_tmp;
-  real32_T rtb_newvalue_n_tmp;
+  real32_T rtb_newvalue_e_tmp;
   static const real32_T b[4] = { 0.707106769F, 0.0F, 0.0F, 0.707106769F };
 
   static const real32_T c[4] = { -0.707106769F, 0.0F, 0.0F, 0.707106769F };
 
   real32_T tmp_0[4];
+
+  /* Saturate: '<Root>/Saturation' incorporates:
+   *  Inport: '<Root>/thrust'
+   */
+  if (single_qc_ppid_U.thrust > single_qc_ppid_P.Saturation_UpperSat) {
+    rtb_Saturation = single_qc_ppid_P.Saturation_UpperSat;
+  } else if (single_qc_ppid_U.thrust < single_qc_ppid_P.Saturation_LowerSat) {
+    rtb_Saturation = single_qc_ppid_P.Saturation_LowerSat;
+  } else {
+    rtb_Saturation = single_qc_ppid_U.thrust;
+  }
+
+  /* End of Saturate: '<Root>/Saturation' */
 
   /* MATLAB Function: '<Root>/MATLAB Function' incorporates:
    *  Inport: '<Root>/index'
@@ -243,7 +261,7 @@ void single_qc_ppid_step(void)
    *  Memory: '<S4>/Memory3'
    *  Sum: '<S4>/Sum6'
    */
-  rtb_newvalue_d = (rtb_Sum3 - single_qc_ppid_DW.Memory3_PreviousInput) *
+  rtb_newvalue_o = (rtb_Sum3 - single_qc_ppid_DW.Memory3_PreviousInput) *
     single_qc_ppid_P.dgain3_Gain * single_qc_ppid_P.dgainas +
     (single_qc_ppid_P.pgainas * rtb_Sum3 + single_qc_ppid_P.igainas * rtb_Sum4);
 
@@ -285,7 +303,7 @@ void single_qc_ppid_step(void)
    *  Memory: '<S5>/Memory3'
    *  Sum: '<S5>/Sum6'
    */
-  rtb_newvalue_h = (rtb_Sum3_b - single_qc_ppid_DW.Memory3_PreviousInput_k) *
+  rtb_newvalue_a = (rtb_Sum3_b - single_qc_ppid_DW.Memory3_PreviousInput_k) *
     single_qc_ppid_P.dgain3_Gain_h * single_qc_ppid_P.dgainbs +
     (single_qc_ppid_P.pgainbs * rtb_Sum3_b + single_qc_ppid_P.igainbs *
      rtb_Sum4_b);
@@ -293,28 +311,15 @@ void single_qc_ppid_step(void)
   /* Product: '<S3>/Product1' incorporates:
    *  Trigonometry: '<S3>/Trigonometric Function'
    */
-  rtb_newvalue_g = rtb_newvalue_d * sinf(rtb_beta_e);
-
-  /* Saturate: '<Root>/Saturation' incorporates:
-   *  Inport: '<Root>/thrust'
-   */
-  if (single_qc_ppid_U.thrust > single_qc_ppid_P.Saturation_UpperSat) {
-    f3 = single_qc_ppid_P.Saturation_UpperSat;
-  } else if (single_qc_ppid_U.thrust < single_qc_ppid_P.Saturation_LowerSat) {
-    f3 = single_qc_ppid_P.Saturation_LowerSat;
-  } else {
-    f3 = single_qc_ppid_U.thrust;
-  }
-
-  /* End of Saturate: '<Root>/Saturation' */
+  rtb_newvalue_m = rtb_newvalue_o * sinf(rtb_beta_e);
 
   /* MATLAB Function: '<Root>/MATLAB Function1' */
-  f3 /= 4.0F;
+  f3 = rtb_Saturation / 4.0F;
 
   /* Product: '<S3>/Product' incorporates:
    *  Trigonometry: '<S3>/Trigonometric Function1'
    */
-  fty = cosf(rtb_beta_e) * rtb_newvalue_d;
+  fty = cosf(rtb_beta_e) * rtb_newvalue_o;
 
   /* Saturate: '<S3>/Saturation' */
   if (fty > single_qc_ppid_P.sat_tx) {
@@ -331,12 +336,12 @@ void single_qc_ppid_step(void)
   ftx = fty / 4.0F / 0.03165F;
 
   /* Saturate: '<S3>/Saturation1' */
-  if (rtb_newvalue_h > single_qc_ppid_P.sat_ty) {
+  if (rtb_newvalue_a > single_qc_ppid_P.sat_ty) {
     fty = single_qc_ppid_P.sat_ty;
-  } else if (rtb_newvalue_h < -single_qc_ppid_P.sat_ty) {
+  } else if (rtb_newvalue_a < -single_qc_ppid_P.sat_ty) {
     fty = -single_qc_ppid_P.sat_ty;
   } else {
-    fty = rtb_newvalue_h;
+    fty = rtb_newvalue_a;
   }
 
   /* End of Saturate: '<S3>/Saturation1' */
@@ -345,11 +350,11 @@ void single_qc_ppid_step(void)
   fty = fty / 4.0F / 0.03165F;
 
   /* Saturate: '<S3>/Saturation2' */
-  if (rtb_newvalue_g > single_qc_ppid_P.sat_tz) {
-    rtb_newvalue_g = single_qc_ppid_P.sat_tz;
+  if (rtb_newvalue_m > single_qc_ppid_P.sat_tz) {
+    rtb_newvalue_m = single_qc_ppid_P.sat_tz;
   } else {
-    if (rtb_newvalue_g < -single_qc_ppid_P.sat_tz) {
-      rtb_newvalue_g = -single_qc_ppid_P.sat_tz;
+    if (rtb_newvalue_m < -single_qc_ppid_P.sat_tz) {
+      rtb_newvalue_m = -single_qc_ppid_P.sat_tz;
     }
   }
 
@@ -358,15 +363,15 @@ void single_qc_ppid_step(void)
   /* MATLAB Function: '<Root>/MATLAB Function1' incorporates:
    *  Constant: '<Root>/Constant'
    */
-  ftz = rtb_newvalue_g / 4.0F / 0.03165F * single_qc_ppid_P.torque_modifier;
-  rtb_newvalue_n_tmp = f3 + ftx;
-  rtb_newvalue_g = (rtb_newvalue_n_tmp - fty) - ftz;
+  ftz = rtb_newvalue_m / 4.0F / 0.03165F * single_qc_ppid_P.torque_modifier;
+  rtb_newvalue_e_tmp = f3 + ftx;
+  rtb_newvalue_m = (rtb_newvalue_e_tmp - fty) - ftz;
   f3 -= ftx;
   ftx = (f3 - fty) + ftz;
   f2 = (f3 + fty) - ftz;
-  f3 = (rtb_newvalue_n_tmp + fty) + ftz;
-  if (rtb_newvalue_g < 0.0F) {
-    rtb_newvalue_g = 0.0F;
+  f3 = (rtb_newvalue_e_tmp + fty) + ftz;
+  if (rtb_newvalue_m < 0.0F) {
+    rtb_newvalue_m = 0.0F;
   }
 
   if (ftx < 0.0F) {
@@ -381,7 +386,7 @@ void single_qc_ppid_step(void)
     f3 = 0.0F;
   }
 
-  q_Bbi[0] = (sqrtf(0.366F * rtb_newvalue_g + 0.00457922881F) + -0.06767F) /
+  q_Bbi[0] = (sqrtf(0.366F * rtb_newvalue_m + 0.00457922881F) + -0.06767F) /
     0.183F * 65535.0F;
   q_Bbi[1] = (sqrtf(0.366F * ftx + 0.00457922881F) + -0.06767F) / 0.183F *
     65535.0F;
@@ -400,11 +405,11 @@ void single_qc_ppid_step(void)
   }
 
   /* DataTypeConversion: '<Root>/Data Type Conversion2' */
-  f3 = floorf(ftz);
-  if (rtIsNaNF(f3) || rtIsInfF(f3)) {
-    f3 = 0.0F;
+  rtb_newvalue_m = floorf(ftz);
+  if (rtIsNaNF(rtb_newvalue_m) || rtIsInfF(rtb_newvalue_m)) {
+    rtb_newvalue_m = 0.0F;
   } else {
-    f3 = fmodf(f3, 65536.0F);
+    rtb_newvalue_m = fmodf(rtb_newvalue_m, 65536.0F);
   }
 
   /* Saturate: '<Root>/Saturation1' */
@@ -417,11 +422,11 @@ void single_qc_ppid_step(void)
   }
 
   /* DataTypeConversion: '<Root>/Data Type Conversion2' */
-  rtb_newvalue_g = floorf(ftz);
-  if (rtIsNaNF(rtb_newvalue_g) || rtIsInfF(rtb_newvalue_g)) {
-    rtb_newvalue_g = 0.0F;
+  f3 = floorf(ftz);
+  if (rtIsNaNF(f3) || rtIsInfF(f3)) {
+    f3 = 0.0F;
   } else {
-    rtb_newvalue_g = fmodf(rtb_newvalue_g, 65536.0F);
+    f3 = fmodf(f3, 65536.0F);
   }
 
   /* Saturate: '<Root>/Saturation1' */
@@ -461,14 +466,14 @@ void single_qc_ppid_step(void)
   /* Outport: '<Root>/m1' incorporates:
    *  DataTypeConversion: '<Root>/Data Type Conversion2'
    */
-  single_qc_ppid_Y.m1 = (uint16_T)(f3 < 0.0F ? (int32_T)(uint16_T)-(int16_T)
-    (uint16_T)-f3 : (int32_T)(uint16_T)f3);
+  single_qc_ppid_Y.m1 = (uint16_T)(rtb_newvalue_m < 0.0F ? (int32_T)(uint16_T)
+    -(int16_T)(uint16_T)-rtb_newvalue_m : (int32_T)(uint16_T)rtb_newvalue_m);
 
   /* Outport: '<Root>/m2' incorporates:
    *  DataTypeConversion: '<Root>/Data Type Conversion2'
    */
-  single_qc_ppid_Y.m2 = (uint16_T)(rtb_newvalue_g < 0.0F ? (int32_T)(uint16_T)
-    -(int16_T)(uint16_T)-rtb_newvalue_g : (int32_T)(uint16_T)rtb_newvalue_g);
+  single_qc_ppid_Y.m2 = (uint16_T)(f3 < 0.0F ? (int32_T)(uint16_T)-(int16_T)
+    (uint16_T)-f3 : (int32_T)(uint16_T)f3);
 
   /* Outport: '<Root>/m3' incorporates:
    *  DataTypeConversion: '<Root>/Data Type Conversion2'
@@ -495,13 +500,13 @@ void single_qc_ppid_step(void)
   single_qc_ppid_Y.t_m4 = q_Bbi[3];
 
   /* Outport: '<Root>/u_beta' */
-  single_qc_ppid_Y.u_beta = rtb_newvalue_h;
+  single_qc_ppid_Y.u_beta = rtb_newvalue_a;
 
   /* MATLAB Function: '<S5>/MATLAB Function1' incorporates:
    *  RelationalOperator: '<S5>/IsNaN1'
    */
-  single_qc_ppid_MATLABFunction(rtb_Sum4_b, rtIsNaNF(rtb_Sum4_b),
-    &rtb_newvalue_g);
+  single_qc_ppid_MATLABFunction(rtb_Sum4_b, rtIsNaNF(rtb_Sum4_b), rtb_Saturation,
+    &rtb_newvalue_m);
 
   /* Outport: '<Root>/error_betas' */
   single_qc_ppid_Y.error_betas = rtb_Sum3_b;
@@ -509,18 +514,20 @@ void single_qc_ppid_step(void)
   /* MATLAB Function: '<S5>/MATLAB Function' incorporates:
    *  RelationalOperator: '<S5>/IsNaN'
    */
-  single_qc_ppid_MATLABFunction(rtb_Sum_b, rtIsNaNF(rtb_Sum_b), &rtb_newvalue_h);
+  single_qc_ppid_MATLABFunction(rtb_Sum_b, rtIsNaNF(rtb_Sum_b), rtb_Saturation,
+    &rtb_newvalue_a);
 
   /* Outport: '<Root>/error_beta' */
   single_qc_ppid_Y.error_beta = rtb_Sum1;
 
   /* Outport: '<Root>/u_alpha' */
-  single_qc_ppid_Y.u_alpha = rtb_newvalue_d;
+  single_qc_ppid_Y.u_alpha = rtb_newvalue_o;
 
   /* MATLAB Function: '<S4>/MATLAB Function1' incorporates:
    *  RelationalOperator: '<S4>/IsNaN1'
    */
-  single_qc_ppid_MATLABFunction(rtb_Sum4, rtIsNaNF(rtb_Sum4), &rtb_newvalue_d);
+  single_qc_ppid_MATLABFunction(rtb_Sum4, rtIsNaNF(rtb_Sum4), rtb_Saturation,
+    &rtb_newvalue_o);
 
   /* Outport: '<Root>/error_alphas' */
   single_qc_ppid_Y.error_alphas = rtb_Sum3;
@@ -529,7 +536,7 @@ void single_qc_ppid_step(void)
    *  MATLAB Function: '<S4>/MATLAB Function'
    *  RelationalOperator: '<S4>/IsNaN'
    */
-  single_qc_ppid_MATLABFunction(rtb_Sum_p, rtIsNaNF(rtb_Sum_p),
+  single_qc_ppid_MATLABFunction(rtb_Sum_p, rtIsNaNF(rtb_Sum_p), rtb_Saturation,
     &single_qc_ppid_DW.Memory_PreviousInput);
 
   /* Outport: '<Root>/error_alpha' */
@@ -558,7 +565,7 @@ void single_qc_ppid_step(void)
     single_qc_ppid_DW.Memory4_PreviousInput;
 
   /* Update for Memory: '<S4>/Memory1' */
-  single_qc_ppid_DW.Memory1_PreviousInput = rtb_newvalue_d;
+  single_qc_ppid_DW.Memory1_PreviousInput = rtb_newvalue_o;
 
   /* Update for Memory: '<S4>/Memory3' incorporates:
    *  Memory: '<S4>/Memory5'
@@ -567,7 +574,7 @@ void single_qc_ppid_step(void)
     single_qc_ppid_DW.Memory5_PreviousInput;
 
   /* Update for Memory: '<S5>/Memory' */
-  single_qc_ppid_DW.Memory_PreviousInput_n = rtb_newvalue_h;
+  single_qc_ppid_DW.Memory_PreviousInput_n = rtb_newvalue_a;
 
   /* Update for Memory: '<S5>/Memory2' incorporates:
    *  Memory: '<S5>/Memory4'
@@ -576,7 +583,7 @@ void single_qc_ppid_step(void)
     single_qc_ppid_DW.Memory4_PreviousInput_g;
 
   /* Update for Memory: '<S5>/Memory1' */
-  single_qc_ppid_DW.Memory1_PreviousInput_b = rtb_newvalue_g;
+  single_qc_ppid_DW.Memory1_PreviousInput_b = rtb_newvalue_m;
 
   /* Update for Memory: '<S5>/Memory3' incorporates:
    *  Memory: '<S5>/Memory5'
