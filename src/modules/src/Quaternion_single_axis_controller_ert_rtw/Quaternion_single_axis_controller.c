@@ -3,9 +3,9 @@
  *
  * Code generated for Simulink model 'Quaternion_single_axis_controller'.
  *
- * Model version                  : 1.92
+ * Model version                  : 1.93
  * Simulink Coder version         : 9.3 (R2020a) 18-Nov-2019
- * C/C++ source code generated on : Tue Sep 29 19:54:29 2020
+ * C/C++ source code generated on : Thu Oct  1 16:59:18 2020
  *
  * Target selection: ert.tlc
  * Embedded hardware selection: Intel->x86-64 (Windows64)
@@ -146,8 +146,8 @@ void Quaternion_single_axis_controller_step(void)
   rtb_quad_z_vector_tmp[2] = 0.0F;
   rtb_quad_z_vector_tmp[5] = 0.0F;
   rtb_quad_z_vector_tmp[8] = 1.0F;
-  tmp_0 = ((tmp_2 + tmp_3) - tmp_4) - tmp_5;
-  rtb_quad_z_vector_tmp_tmp = 2.0F * Quaternion_single_axis_contro_U.qx *
+  tmp = ((tmp_2 + tmp_3) - tmp_4) - tmp_5;
+  tmp_0 = 2.0F * Quaternion_single_axis_contro_U.qx *
     Quaternion_single_axis_contro_U.qy + 2.0F *
     Quaternion_single_axis_contro_U.qz * Quaternion_single_axis_contro_U.qw;
   rtb_TSamp -= tmp_6;
@@ -159,8 +159,8 @@ void Quaternion_single_axis_controller_step(void)
      *  MATLAB Function: '<Root>/MATLAB Function3'
      */
     tmp_6 += (rtb_quad_z_vector_tmp[i + 6] * rtb_TSamp +
-              (rtb_quad_z_vector_tmp[i + 3] * rtb_quad_z_vector_tmp_tmp +
-               rtb_quad_z_vector_tmp[i] * tmp_0)) * rtb_base_z_vector[i];
+              (rtb_quad_z_vector_tmp[i + 3] * tmp_0 + rtb_quad_z_vector_tmp[i] *
+               tmp)) * rtb_base_z_vector[i];
   }
 
   /* MATLAB Function: '<Root>/MATLAB Function5' incorporates:
@@ -176,20 +176,20 @@ void Quaternion_single_axis_controller_step(void)
   }
 
   if (fabsf(Quaternion_single_axis_contr_DW.last_theta -
-            Quaternion_single_axis_contro_Y.theta_meas) > 3.14159274F) {
+            Quaternion_single_axis_contro_Y.theta_meas) > 3.1415926535897931) {
     if (Quaternion_single_axis_contr_DW.last_theta - 3.14159274F < 0.0F) {
-      tmp_0 = -1.0F;
+      tmp = -1.0F;
     } else if (Quaternion_single_axis_contr_DW.last_theta - 3.14159274F > 0.0F)
     {
-      tmp_0 = 1.0F;
+      tmp = 1.0F;
     } else if (Quaternion_single_axis_contr_DW.last_theta - 3.14159274F == 0.0F)
     {
-      tmp_0 = 0.0F;
+      tmp = 0.0F;
     } else {
-      tmp_0 = (rtNaNF);
+      tmp = (rtNaNF);
     }
 
-    Quaternion_single_axis_contr_DW.rotation_counter += tmp_0;
+    Quaternion_single_axis_contr_DW.rotation_counter += tmp;
   }
 
   Quaternion_single_axis_contr_DW.last_theta =
@@ -204,12 +204,12 @@ void Quaternion_single_axis_controller_step(void)
    */
   if (Quaternion_single_axis_contro_U.theta >
       Quaternion_single_axis_contro_P.Saturation2_UpperSat) {
-    tmp_0 = Quaternion_single_axis_contro_P.Saturation2_UpperSat;
+    tmp = Quaternion_single_axis_contro_P.Saturation2_UpperSat;
   } else if (Quaternion_single_axis_contro_U.theta <
              Quaternion_single_axis_contro_P.Saturation2_LowerSat) {
-    tmp_0 = Quaternion_single_axis_contro_P.Saturation2_LowerSat;
+    tmp = Quaternion_single_axis_contro_P.Saturation2_LowerSat;
   } else {
-    tmp_0 = Quaternion_single_axis_contro_U.theta;
+    tmp = Quaternion_single_axis_contro_U.theta;
   }
 
   /* End of Saturate: '<Root>/Saturation2' */
@@ -219,7 +219,7 @@ void Quaternion_single_axis_controller_step(void)
    *  Inport: '<Root>/q'
    *  Sum: '<Root>/Sum4'
    */
-  rtb_Sum1 = (Quaternion_single_axis_contro_Y.theta_meas - tmp_0) *
+  rtb_Sum1 = (Quaternion_single_axis_contro_Y.theta_meas - tmp) *
     Quaternion_single_axis_contro_P.pitch_P - Quaternion_single_axis_contro_U.q;
 
   /* SampleTimeMath: '<S1>/TSamp'
@@ -262,6 +262,7 @@ void Quaternion_single_axis_controller_step(void)
    *
    *  Store in Global RAM
    */
+  tmp = Quaternion_single_axis_contro_U.mx / 0.1266F;
   tmp_0 = ((Quaternion_single_axis_contro_P.pitch_rate_P * rtb_Sum1 +
             Quaternion_single_axis_contro_P.pitch_rate_I *
             Quaternion_single_axis_contr_DW.DiscreteTimeIntegrator1_DSTATE) +
@@ -270,10 +271,9 @@ void Quaternion_single_axis_controller_step(void)
     Quaternion_single_axis_contro_P.Gain_Gain;
   for (i = 0; i < 4; i++) {
     rtb_quad_z_vector_tmp_tmp = b[i + 12] * tmp_6 + (b[i + 8] * 0.0F + (b[i + 4]
-      * tmp_0 + b[i] * Quaternion_single_axis_contro_U.mx));
+      * tmp_0 + b[i] * tmp));
 
     /* Saturate: '<S6>/Saturation' incorporates:
-     *  Inport: '<Root>/mx'
      *  Saturate: '<Root>/Saturation1'
      */
     if (rtb_quad_z_vector_tmp_tmp >

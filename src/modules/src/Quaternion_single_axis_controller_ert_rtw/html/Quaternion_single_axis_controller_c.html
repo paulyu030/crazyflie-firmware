@@ -21,11 +21,11 @@
 <tr name="5" id="5">
 <td><a id="l5" class='ln'>5</a></td><td><span class="ct"> *</span></td></tr>
 <tr name="6" id="6">
-<td><a id="l6" class='ln'>6</a></td><td><span class="ct"> * Model version                  : 1.92</span></td></tr>
+<td><a id="l6" class='ln'>6</a></td><td><span class="ct"> * Model version                  : 1.93</span></td></tr>
 <tr name="7" id="7">
 <td><a id="l7" class='ln'>7</a></td><td><span class="ct"> * Simulink Coder version         : 9.3 (R2020a) 18-Nov-2019</span></td></tr>
 <tr name="8" id="8">
-<td><a id="l8" class='ln'>8</a></td><td><span class="ct"> * C/C++ source code generated on : Tue Sep 29 19:54:29 2020</span></td></tr>
+<td><a id="l8" class='ln'>8</a></td><td><span class="ct"> * C/C++ source code generated on : Thu Oct  1 16:59:18 2020</span></td></tr>
 <tr name="9" id="9">
 <td><a id="l9" class='ln'>9</a></td><td><span class="ct"> *</span></td></tr>
 <tr name="10" id="10">
@@ -307,9 +307,9 @@
 <tr name="148" id="148">
 <td><a id="l148" class='ln'>148</a></td><td>  <a id="148c3" class="tk">rtb_quad_z_vector_tmp</a>[8] = 1.0F;</td></tr>
 <tr name="149" id="149">
-<td><a id="l149" class='ln'>149</a></td><td>  <a id="149c3" class="tk">tmp_0</a> = ((<a id="149c13" class="tk">tmp_2</a> <a id="149c19" class="tk">+</a> <a id="149c21" class="tk">tmp_3</a>) <a id="149c28" class="tk">-</a> <a id="149c30" class="tk">tmp_4</a>) <a id="149c37" class="tk">-</a> <a id="149c39" class="tk">tmp_5</a>;</td></tr>
+<td><a id="l149" class='ln'>149</a></td><td>  <a id="149c3" class="tk">tmp</a> = ((<a id="149c11" class="tk">tmp_2</a> <a id="149c17" class="tk">+</a> <a id="149c19" class="tk">tmp_3</a>) <a id="149c26" class="tk">-</a> <a id="149c28" class="tk">tmp_4</a>) <a id="149c35" class="tk">-</a> <a id="149c37" class="tk">tmp_5</a>;</td></tr>
 <tr name="150" id="150">
-<td><a id="l150" class='ln'>150</a></td><td>  <a id="150c3" class="tk">rtb_quad_z_vector_tmp_tmp</a> = 2.0F <a id="150c36" class="tk">*</a> <a id="150c38" class="tk">Quaternion_single_axis_contro_U</a>.<a id="150c70" class="tk">qx</a> <a id="150c73" class="tk">*</a></td></tr>
+<td><a id="l150" class='ln'>150</a></td><td>  <a id="150c3" class="tk">tmp_0</a> = 2.0F <a id="150c16" class="tk">*</a> <a id="150c18" class="tk">Quaternion_single_axis_contro_U</a>.<a id="150c50" class="tk">qx</a> <a id="150c53" class="tk">*</a></td></tr>
 <tr name="151" id="151">
 <td><a id="l151" class='ln'>151</a></td><td>    <a id="151c5" class="tk">Quaternion_single_axis_contro_U</a>.<a id="151c37" class="tk">qy</a> <a id="151c40" class="tk">+</a> 2.0F <a id="151c47" class="tk">*</a></td></tr>
 <tr name="152" id="152">
@@ -333,9 +333,9 @@
 <tr name="161" id="161">
 <td><a id="l161" class='ln'>161</a></td><td>    <a id="161c5" class="tk">tmp_6</a> <a id="161c11" class="tk">+=</a> (<a id="161c15" class="tk">rtb_quad_z_vector_tmp</a>[<a id="161c37" class="tk">i</a> <a id="161c39" class="tk">+</a> 6] <a id="161c44" class="tk">*</a> <a id="161c46" class="tk">rtb_TSamp</a> <a id="161c56" class="tk">+</a></td></tr>
 <tr name="162" id="162">
-<td><a id="l162" class='ln'>162</a></td><td>              (<a id="162c16" class="tk">rtb_quad_z_vector_tmp</a>[<a id="162c38" class="tk">i</a> <a id="162c40" class="tk">+</a> 3] <a id="162c45" class="tk">*</a> <a id="162c47" class="tk">rtb_quad_z_vector_tmp_tmp</a> <a id="162c73" class="tk">+</a></td></tr>
+<td><a id="l162" class='ln'>162</a></td><td>              (<a id="162c16" class="tk">rtb_quad_z_vector_tmp</a>[<a id="162c38" class="tk">i</a> <a id="162c40" class="tk">+</a> 3] <a id="162c45" class="tk">*</a> <a id="162c47" class="tk">tmp_0</a> <a id="162c53" class="tk">+</a> <a id="162c55" class="tk">rtb_quad_z_vector_tmp</a>[<a id="162c77" class="tk">i</a>] <a id="162c80" class="tk">*</a></td></tr>
 <tr name="163" id="163">
-<td><a id="l163" class='ln'>163</a></td><td>               <a id="163c16" class="tk">rtb_quad_z_vector_tmp</a>[<a id="163c38" class="tk">i</a>] <a id="163c41" class="tk">*</a> <a id="163c43" class="tk">tmp_0</a>)) <a id="163c51" class="tk">*</a> <a id="163c53" class="tk">rtb_base_z_vector</a>[<a id="163c71" class="tk">i</a>];</td></tr>
+<td><a id="l163" class='ln'>163</a></td><td>               <a id="163c16" class="tk">tmp</a>)) <a id="163c22" class="tk">*</a> <a id="163c24" class="tk">rtb_base_z_vector</a>[<a id="163c42" class="tk">i</a>];</td></tr>
 <tr name="164" id="164">
 <td><a id="l164" class='ln'>164</a></td><td>  <span class="br">}</span></td></tr>
 <tr name="165" id="165">
@@ -371,29 +371,29 @@
 <tr name="180" id="180">
 <td><a id="l180" class='ln'>180</a></td><td>    <span class="kw">if</span> (<a id="180c9" class="tk">Quaternion_single_axis_contr_DW</a>.<a id="180c41" class="tk">last_theta</a> <a id="180c52" class="tk">-</a> 3.14159274F <a id="180c66" class="tk">&lt;</a> 0.0F) <span class="br">{</span></td></tr>
 <tr name="181" id="181">
-<td><a id="l181" class='ln'>181</a></td><td>      <a id="181c7" class="tk">tmp_0</a> = <a id="181c15" class="tk">-</a>1.0F;</td></tr>
+<td><a id="l181" class='ln'>181</a></td><td>      <a id="181c7" class="tk">tmp</a> = <a id="181c13" class="tk">-</a>1.0F;</td></tr>
 <tr name="182" id="182">
 <td><a id="l182" class='ln'>182</a></td><td>    <span class="br">}</span> <span class="kw">else</span> <span class="kw">if</span> (<a id="182c16" class="tk">Quaternion_single_axis_contr_DW</a>.<a id="182c48" class="tk">last_theta</a> <a id="182c59" class="tk">-</a> 3.14159274F <a id="182c73" class="tk">&gt;</a> 0.0F)</td></tr>
 <tr name="183" id="183">
 <td><a id="l183" class='ln'>183</a></td><td>    <span class="br">{</span></td></tr>
 <tr name="184" id="184">
-<td><a id="l184" class='ln'>184</a></td><td>      <a id="184c7" class="tk">tmp_0</a> = 1.0F;</td></tr>
+<td><a id="l184" class='ln'>184</a></td><td>      <a id="184c7" class="tk">tmp</a> = 1.0F;</td></tr>
 <tr name="185" id="185">
 <td><a id="l185" class='ln'>185</a></td><td>    <span class="br">}</span> <span class="kw">else</span> <span class="kw">if</span> (<a id="185c16" class="tk">Quaternion_single_axis_contr_DW</a>.<a id="185c48" class="tk">last_theta</a> <a id="185c59" class="tk">-</a> 3.14159274F <a id="185c73" class="tk">==</a> 0.0F)</td></tr>
 <tr name="186" id="186">
 <td><a id="l186" class='ln'>186</a></td><td>    <span class="br">{</span></td></tr>
 <tr name="187" id="187">
-<td><a id="l187" class='ln'>187</a></td><td>      <a id="187c7" class="tk">tmp_0</a> = 0.0F;</td></tr>
+<td><a id="l187" class='ln'>187</a></td><td>      <a id="187c7" class="tk">tmp</a> = 0.0F;</td></tr>
 <tr name="188" id="188">
 <td><a id="l188" class='ln'>188</a></td><td>    <span class="br">}</span> <span class="kw">else</span> <span class="br">{</span></td></tr>
 <tr name="189" id="189">
-<td><a id="l189" class='ln'>189</a></td><td>      <a id="189c7" class="tk">tmp_0</a> = (<a id="189c16" class="tk">rtNaNF</a>);</td></tr>
+<td><a id="l189" class='ln'>189</a></td><td>      <a id="189c7" class="tk">tmp</a> = (<a id="189c14" class="tk">rtNaNF</a>);</td></tr>
 <tr name="190" id="190">
 <td><a id="l190" class='ln'>190</a></td><td>    <span class="br">}</span></td></tr>
 <tr name="191" id="191">
 <td><a id="l191" class='ln'>191</a></td><td></td></tr>
 <tr name="192" id="192">
-<td><a id="l192" class='ln'>192</a></td><td>    <a id="192c5" class="tk">Quaternion_single_axis_contr_DW</a>.<a id="192c37" class="tk">rotation_counter</a> <a id="192c54" class="tk">+=</a> <a id="192c57" class="tk">tmp_0</a>;</td></tr>
+<td><a id="l192" class='ln'>192</a></td><td>    <a id="192c5" class="tk">Quaternion_single_axis_contr_DW</a>.<a id="192c37" class="tk">rotation_counter</a> <a id="192c54" class="tk">+=</a> <a id="192c57" class="tk">tmp</a>;</td></tr>
 <tr name="193" id="193">
 <td><a id="l193" class='ln'>193</a></td><td>  <span class="br">}</span></td></tr>
 <tr name="194" id="194">
@@ -423,17 +423,17 @@
 <tr name="206" id="206">
 <td><a id="l206" class='ln'>206</a></td><td>      <a id="206c7" class="tk">Quaternion_single_axis_contro_P</a>.<a id="206c39" class="tk">Saturation2_UpperSat</a>) <span class="br">{</span></td></tr>
 <tr name="207" id="207">
-<td><a id="l207" class='ln'>207</a></td><td>    <a id="207c5" class="tk">tmp_0</a> = <a id="207c13" class="tk">Quaternion_single_axis_contro_P</a>.<a id="207c45" class="tk">Saturation2_UpperSat</a>;</td></tr>
+<td><a id="l207" class='ln'>207</a></td><td>    <a id="207c5" class="tk">tmp</a> = <a id="207c11" class="tk">Quaternion_single_axis_contro_P</a>.<a id="207c43" class="tk">Saturation2_UpperSat</a>;</td></tr>
 <tr name="208" id="208">
 <td><a id="l208" class='ln'>208</a></td><td>  <span class="br">}</span> <span class="kw">else</span> <span class="kw">if</span> (<a id="208c14" class="tk">Quaternion_single_axis_contro_U</a>.<a id="208c46" class="tk">theta</a> <a id="208c52" class="tk">&lt;</a></td></tr>
 <tr name="209" id="209">
 <td><a id="l209" class='ln'>209</a></td><td>             <a id="209c14" class="tk">Quaternion_single_axis_contro_P</a>.<a id="209c46" class="tk">Saturation2_LowerSat</a>) <span class="br">{</span></td></tr>
 <tr name="210" id="210">
-<td><a id="l210" class='ln'>210</a></td><td>    <a id="210c5" class="tk">tmp_0</a> = <a id="210c13" class="tk">Quaternion_single_axis_contro_P</a>.<a id="210c45" class="tk">Saturation2_LowerSat</a>;</td></tr>
+<td><a id="l210" class='ln'>210</a></td><td>    <a id="210c5" class="tk">tmp</a> = <a id="210c11" class="tk">Quaternion_single_axis_contro_P</a>.<a id="210c43" class="tk">Saturation2_LowerSat</a>;</td></tr>
 <tr name="211" id="211">
 <td><a id="l211" class='ln'>211</a></td><td>  <span class="br">}</span> <span class="kw">else</span> <span class="br">{</span></td></tr>
 <tr name="212" id="212">
-<td><a id="l212" class='ln'>212</a></td><td>    <a id="212c5" class="tk">tmp_0</a> = <a id="212c13" class="tk">Quaternion_single_axis_contro_U</a>.<a id="212c45" class="tk">theta</a>;</td></tr>
+<td><a id="l212" class='ln'>212</a></td><td>    <a id="212c5" class="tk">tmp</a> = <a id="212c11" class="tk">Quaternion_single_axis_contro_U</a>.<a id="212c43" class="tk">theta</a>;</td></tr>
 <tr name="213" id="213">
 <td><a id="l213" class='ln'>213</a></td><td>  <span class="br">}</span></td></tr>
 <tr name="214" id="214">
@@ -453,7 +453,7 @@
 <tr name="221" id="221">
 <td><a id="l221" class='ln'>221</a></td><td><span class="ct">   */</span></td></tr>
 <tr name="222" id="222">
-<td><a id="l222" class='ln'>222</a></td><td>  <a id="222c3" class="tk">rtb_Sum1</a> = (<a id="222c15" class="tk">Quaternion_single_axis_contro_Y</a>.<a id="222c47" class="tk">theta_meas</a> <a id="222c58" class="tk">-</a> <a id="222c60" class="tk">tmp_0</a>) <a id="222c67" class="tk">*</a></td></tr>
+<td><a id="l222" class='ln'>222</a></td><td>  <a id="222c3" class="tk">rtb_Sum1</a> = (<a id="222c15" class="tk">Quaternion_single_axis_contro_Y</a>.<a id="222c47" class="tk">theta_meas</a> <a id="222c58" class="tk">-</a> <a id="222c60" class="tk">tmp</a>) <a id="222c65" class="tk">*</a></td></tr>
 <tr name="223" id="223">
 <td><a id="l223" class='ln'>223</a></td><td>    <a id="223c5" class="tk">Quaternion_single_axis_contro_P</a>.<a id="223c37" class="tk">pitch_P</a> <a id="223c45" class="tk">-</a> <a id="223c47" class="tk">Quaternion_single_axis_contro_U</a>.<a id="223c79" class="tk">q</a>;</td></tr>
 <tr name="224" id="224">
@@ -539,29 +539,29 @@
 <tr name="264" id="264">
 <td><a id="l264" class='ln'>264</a></td><td><span class="ct">   */</span></td></tr>
 <tr name="265" id="265">
-<td><a id="l265" class='ln'>265</a></td><td>  <a id="265c3" class="tk">tmp_0</a> = ((<a id="265c13" class="tk">Quaternion_single_axis_contro_P</a>.<a id="265c45" class="tk">pitch_rate_P</a> <a id="265c58" class="tk">*</a> <a id="265c60" class="tk">rtb_Sum1</a> <a id="265c69" class="tk">+</a></td></tr>
+<td><a id="l265" class='ln'>265</a></td><td>  <a id="265c3" class="tk">tmp</a> = <a id="265c9" class="tk">Quaternion_single_axis_contro_U</a>.<a id="265c41" class="tk">mx</a> <a id="265c44" class="tk">/</a> 0.1266F;</td></tr>
 <tr name="266" id="266">
-<td><a id="l266" class='ln'>266</a></td><td>            <a id="266c13" class="tk">Quaternion_single_axis_contro_P</a>.<a id="266c45" class="tk">pitch_rate_I</a> <a id="266c58" class="tk">*</a></td></tr>
+<td><a id="l266" class='ln'>266</a></td><td>  <a id="266c3" class="tk">tmp_0</a> = ((<a id="266c13" class="tk">Quaternion_single_axis_contro_P</a>.<a id="266c45" class="tk">pitch_rate_P</a> <a id="266c58" class="tk">*</a> <a id="266c60" class="tk">rtb_Sum1</a> <a id="266c69" class="tk">+</a></td></tr>
 <tr name="267" id="267">
-<td><a id="l267" class='ln'>267</a></td><td>            <a id="267c13" class="tk">Quaternion_single_axis_contr_DW</a>.<a id="267c45" class="tk">DiscreteTimeIntegrator1_DSTATE</a>) <a id="267c77" class="tk">+</a></td></tr>
+<td><a id="l267" class='ln'>267</a></td><td>            <a id="267c13" class="tk">Quaternion_single_axis_contro_P</a>.<a id="267c45" class="tk">pitch_rate_I</a> <a id="267c58" class="tk">*</a></td></tr>
 <tr name="268" id="268">
-<td><a id="l268" class='ln'>268</a></td><td>           (<a id="268c13" class="tk">rtb_TSamp</a> <a id="268c23" class="tk">-</a> <a id="268c25" class="tk">Quaternion_single_axis_contr_DW</a>.<a id="268c57" class="tk">UD_DSTATE</a>) <a id="268c68" class="tk">*</a></td></tr>
+<td><a id="l268" class='ln'>268</a></td><td>            <a id="268c13" class="tk">Quaternion_single_axis_contr_DW</a>.<a id="268c45" class="tk">DiscreteTimeIntegrator1_DSTATE</a>) <a id="268c77" class="tk">+</a></td></tr>
 <tr name="269" id="269">
-<td><a id="l269" class='ln'>269</a></td><td>           <a id="269c12" class="tk">Quaternion_single_axis_contro_P</a>.<a id="269c44" class="tk">pitch_rate_D</a>) <a id="269c58" class="tk">*</a></td></tr>
+<td><a id="l269" class='ln'>269</a></td><td>           (<a id="269c13" class="tk">rtb_TSamp</a> <a id="269c23" class="tk">-</a> <a id="269c25" class="tk">Quaternion_single_axis_contr_DW</a>.<a id="269c57" class="tk">UD_DSTATE</a>) <a id="269c68" class="tk">*</a></td></tr>
 <tr name="270" id="270">
-<td><a id="l270" class='ln'>270</a></td><td>    <a id="270c5" class="tk">Quaternion_single_axis_contro_P</a>.<a id="270c37" class="tk">Gain_Gain</a>;</td></tr>
+<td><a id="l270" class='ln'>270</a></td><td>           <a id="270c12" class="tk">Quaternion_single_axis_contro_P</a>.<a id="270c44" class="tk">pitch_rate_D</a>) <a id="270c58" class="tk">*</a></td></tr>
 <tr name="271" id="271">
-<td><a id="l271" class='ln'>271</a></td><td>  <span class="kw">for</span> (<a id="271c8" class="tk">i</a> = 0; <a id="271c15" class="tk">i</a> <a id="271c17" class="tk">&lt;</a> 4; <a id="271c22" class="tk">i</a><a id="271c23" class="tk">++</a>) <span class="br">{</span></td></tr>
+<td><a id="l271" class='ln'>271</a></td><td>    <a id="271c5" class="tk">Quaternion_single_axis_contro_P</a>.<a id="271c37" class="tk">Gain_Gain</a>;</td></tr>
 <tr name="272" id="272">
-<td><a id="l272" class='ln'>272</a></td><td>    <a id="272c5" class="tk">rtb_quad_z_vector_tmp_tmp</a> = <a id="272c33" class="tk">b</a>[<a id="272c35" class="tk">i</a> <a id="272c37" class="tk">+</a> 12] <a id="272c43" class="tk">*</a> <a id="272c45" class="tk">tmp_6</a> <a id="272c51" class="tk">+</a> (<a id="272c54" class="tk">b</a>[<a id="272c56" class="tk">i</a> <a id="272c58" class="tk">+</a> 8] <a id="272c63" class="tk">*</a> 0.0F <a id="272c70" class="tk">+</a> (<a id="272c73" class="tk">b</a>[<a id="272c75" class="tk">i</a> <a id="272c77" class="tk">+</a> 4]</td></tr>
+<td><a id="l272" class='ln'>272</a></td><td>  <span class="kw">for</span> (<a id="272c8" class="tk">i</a> = 0; <a id="272c15" class="tk">i</a> <a id="272c17" class="tk">&lt;</a> 4; <a id="272c22" class="tk">i</a><a id="272c23" class="tk">++</a>) <span class="br">{</span></td></tr>
 <tr name="273" id="273">
-<td><a id="l273" class='ln'>273</a></td><td>      <a id="273c7" class="tk">*</a> <a id="273c9" class="tk">tmp_0</a> <a id="273c15" class="tk">+</a> <a id="273c17" class="tk">b</a>[<a id="273c19" class="tk">i</a>] <a id="273c22" class="tk">*</a> <a id="273c24" class="tk">Quaternion_single_axis_contro_U</a>.<a id="273c56" class="tk">mx</a>));</td></tr>
+<td><a id="l273" class='ln'>273</a></td><td>    <a id="273c5" class="tk">rtb_quad_z_vector_tmp_tmp</a> = <a id="273c33" class="tk">b</a>[<a id="273c35" class="tk">i</a> <a id="273c37" class="tk">+</a> 12] <a id="273c43" class="tk">*</a> <a id="273c45" class="tk">tmp_6</a> <a id="273c51" class="tk">+</a> (<a id="273c54" class="tk">b</a>[<a id="273c56" class="tk">i</a> <a id="273c58" class="tk">+</a> 8] <a id="273c63" class="tk">*</a> 0.0F <a id="273c70" class="tk">+</a> (<a id="273c73" class="tk">b</a>[<a id="273c75" class="tk">i</a> <a id="273c77" class="tk">+</a> 4]</td></tr>
 <tr name="274" id="274">
-<td><a id="l274" class='ln'>274</a></td><td></td></tr>
+<td><a id="l274" class='ln'>274</a></td><td>      <a id="274c7" class="tk">*</a> <a id="274c9" class="tk">tmp_0</a> <a id="274c15" class="tk">+</a> <a id="274c17" class="tk">b</a>[<a id="274c19" class="tk">i</a>] <a id="274c22" class="tk">*</a> <a id="274c24" class="tk">tmp</a>));</td></tr>
 <tr name="275" id="275">
-<td><a id="l275" class='ln'>275</a></td><td>    <span class="ct">/* Saturate: '<a class="ct blk" blk_line="275">&lt;S6&gt;/Saturation</a>' incorporates:</span></td></tr>
+<td><a id="l275" class='ln'>275</a></td><td></td></tr>
 <tr name="276" id="276">
-<td><a id="l276" class='ln'>276</a></td><td><span class="ct">     *  Inport: '<a class="ct blk" blk_line="276">&lt;Root&gt;/mx</a>'</span></td></tr>
+<td><a id="l276" class='ln'>276</a></td><td>    <span class="ct">/* Saturate: '<a class="ct blk" blk_line="276">&lt;S6&gt;/Saturation</a>' incorporates:</span></td></tr>
 <tr name="277" id="277">
 <td><a id="l277" class='ln'>277</a></td><td><span class="ct">     *  Saturate: '<a class="ct blk" blk_line="277">&lt;Root&gt;/Saturation1</a>'</span></td></tr>
 <tr name="278" id="278">
