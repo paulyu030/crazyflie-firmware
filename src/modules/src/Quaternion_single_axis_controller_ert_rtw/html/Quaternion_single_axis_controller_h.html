@@ -25,7 +25,7 @@
 <tr name="7" id="7">
 <td><a id="l7" class='ln'>7</a></td><td><span class="ct"> * Simulink Coder version         : 9.3 (R2020a) 18-Nov-2019</span></td></tr>
 <tr name="8" id="8">
-<td><a id="l8" class='ln'>8</a></td><td><span class="ct"> * C/C++ source code generated on : Thu Oct  1 16:59:18 2020</span></td></tr>
+<td><a id="l8" class='ln'>8</a></td><td><span class="ct"> * C/C++ source code generated on : Sat Oct  3 17:40:20 2020</span></td></tr>
 <tr name="9" id="9">
 <td><a id="l9" class='ln'>9</a></td><td><span class="ct"> *</span></td></tr>
 <tr name="10" id="10">
@@ -185,31 +185,31 @@
 <tr name="87" id="87">
 <td><a id="l87" class='ln'>87</a></td><td><span class="ct">                                        */</span></td></tr>
 <tr name="88" id="88">
-<td><a id="l88" class='ln'>88</a></td><td>  <a id="88c3" class="tk">real32_T</a> <a id="88c12" class="tk">DiscreteDerivative1_ICPrevScale</a>;</td></tr>
+<td><a id="l88" class='ln'>88</a></td><td>  <a id="88c3" class="tk">real32_T</a> <a id="88c12" class="tk">theta_cmd_sat</a>;              <span class="ct">/* Variable: theta_cmd_sat</span></td></tr>
 <tr name="89" id="89">
-<td><a id="l89" class='ln'>89</a></td><td>                              <span class="ct">/* Mask Parameter: DiscreteDerivative1_ICPrevScale</span></td></tr>
+<td><a id="l89" class='ln'>89</a></td><td><span class="ct">                                        * Referenced by: '<a class="ct blk" blk_line="89">&lt;Root&gt;/Saturation2</a>'</span></td></tr>
 <tr name="90" id="90">
-<td><a id="l90" class='ln'>90</a></td><td><span class="ct">                               * Referenced by: '<a class="ct blk" blk_line="90">&lt;S1&gt;/UD</a>'</span></td></tr>
+<td><a id="l90" class='ln'>90</a></td><td><span class="ct">                                        */</span></td></tr>
 <tr name="91" id="91">
-<td><a id="l91" class='ln'>91</a></td><td><span class="ct">                               */</span></td></tr>
+<td><a id="l91" class='ln'>91</a></td><td>  <a id="91c3" class="tk">real32_T</a> <a id="91c12" class="tk">DiscreteDerivative1_ICPrevScale</a>;</td></tr>
 <tr name="92" id="92">
-<td><a id="l92" class='ln'>92</a></td><td>  <a id="92c3" class="tk">real_T</a> <a id="92c10" class="tk">Saturation_UpperSat</a>;          <span class="ct">/* Expression: 65535</span></td></tr>
+<td><a id="l92" class='ln'>92</a></td><td>                              <span class="ct">/* Mask Parameter: DiscreteDerivative1_ICPrevScale</span></td></tr>
 <tr name="93" id="93">
-<td><a id="l93" class='ln'>93</a></td><td><span class="ct">                                        * Referenced by: '<a class="ct blk" blk_line="93">&lt;Root&gt;/Saturation</a>'</span></td></tr>
+<td><a id="l93" class='ln'>93</a></td><td><span class="ct">                               * Referenced by: '<a class="ct blk" blk_line="93">&lt;S1&gt;/UD</a>'</span></td></tr>
 <tr name="94" id="94">
-<td><a id="l94" class='ln'>94</a></td><td><span class="ct">                                        */</span></td></tr>
+<td><a id="l94" class='ln'>94</a></td><td><span class="ct">                               */</span></td></tr>
 <tr name="95" id="95">
-<td><a id="l95" class='ln'>95</a></td><td>  <a id="95c3" class="tk">real_T</a> <a id="95c10" class="tk">Saturation_LowerSat</a>;          <span class="ct">/* Expression: 0</span></td></tr>
+<td><a id="l95" class='ln'>95</a></td><td>  <a id="95c3" class="tk">real_T</a> <a id="95c10" class="tk">Saturation_UpperSat</a>;          <span class="ct">/* Expression: 65535</span></td></tr>
 <tr name="96" id="96">
 <td><a id="l96" class='ln'>96</a></td><td><span class="ct">                                        * Referenced by: '<a class="ct blk" blk_line="96">&lt;Root&gt;/Saturation</a>'</span></td></tr>
 <tr name="97" id="97">
 <td><a id="l97" class='ln'>97</a></td><td><span class="ct">                                        */</span></td></tr>
 <tr name="98" id="98">
-<td><a id="l98" class='ln'>98</a></td><td>  <a id="98c3" class="tk">real32_T</a> <a id="98c12" class="tk">Saturation2_UpperSat</a>;     <span class="ct">/* Computed Parameter: Saturation2_UpperSat</span></td></tr>
+<td><a id="l98" class='ln'>98</a></td><td>  <a id="98c3" class="tk">real_T</a> <a id="98c10" class="tk">Saturation_LowerSat</a>;          <span class="ct">/* Expression: 0</span></td></tr>
 <tr name="99" id="99">
-<td><a id="l99" class='ln'>99</a></td><td><span class="ct">                                      * Referenced by: '<a class="ct blk" blk_line="99">&lt;Root&gt;/Saturation2</a>'</span></td></tr>
+<td><a id="l99" class='ln'>99</a></td><td><span class="ct">                                        * Referenced by: '<a class="ct blk" blk_line="99">&lt;Root&gt;/Saturation</a>'</span></td></tr>
 <tr name="100" id="100">
-<td><a id="l100" class='ln'>100</a></td><td><span class="ct">                                      */</span></td></tr>
+<td><a id="l100" class='ln'>100</a></td><td><span class="ct">                                        */</span></td></tr>
 <tr name="101" id="101">
 <td><a id="l101" class='ln'>101</a></td><td>  <a id="101c3" class="tk">real32_T</a> <a id="101c12" class="tk">Saturation2_LowerSat</a>;     <span class="ct">/* Computed Parameter: Saturation2_LowerSat</span></td></tr>
 <tr name="102" id="102">

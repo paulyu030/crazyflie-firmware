@@ -5,7 +5,7 @@
  *
  * Model version                  : 1.93
  * Simulink Coder version         : 9.3 (R2020a) 18-Nov-2019
- * C/C++ source code generated on : Thu Oct  1 16:59:18 2020
+ * C/C++ source code generated on : Sat Oct  3 17:40:20 2020
  *
  * Target selection: ert.tlc
  * Embedded hardware selection: Intel->x86-64 (Windows64)
@@ -38,6 +38,11 @@ P_Quaternion_single_axis_cont_T Quaternion_single_axis_contro_P = {
    */
   10.0F,
 
+  /* Variable: theta_cmd_sat
+   * Referenced by: '<Root>/Saturation2'
+   */
+  3.14F,
+
   /* Mask Parameter: DiscreteDerivative1_ICPrevScale
    * Referenced by: '<S1>/UD'
    */
@@ -53,15 +58,10 @@ P_Quaternion_single_axis_cont_T Quaternion_single_axis_contro_P = {
    */
   0.0,
 
-  /* Computed Parameter: Saturation2_UpperSat
-   * Referenced by: '<Root>/Saturation2'
-   */
-  1.0F,
-
   /* Computed Parameter: Saturation2_LowerSat
    * Referenced by: '<Root>/Saturation2'
    */
-  -1.0F,
+  -3.14F,
 
   /* Computed Parameter: DiscreteTimeIntegrator1_gainval
    * Referenced by: '<Root>/Discrete-Time Integrator1'

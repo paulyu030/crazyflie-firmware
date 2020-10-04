@@ -327,7 +327,7 @@ function TraceInfoLineFlag() {
     this.lineTraceFlag["Quaternion_single_axis_controller.h:82"]=1;
     this.lineTraceFlag["Quaternion_single_axis_controller.h:85"]=1;
     this.lineTraceFlag["Quaternion_single_axis_controller.h:88"]=1;
-    this.lineTraceFlag["Quaternion_single_axis_controller.h:92"]=1;
+    this.lineTraceFlag["Quaternion_single_axis_controller.h:91"]=1;
     this.lineTraceFlag["Quaternion_single_axis_controller.h:95"]=1;
     this.lineTraceFlag["Quaternion_single_axis_controller.h:98"]=1;
     this.lineTraceFlag["Quaternion_single_axis_controller.h:101"]=1;

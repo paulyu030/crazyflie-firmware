@@ -5,7 +5,7 @@
  *
  * Model version                  : 1.93
  * Simulink Coder version         : 9.3 (R2020a) 18-Nov-2019
- * C/C++ source code generated on : Thu Oct  1 16:59:18 2020
+ * C/C++ source code generated on : Sat Oct  3 17:40:20 2020
  *
  * Target selection: ert.tlc
  * Embedded hardware selection: Intel->x86-64 (Windows64)
@@ -85,6 +85,9 @@ struct P_Quaternion_single_axis_cont_T_ {
   real32_T pitch_rate_P;               /* Variable: pitch_rate_P
                                         * Referenced by: '<Root>/pitch_rate_P'
                                         */
+  real32_T theta_cmd_sat;              /* Variable: theta_cmd_sat
+                                        * Referenced by: '<Root>/Saturation2'
+                                        */
   real32_T DiscreteDerivative1_ICPrevScale;
                               /* Mask Parameter: DiscreteDerivative1_ICPrevScale
                                * Referenced by: '<S1>/UD'
@@ -95,9 +98,6 @@ struct P_Quaternion_single_axis_cont_T_ {
   real_T Saturation_LowerSat;          /* Expression: 0
                                         * Referenced by: '<Root>/Saturation'
                                         */
-  real32_T Saturation2_UpperSat;     /* Computed Parameter: Saturation2_UpperSat
-                                      * Referenced by: '<Root>/Saturation2'
-                                      */
   real32_T Saturation2_LowerSat;     /* Computed Parameter: Saturation2_LowerSat
                                       * Referenced by: '<Root>/Saturation2'
                                       */

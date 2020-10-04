@@ -5,7 +5,7 @@
  *
  * Model version                  : 1.93
  * Simulink Coder version         : 9.3 (R2020a) 18-Nov-2019
- * C/C++ source code generated on : Thu Oct  1 16:59:18 2020
+ * C/C++ source code generated on : Sat Oct  3 17:40:20 2020
  *
  * Target selection: ert.tlc
  * Embedded hardware selection: Intel->x86-64 (Windows64)
@@ -176,7 +176,7 @@ void Quaternion_single_axis_controller_step(void)
   }
 
   if (fabsf(Quaternion_single_axis_contr_DW.last_theta -
-            Quaternion_single_axis_contro_Y.theta_meas) > 3.1415926535897931) {
+            Quaternion_single_axis_contro_Y.theta_meas) > 3.14159274F) {
     if (Quaternion_single_axis_contr_DW.last_theta - 3.14159274F < 0.0F) {
       tmp = -1.0F;
     } else if (Quaternion_single_axis_contr_DW.last_theta - 3.14159274F > 0.0F)
@@ -203,8 +203,8 @@ void Quaternion_single_axis_controller_step(void)
    *  Inport: '<Root>/theta'
    */
   if (Quaternion_single_axis_contro_U.theta >
-      Quaternion_single_axis_contro_P.Saturation2_UpperSat) {
-    tmp = Quaternion_single_axis_contro_P.Saturation2_UpperSat;
+      Quaternion_single_axis_contro_P.theta_cmd_sat) {
+    tmp = Quaternion_single_axis_contro_P.theta_cmd_sat;
   } else if (Quaternion_single_axis_contro_U.theta <
              Quaternion_single_axis_contro_P.Saturation2_LowerSat) {
     tmp = Quaternion_single_axis_contro_P.Saturation2_LowerSat;
