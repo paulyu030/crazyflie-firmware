@@ -60,12 +60,12 @@ P_Quaternion_single_axis_cont_T Quaternion_single_axis_contro_P = {
   /* Computed Parameter: Saturation2_UpperSat
    * Referenced by: '<Root>/Saturation2'
    */
-  1.0F,
+  1.5F,
 
   /* Computed Parameter: Saturation2_LowerSat
    * Referenced by: '<Root>/Saturation2'
    */
-  -1.0F,
+  -1.5F,
 
   /* Computed Parameter: DiscreteTimeIntegrator1_gainval
    * Referenced by: '<Root>/Discrete-Time Integrator1'

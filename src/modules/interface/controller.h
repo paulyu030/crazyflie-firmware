@@ -30,7 +30,6 @@
 
 typedef enum {
   ControllerTypeAny,
-  ControllerTypePID,
   ControllerTypeMellinger,
   ControllerTypeQuaternion,
   ControllerType_COUNT,
