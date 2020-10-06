@@ -3,9 +3,9 @@
  *
  * Code generated for Simulink model 'Quaternion_single_axis_controller'.
  *
- * Model version                  : 1.93
+ * Model version                  : 1.98
  * Simulink Coder version         : 9.3 (R2020a) 18-Nov-2019
- * C/C++ source code generated on : Sat Oct  3 17:40:20 2020
+ * C/C++ source code generated on : Tue Oct  6 11:01:05 2020
  *
  * Target selection: ert.tlc
  * Embedded hardware selection: Intel->x86-64 (Windows64)
@@ -21,7 +21,7 @@ P_Quaternion_single_axis_cont_T Quaternion_single_axis_contro_P = {
   /* Variable: pitch_P
    * Referenced by: '<Root>/pitch_P'
    */
-  600.0F,
+  1000.0F,
 
   /* Variable: pitch_rate_D
    * Referenced by: '<Root>/pitch_rate_D'
@@ -110,16 +110,6 @@ P_Quaternion_single_axis_cont_T Quaternion_single_axis_contro_P = {
 
   /* Computed Parameter: Saturation_LowerSat_l
    * Referenced by: '<S6>/Saturation'
-   */
-  0.0F,
-
-  /* Computed Parameter: DataStoreMemory_InitialValue
-   * Referenced by: '<Root>/Data Store Memory'
-   */
-  0.0F,
-
-  /* Computed Parameter: DataStoreMemory1_InitialValue
-   * Referenced by: '<Root>/Data Store Memory1'
    */
   0.0F
 };

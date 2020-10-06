@@ -3,9 +3,9 @@
  *
  * Code generated for Simulink model 'Quaternion_single_axis_controller'.
  *
- * Model version                  : 1.93
+ * Model version                  : 1.98
  * Simulink Coder version         : 9.3 (R2020a) 18-Nov-2019
- * C/C++ source code generated on : Sat Oct  3 17:40:20 2020
+ * C/C++ source code generated on : Tue Oct  6 11:01:05 2020
  *
  * Target selection: ert.tlc
  * Embedded hardware selection: Intel->x86-64 (Windows64)
@@ -24,7 +24,6 @@
 #endif                  /* Quaternion_single_axis_controller_COMMON_INCLUDES_ */
 
 #include "Quaternion_single_axis_controller_types.h"
-#include "rtGetNaN.h"
 #include "rt_nonfinite.h"
 #include "rtGetInf.h"
 
@@ -41,8 +40,6 @@
 typedef struct {
   real32_T DiscreteTimeIntegrator1_DSTATE;/* '<Root>/Discrete-Time Integrator1' */
   real32_T UD_DSTATE;                  /* '<S1>/UD' */
-  real32_T last_theta;                 /* '<Root>/Data Store Memory' */
-  real32_T rotation_counter;           /* '<Root>/Data Store Memory1' */
 } DW_Quaternion_single_axis_con_T;
 
 /* External inputs (root inport signals with default storage) */
@@ -69,6 +66,7 @@ typedef struct {
   uint16_T M3_output;                  /* '<Root>/M3_output' */
   uint16_T M4_output;                  /* '<Root>/M4_output' */
   real32_T theta_meas;                 /* '<Root>/theta_meas' */
+  real32_T my;                         /* '<Root>/my' */
 } ExtY_Quaternion_single_axis_c_T;
 
 /* Parameters (default storage) */
@@ -135,14 +133,6 @@ struct P_Quaternion_single_axis_cont_T_ {
   real32_T Saturation_LowerSat_l;   /* Computed Parameter: Saturation_LowerSat_l
                                      * Referenced by: '<S6>/Saturation'
                                      */
-  real32_T DataStoreMemory_InitialValue;
-                             /* Computed Parameter: DataStoreMemory_InitialValue
-                              * Referenced by: '<Root>/Data Store Memory'
-                              */
-  real32_T DataStoreMemory1_InitialValue;
-                            /* Computed Parameter: DataStoreMemory1_InitialValue
-                             * Referenced by: '<Root>/Data Store Memory1'
-                             */
 };
 
 /* Real-time Model Data Structure */

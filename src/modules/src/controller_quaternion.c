@@ -89,6 +89,7 @@ LOG_ADD(LOG_FLOAT, theta, &Quaternion_single_axis_contro_U.theta)
 LOG_ADD(LOG_FLOAT, thrust,&Quaternion_single_axis_contro_U.thrust)
 LOG_ADD(LOG_FLOAT, theta_meas,    &Quaternion_single_axis_contro_Y.theta_meas)
 LOG_ADD(LOG_FLOAT, gyroy, &Quaternion_single_axis_contro_U.q)
+LOG_ADD(LOG_FLOAT, my, &Quaternion_single_axis_contro_Y.my)
 LOG_GROUP_STOP(Q_att)
 
 PARAM_GROUP_START(Q_att)

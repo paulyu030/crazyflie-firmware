@@ -45,10 +45,6 @@ function RTW_rtwnameSIDMap() {
 	this.sidHashMap["Quaternion_single_axis_controller:1462"] = {rtwname: "<Root>/index"};
 	this.rtwnameHashMap["<Root>/mx"] = {sid: "Quaternion_single_axis_controller:1483"};
 	this.sidHashMap["Quaternion_single_axis_controller:1483"] = {rtwname: "<Root>/mx"};
-	this.rtwnameHashMap["<Root>/Data Store Memory"] = {sid: "Quaternion_single_axis_controller:1481"};
-	this.sidHashMap["Quaternion_single_axis_controller:1481"] = {rtwname: "<Root>/Data Store Memory"};
-	this.rtwnameHashMap["<Root>/Data Store Memory1"] = {sid: "Quaternion_single_axis_controller:1482"};
-	this.sidHashMap["Quaternion_single_axis_controller:1482"] = {rtwname: "<Root>/Data Store Memory1"};
 	this.rtwnameHashMap["<Root>/Data Type Conversion"] = {sid: "Quaternion_single_axis_controller:1428"};
 	this.sidHashMap["Quaternion_single_axis_controller:1428"] = {rtwname: "<Root>/Data Type Conversion"};
 	this.rtwnameHashMap["<Root>/Demux"] = {sid: "Quaternion_single_axis_controller:1429"};
@@ -107,6 +103,8 @@ function RTW_rtwnameSIDMap() {
 	this.sidHashMap["Quaternion_single_axis_controller:1460"] = {rtwname: "<Root>/M4_output"};
 	this.rtwnameHashMap["<Root>/theta_meas"] = {sid: "Quaternion_single_axis_controller:1477"};
 	this.sidHashMap["Quaternion_single_axis_controller:1477"] = {rtwname: "<Root>/theta_meas"};
+	this.rtwnameHashMap["<Root>/my"] = {sid: "Quaternion_single_axis_controller:1486"};
+	this.sidHashMap["Quaternion_single_axis_controller:1486"] = {rtwname: "<Root>/my"};
 	this.rtwnameHashMap["<S1>/U"] = {sid: "Quaternion_single_axis_controller:1430:1"};
 	this.sidHashMap["Quaternion_single_axis_controller:1430:1"] = {rtwname: "<S1>/U"};
 	this.rtwnameHashMap["<S1>/Data Type Duplicate"] = {sid: "Quaternion_single_axis_controller:1430:2"};
@@ -141,6 +139,8 @@ function RTW_rtwnameSIDMap() {
 	this.sidHashMap["Quaternion_single_axis_controller:1451"] = {rtwname: "<S6>/force2motorCMD"};
 	this.rtwnameHashMap["<S6>/motor_omega_cmd"] = {sid: "Quaternion_single_axis_controller:1452"};
 	this.sidHashMap["Quaternion_single_axis_controller:1452"] = {rtwname: "<S6>/motor_omega_cmd"};
+	this.rtwnameHashMap["<S6>/my_torque"] = {sid: "Quaternion_single_axis_controller:1485"};
+	this.sidHashMap["Quaternion_single_axis_controller:1485"] = {rtwname: "<S6>/my_torque"};
 	this.rtwnameHashMap["<S7>:1"] = {sid: "Quaternion_single_axis_controller:1450:1"};
 	this.sidHashMap["Quaternion_single_axis_controller:1450:1"] = {rtwname: "<S7>:1"};
 	this.rtwnameHashMap["<S8>:1"] = {sid: "Quaternion_single_axis_controller:1451:1"};
