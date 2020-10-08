@@ -3,9 +3,9 @@
  *
  * Code generated for Simulink model 'Quaternion_single_axis_controller'.
  *
- * Model version                  : 1.98
+ * Model version                  : 1.101
  * Simulink Coder version         : 9.3 (R2020a) 18-Nov-2019
- * C/C++ source code generated on : Tue Oct  6 11:01:05 2020
+ * C/C++ source code generated on : Wed Oct  7 00:29:04 2020
  *
  * Target selection: ert.tlc
  * Embedded hardware selection: Intel->x86-64 (Windows64)
@@ -38,8 +38,12 @@
 
 /* Block states (default storage) for system '<Root>' */
 typedef struct {
+  real32_T DiscreteTimeIntegrator2_DSTATE;/* '<Root>/Discrete-Time Integrator2' */
+  real32_T UD_DSTATE;                  /* '<S3>/UD' */
   real32_T DiscreteTimeIntegrator1_DSTATE;/* '<Root>/Discrete-Time Integrator1' */
-  real32_T UD_DSTATE;                  /* '<S1>/UD' */
+  real32_T UD_DSTATE_k;                /* '<S2>/UD' */
+  int8_T DiscreteTimeIntegrator2_PrevRes;/* '<Root>/Discrete-Time Integrator2' */
+  int8_T DiscreteTimeIntegrator1_PrevRes;/* '<Root>/Discrete-Time Integrator1' */
 } DW_Quaternion_single_axis_con_T;
 
 /* External inputs (root inport signals with default storage) */
@@ -67,12 +71,24 @@ typedef struct {
   uint16_T M4_output;                  /* '<Root>/M4_output' */
   real32_T theta_meas;                 /* '<Root>/theta_meas' */
   real32_T my;                         /* '<Root>/my' */
+  real32_T fy;                         /* '<Root>/fy' */
+  real32_T error_omega;                /* '<Root>/error_omega' */
+  real32_T error_theta;                /* '<Root>/error_theta' */
 } ExtY_Quaternion_single_axis_c_T;
 
 /* Parameters (default storage) */
 struct P_Quaternion_single_axis_cont_T_ {
+  real32_T fy_sat;                     /* Variable: fy_sat
+                                        * Referenced by: '<Root>/Saturation3'
+                                        */
+  real32_T pitch_D;                    /* Variable: pitch_D
+                                        * Referenced by: '<Root>/pitch_rate_D1'
+                                        */
+  real32_T pitch_I;                    /* Variable: pitch_I
+                                        * Referenced by: '<Root>/pitch_rate_I1'
+                                        */
   real32_T pitch_P;                    /* Variable: pitch_P
-                                        * Referenced by: '<Root>/pitch_P'
+                                        * Referenced by: '<Root>/pitch_rate_P1'
                                         */
   real32_T pitch_rate_D;               /* Variable: pitch_rate_D
                                         * Referenced by: '<Root>/pitch_rate_D'
@@ -86,9 +102,13 @@ struct P_Quaternion_single_axis_cont_T_ {
   real32_T theta_cmd_sat;              /* Variable: theta_cmd_sat
                                         * Referenced by: '<Root>/Saturation2'
                                         */
+  real32_T DiscreteDerivative2_ICPrevScale;
+                              /* Mask Parameter: DiscreteDerivative2_ICPrevScale
+                               * Referenced by: '<S3>/UD'
+                               */
   real32_T DiscreteDerivative1_ICPrevScale;
                               /* Mask Parameter: DiscreteDerivative1_ICPrevScale
-                               * Referenced by: '<S1>/UD'
+                               * Referenced by: '<S2>/UD'
                                */
   real_T Saturation_UpperSat;          /* Expression: 65535
                                         * Referenced by: '<Root>/Saturation'
@@ -96,9 +116,31 @@ struct P_Quaternion_single_axis_cont_T_ {
   real_T Saturation_LowerSat;          /* Expression: 0
                                         * Referenced by: '<Root>/Saturation'
                                         */
+  real32_T Constant_Value;             /* Computed Parameter: Constant_Value
+                                        * Referenced by: '<S1>/Constant'
+                                        */
   real32_T Saturation2_LowerSat;     /* Computed Parameter: Saturation2_LowerSat
                                       * Referenced by: '<Root>/Saturation2'
                                       */
+  real32_T DiscreteTimeIntegrator2_gainval;
+                          /* Computed Parameter: DiscreteTimeIntegrator2_gainval
+                           * Referenced by: '<Root>/Discrete-Time Integrator2'
+                           */
+  real32_T DiscreteTimeIntegrator2_IC;
+                               /* Computed Parameter: DiscreteTimeIntegrator2_IC
+                                * Referenced by: '<Root>/Discrete-Time Integrator2'
+                                */
+  real32_T DiscreteTimeIntegrator2_UpperSa;
+                          /* Computed Parameter: DiscreteTimeIntegrator2_UpperSa
+                           * Referenced by: '<Root>/Discrete-Time Integrator2'
+                           */
+  real32_T DiscreteTimeIntegrator2_LowerSa;
+                          /* Computed Parameter: DiscreteTimeIntegrator2_LowerSa
+                           * Referenced by: '<Root>/Discrete-Time Integrator2'
+                           */
+  real32_T TSamp_WtEt;                 /* Computed Parameter: TSamp_WtEt
+                                        * Referenced by: '<S3>/TSamp'
+                                        */
   real32_T DiscreteTimeIntegrator1_gainval;
                           /* Computed Parameter: DiscreteTimeIntegrator1_gainval
                            * Referenced by: '<Root>/Discrete-Time Integrator1'
@@ -115,12 +157,12 @@ struct P_Quaternion_single_axis_cont_T_ {
                           /* Computed Parameter: DiscreteTimeIntegrator1_LowerSa
                            * Referenced by: '<Root>/Discrete-Time Integrator1'
                            */
-  real32_T TSamp_WtEt;                 /* Computed Parameter: TSamp_WtEt
-                                        * Referenced by: '<S1>/TSamp'
+  real32_T TSamp_WtEt_f;               /* Computed Parameter: TSamp_WtEt_f
+                                        * Referenced by: '<S2>/TSamp'
                                         */
-  real32_T Gain_Gain;                  /* Computed Parameter: Gain_Gain
-                                        * Referenced by: '<Root>/Gain'
-                                        */
+  real32_T Saturation3_LowerSat;     /* Computed Parameter: Saturation3_LowerSat
+                                      * Referenced by: '<Root>/Saturation3'
+                                      */
   real32_T Saturation1_UpperSat;     /* Computed Parameter: Saturation1_UpperSat
                                       * Referenced by: '<Root>/Saturation1'
                                       */
@@ -128,10 +170,10 @@ struct P_Quaternion_single_axis_cont_T_ {
                                       * Referenced by: '<Root>/Saturation1'
                                       */
   real32_T Saturation_UpperSat_d;   /* Computed Parameter: Saturation_UpperSat_d
-                                     * Referenced by: '<S6>/Saturation'
+                                     * Referenced by: '<S8>/Saturation'
                                      */
   real32_T Saturation_LowerSat_l;   /* Computed Parameter: Saturation_LowerSat_l
-                                     * Referenced by: '<S6>/Saturation'
+                                     * Referenced by: '<S8>/Saturation'
                                      */
 };
 
@@ -175,14 +217,16 @@ extern RT_MODEL_Quaternion_single_ax_T *const Quaternion_single_axis_contr_M;
  * Here is the system hierarchy for this model
  *
  * '<Root>' : 'Quaternion_single_axis_controller'
- * '<S1>'   : 'Quaternion_single_axis_controller/Discrete Derivative1'
- * '<S2>'   : 'Quaternion_single_axis_controller/MATLAB Function1'
- * '<S3>'   : 'Quaternion_single_axis_controller/MATLAB Function2'
- * '<S4>'   : 'Quaternion_single_axis_controller/MATLAB Function3'
- * '<S5>'   : 'Quaternion_single_axis_controller/MATLAB Function5'
- * '<S6>'   : 'Quaternion_single_axis_controller/mixer'
- * '<S7>'   : 'Quaternion_single_axis_controller/mixer/cmd2force'
- * '<S8>'   : 'Quaternion_single_axis_controller/mixer/force2motorCMD'
+ * '<S1>'   : 'Quaternion_single_axis_controller/Compare To Zero'
+ * '<S2>'   : 'Quaternion_single_axis_controller/Discrete Derivative1'
+ * '<S3>'   : 'Quaternion_single_axis_controller/Discrete Derivative2'
+ * '<S4>'   : 'Quaternion_single_axis_controller/MATLAB Function1'
+ * '<S5>'   : 'Quaternion_single_axis_controller/MATLAB Function2'
+ * '<S6>'   : 'Quaternion_single_axis_controller/MATLAB Function3'
+ * '<S7>'   : 'Quaternion_single_axis_controller/MATLAB Function5'
+ * '<S8>'   : 'Quaternion_single_axis_controller/mixer'
+ * '<S9>'   : 'Quaternion_single_axis_controller/mixer/cmd2force'
+ * '<S10>'  : 'Quaternion_single_axis_controller/mixer/force2motorCMD'
  */
 #endif                     /* RTW_HEADER_Quaternion_single_axis_controller_h_ */
 

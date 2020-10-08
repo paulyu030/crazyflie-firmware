@@ -595,6 +595,51 @@ real32_T
 </td>
 
 </tr>
+<tr class="even">
+<td width="42%" align="left" valign="top">
+<a href="matlab:coder.internal.code2model('Quaternion_single_axis_controller:1494')" name="code2model" class="code2model">&lt;Root&gt;/fy</a>
+</td>
+<td width="26%" align="left" valign="top">
+Quaternion_single_axis_contro_Y.fy
+</td>
+<td width="21%" align="left" valign="top">
+real32_T
+</td>
+<td width="10%" align="right" valign="top">
+1
+</td>
+
+</tr>
+<tr class="odd">
+<td width="42%" align="left" valign="top">
+<a href="matlab:coder.internal.code2model('Quaternion_single_axis_controller:1496')" name="code2model" class="code2model">&lt;Root&gt;/error_omega</a>
+</td>
+<td width="26%" align="left" valign="top">
+Quaternion_single_axis_contro_Y.error_omega
+</td>
+<td width="21%" align="left" valign="top">
+real32_T
+</td>
+<td width="10%" align="right" valign="top">
+1
+</td>
+
+</tr>
+<tr class="even">
+<td width="42%" align="left" valign="top">
+<a href="matlab:coder.internal.code2model('Quaternion_single_axis_controller:1497')" name="code2model" class="code2model">&lt;Root&gt;/error_theta</a>
+</td>
+<td width="26%" align="left" valign="top">
+Quaternion_single_axis_contro_Y.error_theta
+</td>
+<td width="21%" align="left" valign="top">
+real32_T
+</td>
+<td width="10%" align="right" valign="top">
+1
+</td>
+
+</tr>
 
 </table>
 <h3>
@@ -636,7 +681,7 @@ Dimension
 synthesized block
 </td>
 <td width="26%" align="left" valign="top">
-Quaternion_single_axis_contro_P.pitch_P
+Quaternion_single_axis_contro_P.fy_sat
 </td>
 <td width="21%" align="left" valign="top">
 real32_T
@@ -647,6 +692,51 @@ real32_T
 
 </tr>
 <tr class="odd">
+<td width="42%" align="left" valign="top">
+synthesized block
+</td>
+<td width="26%" align="left" valign="top">
+Quaternion_single_axis_contro_P.pitch_D
+</td>
+<td width="21%" align="left" valign="top">
+real32_T
+</td>
+<td width="10%" align="right" valign="top">
+1
+</td>
+
+</tr>
+<tr class="even">
+<td width="42%" align="left" valign="top">
+synthesized block
+</td>
+<td width="26%" align="left" valign="top">
+Quaternion_single_axis_contro_P.pitch_I
+</td>
+<td width="21%" align="left" valign="top">
+real32_T
+</td>
+<td width="10%" align="right" valign="top">
+1
+</td>
+
+</tr>
+<tr class="odd">
+<td width="42%" align="left" valign="top">
+synthesized block
+</td>
+<td width="26%" align="left" valign="top">
+Quaternion_single_axis_contro_P.pitch_P
+</td>
+<td width="21%" align="left" valign="top">
+real32_T
+</td>
+<td width="10%" align="right" valign="top">
+1
+</td>
+
+</tr>
+<tr class="even">
 <td width="42%" align="left" valign="top">
 synthesized block
 </td>
@@ -661,7 +751,7 @@ real32_T
 </td>
 
 </tr>
-<tr class="even">
+<tr class="odd">
 <td width="42%" align="left" valign="top">
 synthesized block
 </td>
@@ -676,7 +766,7 @@ real32_T
 </td>
 
 </tr>
-<tr class="odd">
+<tr class="even">
 <td width="42%" align="left" valign="top">
 synthesized block
 </td>
@@ -691,12 +781,27 @@ real32_T
 </td>
 
 </tr>
-<tr class="even">
+<tr class="odd">
 <td width="42%" align="left" valign="top">
 synthesized block
 </td>
 <td width="26%" align="left" valign="top">
 Quaternion_single_axis_contro_P.theta_cmd_sat
+</td>
+<td width="21%" align="left" valign="top">
+real32_T
+</td>
+<td width="10%" align="right" valign="top">
+1
+</td>
+
+</tr>
+<tr class="even">
+<td width="42%" align="left" valign="top">
+<a href="matlab:coder.internal.code2model('Quaternion_single_axis_controller:1487')" name="code2model" class="code2model">&lt;Root&gt;/Discrete Derivative2</a>
+</td>
+<td width="26%" align="left" valign="top">
+Quaternion_single_axis_contro_P.DiscreteDerivative2_ICPrevScale
 </td>
 <td width="21%" align="left" valign="top">
 real32_T
@@ -753,10 +858,100 @@ real_T
 </tr>
 <tr class="even">
 <td width="42%" align="left" valign="top">
+<a href="matlab:coder.internal.code2model('Quaternion_single_axis_controller:1498:3')" name="code2model" class="code2model">&lt;S1&gt;/Constant</a>
+</td>
+<td width="26%" align="left" valign="top">
+Quaternion_single_axis_contro_P.Constant_Value
+</td>
+<td width="21%" align="left" valign="top">
+real32_T
+</td>
+<td width="10%" align="right" valign="top">
+1
+</td>
+
+</tr>
+<tr class="odd">
+<td width="42%" align="left" valign="top">
 <a href="matlab:coder.internal.code2model('Quaternion_single_axis_controller:1479')" name="code2model" class="code2model">&lt;Root&gt;/Saturation2</a>
 </td>
 <td width="26%" align="left" valign="top">
 Quaternion_single_axis_contro_P.Saturation2_LowerSat
+</td>
+<td width="21%" align="left" valign="top">
+real32_T
+</td>
+<td width="10%" align="right" valign="top">
+1
+</td>
+
+</tr>
+<tr class="even">
+<td width="42%" align="left" valign="top">
+<a href="matlab:coder.internal.code2model('Quaternion_single_axis_controller:1488')" name="code2model" class="code2model">&lt;Root&gt;/Discrete-Time Integrator2</a>
+</td>
+<td width="26%" align="left" valign="top">
+Quaternion_single_axis_contro_P.DiscreteTimeIntegrator2_gainval
+</td>
+<td width="21%" align="left" valign="top">
+real32_T
+</td>
+<td width="10%" align="right" valign="top">
+1
+</td>
+
+</tr>
+<tr class="odd">
+<td width="42%" align="left" valign="top">
+<a href="matlab:coder.internal.code2model('Quaternion_single_axis_controller:1488')" name="code2model" class="code2model">&lt;Root&gt;/Discrete-Time Integrator2</a>
+</td>
+<td width="26%" align="left" valign="top">
+Quaternion_single_axis_contro_P.DiscreteTimeIntegrator2_IC
+</td>
+<td width="21%" align="left" valign="top">
+real32_T
+</td>
+<td width="10%" align="right" valign="top">
+1
+</td>
+
+</tr>
+<tr class="even">
+<td width="42%" align="left" valign="top">
+<a href="matlab:coder.internal.code2model('Quaternion_single_axis_controller:1488')" name="code2model" class="code2model">&lt;Root&gt;/Discrete-Time Integrator2</a>
+</td>
+<td width="26%" align="left" valign="top">
+Quaternion_single_axis_contro_P.DiscreteTimeIntegrator2_UpperSa
+</td>
+<td width="21%" align="left" valign="top">
+real32_T
+</td>
+<td width="10%" align="right" valign="top">
+1
+</td>
+
+</tr>
+<tr class="odd">
+<td width="42%" align="left" valign="top">
+<a href="matlab:coder.internal.code2model('Quaternion_single_axis_controller:1488')" name="code2model" class="code2model">&lt;Root&gt;/Discrete-Time Integrator2</a>
+</td>
+<td width="26%" align="left" valign="top">
+Quaternion_single_axis_contro_P.DiscreteTimeIntegrator2_LowerSa
+</td>
+<td width="21%" align="left" valign="top">
+real32_T
+</td>
+<td width="10%" align="right" valign="top">
+1
+</td>
+
+</tr>
+<tr class="even">
+<td width="42%" align="left" valign="top">
+<a href="matlab:coder.internal.code2model('Quaternion_single_axis_controller:1487:4')" name="code2model" class="code2model">&lt;S3&gt;/TSamp</a>
+</td>
+<td width="26%" align="left" valign="top">
+Quaternion_single_axis_contro_P.TSamp_WtEt
 </td>
 <td width="21%" align="left" valign="top">
 real32_T
@@ -828,10 +1023,10 @@ real32_T
 </tr>
 <tr class="odd">
 <td width="42%" align="left" valign="top">
-<a href="matlab:coder.internal.code2model('Quaternion_single_axis_controller:1430:4')" name="code2model" class="code2model">&lt;S1&gt;/TSamp</a>
+<a href="matlab:coder.internal.code2model('Quaternion_single_axis_controller:1430:4')" name="code2model" class="code2model">&lt;S2&gt;/TSamp</a>
 </td>
 <td width="26%" align="left" valign="top">
-Quaternion_single_axis_contro_P.TSamp_WtEt
+Quaternion_single_axis_contro_P.TSamp_WtEt_f
 </td>
 <td width="21%" align="left" valign="top">
 real32_T
@@ -843,10 +1038,10 @@ real32_T
 </tr>
 <tr class="even">
 <td width="42%" align="left" valign="top">
-<a href="matlab:coder.internal.code2model('Quaternion_single_axis_controller:1476')" name="code2model" class="code2model">&lt;Root&gt;/Gain</a>
+<a href="matlab:coder.internal.code2model('Quaternion_single_axis_controller:1493')" name="code2model" class="code2model">&lt;Root&gt;/Saturation3</a>
 </td>
 <td width="26%" align="left" valign="top">
-Quaternion_single_axis_contro_P.Gain_Gain
+Quaternion_single_axis_contro_P.Saturation3_LowerSat
 </td>
 <td width="21%" align="left" valign="top">
 real32_T
@@ -888,7 +1083,7 @@ real32_T
 </tr>
 <tr class="odd">
 <td width="42%" align="left" valign="top">
-<a href="matlab:coder.internal.code2model('Quaternion_single_axis_controller:1449')" name="code2model" class="code2model">&lt;S6&gt;/Saturation</a>
+<a href="matlab:coder.internal.code2model('Quaternion_single_axis_controller:1449')" name="code2model" class="code2model">&lt;S8&gt;/Saturation</a>
 </td>
 <td width="26%" align="left" valign="top">
 Quaternion_single_axis_contro_P.Saturation_UpperSat_d
@@ -903,7 +1098,7 @@ real32_T
 </tr>
 <tr class="even">
 <td width="42%" align="left" valign="top">
-<a href="matlab:coder.internal.code2model('Quaternion_single_axis_controller:1449')" name="code2model" class="code2model">&lt;S6&gt;/Saturation</a>
+<a href="matlab:coder.internal.code2model('Quaternion_single_axis_controller:1449')" name="code2model" class="code2model">&lt;S8&gt;/Saturation</a>
 </td>
 <td width="26%" align="left" valign="top">
 Quaternion_single_axis_contro_P.Saturation_LowerSat_l
