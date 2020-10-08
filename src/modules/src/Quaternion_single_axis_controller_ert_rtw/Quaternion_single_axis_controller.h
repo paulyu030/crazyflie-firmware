@@ -3,9 +3,9 @@
  *
  * Code generated for Simulink model 'Quaternion_single_axis_controller'.
  *
- * Model version                  : 1.101
+ * Model version                  : 1.102
  * Simulink Coder version         : 9.3 (R2020a) 18-Nov-2019
- * C/C++ source code generated on : Wed Oct  7 00:29:04 2020
+ * C/C++ source code generated on : Wed Oct  7 23:06:12 2020
  *
  * Target selection: ert.tlc
  * Embedded hardware selection: Intel->x86-64 (Windows64)
@@ -119,6 +119,12 @@ struct P_Quaternion_single_axis_cont_T_ {
   real32_T Constant_Value;             /* Computed Parameter: Constant_Value
                                         * Referenced by: '<S1>/Constant'
                                         */
+  real32_T Saturation1_UpperSat;     /* Computed Parameter: Saturation1_UpperSat
+                                      * Referenced by: '<Root>/Saturation1'
+                                      */
+  real32_T Saturation1_LowerSat;     /* Computed Parameter: Saturation1_LowerSat
+                                      * Referenced by: '<Root>/Saturation1'
+                                      */
   real32_T Saturation2_LowerSat;     /* Computed Parameter: Saturation2_LowerSat
                                       * Referenced by: '<Root>/Saturation2'
                                       */
@@ -162,12 +168,6 @@ struct P_Quaternion_single_axis_cont_T_ {
                                         */
   real32_T Saturation3_LowerSat;     /* Computed Parameter: Saturation3_LowerSat
                                       * Referenced by: '<Root>/Saturation3'
-                                      */
-  real32_T Saturation1_UpperSat;     /* Computed Parameter: Saturation1_UpperSat
-                                      * Referenced by: '<Root>/Saturation1'
-                                      */
-  real32_T Saturation1_LowerSat;     /* Computed Parameter: Saturation1_LowerSat
-                                      * Referenced by: '<Root>/Saturation1'
                                       */
   real32_T Saturation_UpperSat_d;   /* Computed Parameter: Saturation_UpperSat_d
                                      * Referenced by: '<S8>/Saturation'

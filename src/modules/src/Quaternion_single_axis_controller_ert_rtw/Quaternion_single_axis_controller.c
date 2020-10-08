@@ -3,9 +3,9 @@
  *
  * Code generated for Simulink model 'Quaternion_single_axis_controller'.
  *
- * Model version                  : 1.101
+ * Model version                  : 1.102
  * Simulink Coder version         : 9.3 (R2020a) 18-Nov-2019
- * C/C++ source code generated on : Wed Oct  7 00:29:04 2020
+ * C/C++ source code generated on : Wed Oct  7 23:06:12 2020
  *
  * Target selection: ert.tlc
  * Embedded hardware selection: Intel->x86-64 (Windows64)
@@ -33,7 +33,7 @@ RT_MODEL_Quaternion_single_ax_T *const Quaternion_single_axis_contr_M =
 /* Model step function */
 void Quaternion_single_axis_controller_step(void)
 {
-  real32_T rtb_DiscreteTimeIntegrator2;
+  real32_T rtb_Saturation1;
   real32_T rtb_TSamp;
   real32_T rtb_TSamp_b;
   real32_T rtb_Saturation3;
@@ -45,14 +45,30 @@ void Quaternion_single_axis_controller_step(void)
   real_T rtb_omega_cmd;
   real32_T tmp;
   real32_T tmp_0;
+  real32_T tmp_1;
   real32_T rtb_quad_z_vector_tmp_tmp;
   real32_T rtb_quad_z_vector_tmp_tmp_0;
-  real32_T tmp_1;
   real32_T tmp_2;
   real32_T tmp_3;
   real32_T tmp_4;
+  real32_T tmp_5;
   static const real32_T b[16] = { -1.0F, -1.0F, 1.0F, 1.0F, -1.0F, 1.0F, 1.0F,
     -1.0F, 0.0F, 0.0F, 0.0F, 0.0F, 0.25F, 0.25F, 0.25F, 0.25F };
+
+  /* Saturate: '<Root>/Saturation1' incorporates:
+   *  Inport: '<Root>/thrust'
+   */
+  if (Quaternion_single_axis_contro_U.thrust >
+      Quaternion_single_axis_contro_P.Saturation1_UpperSat) {
+    rtb_Saturation1 = Quaternion_single_axis_contro_P.Saturation1_UpperSat;
+  } else if (Quaternion_single_axis_contro_U.thrust <
+             Quaternion_single_axis_contro_P.Saturation1_LowerSat) {
+    rtb_Saturation1 = Quaternion_single_axis_contro_P.Saturation1_LowerSat;
+  } else {
+    rtb_Saturation1 = Quaternion_single_axis_contro_U.thrust;
+  }
+
+  /* End of Saturate: '<Root>/Saturation1' */
 
   /* MATLAB Function: '<Root>/MATLAB Function1' incorporates:
    *  Inport: '<Root>/index'
@@ -106,19 +122,19 @@ void Quaternion_single_axis_controller_step(void)
     Quaternion_single_axis_contro_U.qz;
   rtb_Saturation3 = 2.0F * Quaternion_single_axis_contro_U.qw *
     Quaternion_single_axis_contro_U.qy;
-  rtb_DiscreteTimeIntegrator2 = rtb_TSamp_b + rtb_Saturation3;
-  tmp = 2.0F * Quaternion_single_axis_contro_U.qy *
+  tmp = rtb_TSamp_b + rtb_Saturation3;
+  tmp_0 = 2.0F * Quaternion_single_axis_contro_U.qy *
     Quaternion_single_axis_contro_U.qz - 2.0F *
     Quaternion_single_axis_contro_U.qw * Quaternion_single_axis_contro_U.qx;
-  tmp_1 = Quaternion_single_axis_contro_U.qw *
+  tmp_2 = Quaternion_single_axis_contro_U.qw *
     Quaternion_single_axis_contro_U.qw;
-  tmp_2 = Quaternion_single_axis_contro_U.qx *
+  tmp_3 = Quaternion_single_axis_contro_U.qx *
     Quaternion_single_axis_contro_U.qx;
-  tmp_3 = Quaternion_single_axis_contro_U.qy *
+  tmp_4 = Quaternion_single_axis_contro_U.qy *
     Quaternion_single_axis_contro_U.qy;
-  tmp_4 = Quaternion_single_axis_contro_U.qz *
+  tmp_5 = Quaternion_single_axis_contro_U.qz *
     Quaternion_single_axis_contro_U.qz;
-  tmp_0 = ((tmp_1 - tmp_2) - tmp_3) + tmp_4;
+  tmp_1 = ((tmp_2 - tmp_3) - tmp_4) + tmp_5;
 
   /* DotProduct: '<Root>/Dot Product' */
   rtb_TSamp = 0.0F;
@@ -126,9 +142,9 @@ void Quaternion_single_axis_controller_step(void)
     /* DotProduct: '<Root>/Dot Product' incorporates:
      *  MATLAB Function: '<Root>/MATLAB Function1'
      */
-    rtb_TSamp += (rtb_quad_z_vector_tmp[i + 6] * tmp_0 +
-                  (rtb_quad_z_vector_tmp[i + 3] * tmp + rtb_quad_z_vector_tmp[i]
-                   * rtb_DiscreteTimeIntegrator2)) * rtb_base_z_vector[i];
+    rtb_TSamp += (rtb_quad_z_vector_tmp[i + 6] * tmp_1 +
+                  (rtb_quad_z_vector_tmp[i + 3] * tmp_0 +
+                   rtb_quad_z_vector_tmp[i] * tmp)) * rtb_base_z_vector[i];
   }
 
   /* MATLAB Function: '<Root>/MATLAB Function5' incorporates:
@@ -153,31 +169,32 @@ void Quaternion_single_axis_controller_step(void)
     rtb_quad_z_vector_tmp[2] = 0.0F;
     rtb_quad_z_vector_tmp[5] = 0.0F;
     rtb_quad_z_vector_tmp[8] = 1.0F;
-    rtb_DiscreteTimeIntegrator2 = ((Quaternion_single_axis_contro_U.qw *
-      Quaternion_single_axis_contro_U.qw + Quaternion_single_axis_contro_U.qx *
-      Quaternion_single_axis_contro_U.qx) - Quaternion_single_axis_contro_U.qy *
-      Quaternion_single_axis_contro_U.qy) - Quaternion_single_axis_contro_U.qz *
-      Quaternion_single_axis_contro_U.qz;
+    tmp = ((Quaternion_single_axis_contro_U.qw *
+            Quaternion_single_axis_contro_U.qw +
+            Quaternion_single_axis_contro_U.qx *
+            Quaternion_single_axis_contro_U.qx) -
+           Quaternion_single_axis_contro_U.qy *
+           Quaternion_single_axis_contro_U.qy) -
+      Quaternion_single_axis_contro_U.qz * Quaternion_single_axis_contro_U.qz;
     rtb_quad_z_vector_tmp_tmp = 2.0F * Quaternion_single_axis_contro_U.qx *
       Quaternion_single_axis_contro_U.qy + 2.0F *
       Quaternion_single_axis_contro_U.qz * Quaternion_single_axis_contro_U.qw;
-    rtb_TSamp_b = 2.0F * Quaternion_single_axis_contro_U.qx *
+    rtb_Saturation3 = 2.0F * Quaternion_single_axis_contro_U.qx *
       Quaternion_single_axis_contro_U.qz - 2.0F *
       Quaternion_single_axis_contro_U.qw * Quaternion_single_axis_contro_U.qy;
 
     /* DotProduct: '<Root>/Dot Product1' */
-    rtb_Saturation3 = 0.0F;
+    rtb_TSamp_b = 0.0F;
     for (i = 0; i < 3; i++) {
       /* DotProduct: '<Root>/Dot Product1' incorporates:
        *  MATLAB Function: '<Root>/MATLAB Function3'
        */
-      rtb_Saturation3 += (rtb_quad_z_vector_tmp[i + 6] * rtb_TSamp_b +
-                          (rtb_quad_z_vector_tmp[i + 3] *
-                           rtb_quad_z_vector_tmp_tmp + rtb_quad_z_vector_tmp[i] *
-                           rtb_DiscreteTimeIntegrator2)) * rtb_base_z_vector[i];
+      rtb_TSamp_b += (rtb_quad_z_vector_tmp[i + 6] * rtb_Saturation3 +
+                      (rtb_quad_z_vector_tmp[i + 3] * rtb_quad_z_vector_tmp_tmp
+                       + rtb_quad_z_vector_tmp[i] * tmp)) * rtb_base_z_vector[i];
     }
 
-    Quaternion_single_axis_contro_Y.theta_meas = acosf(rtb_Saturation3) -
+    Quaternion_single_axis_contro_Y.theta_meas = acosf(rtb_TSamp_b) -
       1.57079637F;
   } else {
     /* MATLAB Function: '<Root>/MATLAB Function3' incorporates:
@@ -197,25 +214,24 @@ void Quaternion_single_axis_controller_step(void)
     rtb_quad_z_vector_tmp[2] = 0.0F;
     rtb_quad_z_vector_tmp[5] = 0.0F;
     rtb_quad_z_vector_tmp[8] = 1.0F;
-    rtb_DiscreteTimeIntegrator2 = ((tmp_1 + tmp_2) - tmp_3) - tmp_4;
+    tmp = ((tmp_2 + tmp_3) - tmp_4) - tmp_5;
     rtb_quad_z_vector_tmp_tmp = 2.0F * Quaternion_single_axis_contro_U.qx *
       Quaternion_single_axis_contro_U.qy + 2.0F *
       Quaternion_single_axis_contro_U.qz * Quaternion_single_axis_contro_U.qw;
-    rtb_TSamp_b -= rtb_Saturation3;
+    rtb_Saturation3 = rtb_TSamp_b - rtb_Saturation3;
 
     /* DotProduct: '<Root>/Dot Product1' */
-    rtb_Saturation3 = 0.0F;
+    rtb_TSamp_b = 0.0F;
     for (i = 0; i < 3; i++) {
       /* DotProduct: '<Root>/Dot Product1' incorporates:
        *  MATLAB Function: '<Root>/MATLAB Function3'
        */
-      rtb_Saturation3 += (rtb_quad_z_vector_tmp[i + 6] * rtb_TSamp_b +
-                          (rtb_quad_z_vector_tmp[i + 3] *
-                           rtb_quad_z_vector_tmp_tmp + rtb_quad_z_vector_tmp[i] *
-                           rtb_DiscreteTimeIntegrator2)) * rtb_base_z_vector[i];
+      rtb_TSamp_b += (rtb_quad_z_vector_tmp[i + 6] * rtb_Saturation3 +
+                      (rtb_quad_z_vector_tmp[i + 3] * rtb_quad_z_vector_tmp_tmp
+                       + rtb_quad_z_vector_tmp[i] * tmp)) * rtb_base_z_vector[i];
     }
 
-    if (rtb_Saturation3 <= 0.0F) {
+    if (rtb_TSamp_b <= 0.0F) {
       Quaternion_single_axis_contro_Y.theta_meas = acosf(rtb_TSamp);
     } else {
       Quaternion_single_axis_contro_Y.theta_meas = -acosf(rtb_TSamp);
@@ -229,25 +245,24 @@ void Quaternion_single_axis_controller_step(void)
    */
   if (Quaternion_single_axis_contro_U.theta >
       Quaternion_single_axis_contro_P.theta_cmd_sat) {
-    rtb_DiscreteTimeIntegrator2 = Quaternion_single_axis_contro_P.theta_cmd_sat;
+    rtb_TSamp_b = Quaternion_single_axis_contro_P.theta_cmd_sat;
   } else if (Quaternion_single_axis_contro_U.theta <
              Quaternion_single_axis_contro_P.Saturation2_LowerSat) {
-    rtb_DiscreteTimeIntegrator2 =
-      Quaternion_single_axis_contro_P.Saturation2_LowerSat;
+    rtb_TSamp_b = Quaternion_single_axis_contro_P.Saturation2_LowerSat;
   } else {
-    rtb_DiscreteTimeIntegrator2 = Quaternion_single_axis_contro_U.theta;
+    rtb_TSamp_b = Quaternion_single_axis_contro_U.theta;
   }
 
   /* End of Saturate: '<Root>/Saturation2' */
 
   /* Sum: '<Root>/Sum4' */
   Quaternion_single_axis_contro_Y.error_theta =
-    Quaternion_single_axis_contro_Y.theta_meas - rtb_DiscreteTimeIntegrator2;
+    Quaternion_single_axis_contro_Y.theta_meas - rtb_TSamp_b;
 
   /* RelationalOperator: '<S1>/Compare' incorporates:
    *  Constant: '<S1>/Constant'
    */
-  rtb_Compare = (rtb_DiscreteTimeIntegrator2 >
+  rtb_Compare = (rtb_Saturation1 >
                  Quaternion_single_axis_contro_P.Constant_Value);
 
   /* DiscreteIntegrator: '<Root>/Discrete-Time Integrator2' */
@@ -360,50 +375,31 @@ void Quaternion_single_axis_controller_step(void)
       Quaternion_single_axis_contro_P.fy_sat) {
     rtb_Saturation3 = Quaternion_single_axis_contro_P.fy_sat;
   } else if (Quaternion_single_axis_contro_Y.fy <
-             Quaternion_single_axis_contro_P.Saturation3_LowerSat) {
-    rtb_Saturation3 = Quaternion_single_axis_contro_P.Saturation3_LowerSat;
+             - Quaternion_single_axis_contro_P.fy_sat) {
+    rtb_Saturation3 = - Quaternion_single_axis_contro_P.fy_sat;
   } else {
     rtb_Saturation3 = Quaternion_single_axis_contro_Y.fy;
   }
 
   /* End of Saturate: '<Root>/Saturation3' */
 
-  /* Saturate: '<Root>/Saturation1' incorporates:
-   *  Inport: '<Root>/thrust'
-   */
-  if (Quaternion_single_axis_contro_U.thrust >
-      Quaternion_single_axis_contro_P.Saturation1_UpperSat) {
-    rtb_quad_z_vector_tmp_tmp =
-      Quaternion_single_axis_contro_P.Saturation1_UpperSat;
-  } else if (Quaternion_single_axis_contro_U.thrust <
-             Quaternion_single_axis_contro_P.Saturation1_LowerSat) {
-    rtb_quad_z_vector_tmp_tmp =
-      Quaternion_single_axis_contro_P.Saturation1_LowerSat;
-  } else {
-    rtb_quad_z_vector_tmp_tmp = Quaternion_single_axis_contro_U.thrust;
-  }
-
   /* MATLAB Function: '<S8>/cmd2force' incorporates:
    *  Inport: '<Root>/mx'
-   *  Saturate: '<Root>/Saturation1'
    */
-  rtb_DiscreteTimeIntegrator2 = Quaternion_single_axis_contro_U.mx / 0.1266F;
+  tmp = Quaternion_single_axis_contro_U.mx / 0.1266F;
   for (i = 0; i < 4; i++) {
-    rtb_quad_z_vector_tmp_tmp_0 = b[i + 12] * rtb_quad_z_vector_tmp_tmp + (b[i +
-      8] * 0.0F + (b[i + 4] * rtb_Saturation3 + b[i] *
-                   rtb_DiscreteTimeIntegrator2));
+    rtb_quad_z_vector_tmp_tmp = b[i + 12] * rtb_Saturation1 + (b[i + 8] * 0.0F +
+      (b[i + 4] * rtb_Saturation3 + b[i] * tmp));
 
-    /* Saturate: '<S8>/Saturation' incorporates:
-     *  Saturate: '<Root>/Saturation1'
-     */
-    if (rtb_quad_z_vector_tmp_tmp_0 >
+    /* Saturate: '<S8>/Saturation' */
+    if (rtb_quad_z_vector_tmp_tmp >
         Quaternion_single_axis_contro_P.Saturation_UpperSat_d) {
-      rtb_quad_z_vector_tmp_tmp_0 =
+      rtb_quad_z_vector_tmp_tmp =
         Quaternion_single_axis_contro_P.Saturation_UpperSat_d;
     } else {
-      if (rtb_quad_z_vector_tmp_tmp_0 <
+      if (rtb_quad_z_vector_tmp_tmp <
           Quaternion_single_axis_contro_P.Saturation_LowerSat_l) {
-        rtb_quad_z_vector_tmp_tmp_0 =
+        rtb_quad_z_vector_tmp_tmp =
           Quaternion_single_axis_contro_P.Saturation_LowerSat_l;
       }
     }
@@ -411,7 +407,7 @@ void Quaternion_single_axis_controller_step(void)
     /* End of Saturate: '<S8>/Saturation' */
 
     /* MATLAB Function: '<S8>/force2motorCMD' */
-    rtb_omega_cmd = (sqrtf(0.366F * rtb_quad_z_vector_tmp_tmp_0 + 0.00457922881F)
+    rtb_omega_cmd = (sqrtf(0.366F * rtb_quad_z_vector_tmp_tmp + 0.00457922881F)
                      + -0.06767F) * 65536.0F / 0.183F;
 
     /* Saturate: '<Root>/Saturation' */
