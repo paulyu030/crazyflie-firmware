@@ -3,9 +3,9 @@
  *
  * Code generated for Simulink model 'Quaternion_single_axis_controller'.
  *
- * Model version                  : 1.102
+ * Model version                  : 1.116
  * Simulink Coder version         : 9.3 (R2020a) 18-Nov-2019
- * C/C++ source code generated on : Wed Oct  7 23:06:12 2020
+ * C/C++ source code generated on : Mon Oct 12 13:08:59 2020
  *
  * Target selection: ert.tlc
  * Embedded hardware selection: Intel->x86-64 (Windows64)

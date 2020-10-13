@@ -3,9 +3,9 @@
  *
  * Code generated for Simulink model 'Quaternion_single_axis_controller'.
  *
- * Model version                  : 1.102
+ * Model version                  : 1.116
  * Simulink Coder version         : 9.3 (R2020a) 18-Nov-2019
- * C/C++ source code generated on : Wed Oct  7 23:06:12 2020
+ * C/C++ source code generated on : Mon Oct 12 13:08:59 2020
  *
  * Target selection: ert.tlc
  * Embedded hardware selection: Intel->x86-64 (Windows64)
@@ -24,6 +24,7 @@
 #endif                  /* Quaternion_single_axis_controller_COMMON_INCLUDES_ */
 
 #include "Quaternion_single_axis_controller_types.h"
+#include "rt_defines.h"
 #include "rt_nonfinite.h"
 #include "rtGetInf.h"
 
@@ -74,10 +75,20 @@ typedef struct {
   real32_T fy;                         /* '<Root>/fy' */
   real32_T error_omega;                /* '<Root>/error_omega' */
   real32_T error_theta;                /* '<Root>/error_theta' */
+  real32_T my_comp;                    /* '<Root>/my_comp' */
 } ExtY_Quaternion_single_axis_c_T;
 
 /* Parameters (default storage) */
 struct P_Quaternion_single_axis_cont_T_ {
+  real_T com_dist;                     /* Variable: com_dist
+                                        * Referenced by: '<Root>/MATLAB Function'
+                                        */
+  real_T inertia;                      /* Variable: inertia
+                                        * Referenced by: '<Root>/MATLAB Function'
+                                        */
+  real_T mass;                         /* Variable: mass
+                                        * Referenced by: '<Root>/MATLAB Function'
+                                        */
   real32_T fy_sat;                     /* Variable: fy_sat
                                         * Referenced by: '<Root>/Saturation3'
                                         */
@@ -170,10 +181,10 @@ struct P_Quaternion_single_axis_cont_T_ {
                                       * Referenced by: '<Root>/Saturation3'
                                       */
   real32_T Saturation_UpperSat_d;   /* Computed Parameter: Saturation_UpperSat_d
-                                     * Referenced by: '<S8>/Saturation'
+                                     * Referenced by: '<S9>/Saturation'
                                      */
   real32_T Saturation_LowerSat_l;   /* Computed Parameter: Saturation_LowerSat_l
-                                     * Referenced by: '<S8>/Saturation'
+                                     * Referenced by: '<S9>/Saturation'
                                      */
 };
 
@@ -220,13 +231,14 @@ extern RT_MODEL_Quaternion_single_ax_T *const Quaternion_single_axis_contr_M;
  * '<S1>'   : 'Quaternion_single_axis_controller/Compare To Zero'
  * '<S2>'   : 'Quaternion_single_axis_controller/Discrete Derivative1'
  * '<S3>'   : 'Quaternion_single_axis_controller/Discrete Derivative2'
- * '<S4>'   : 'Quaternion_single_axis_controller/MATLAB Function1'
- * '<S5>'   : 'Quaternion_single_axis_controller/MATLAB Function2'
- * '<S6>'   : 'Quaternion_single_axis_controller/MATLAB Function3'
- * '<S7>'   : 'Quaternion_single_axis_controller/MATLAB Function5'
- * '<S8>'   : 'Quaternion_single_axis_controller/mixer'
- * '<S9>'   : 'Quaternion_single_axis_controller/mixer/cmd2force'
- * '<S10>'  : 'Quaternion_single_axis_controller/mixer/force2motorCMD'
+ * '<S4>'   : 'Quaternion_single_axis_controller/MATLAB Function'
+ * '<S5>'   : 'Quaternion_single_axis_controller/MATLAB Function1'
+ * '<S6>'   : 'Quaternion_single_axis_controller/MATLAB Function2'
+ * '<S7>'   : 'Quaternion_single_axis_controller/MATLAB Function3'
+ * '<S8>'   : 'Quaternion_single_axis_controller/MATLAB Function5'
+ * '<S9>'   : 'Quaternion_single_axis_controller/mixer'
+ * '<S10>'  : 'Quaternion_single_axis_controller/mixer/cmd2force'
+ * '<S11>'  : 'Quaternion_single_axis_controller/mixer/force2motorCMD'
  */
 #endif                     /* RTW_HEADER_Quaternion_single_axis_controller_h_ */
 
