@@ -3,9 +3,9 @@
  *
  * Code generated for Simulink model 'single_qc_ppid'.
  *
- * Model version                  : 1.66
+ * Model version                  : 1.71
  * Simulink Coder version         : 9.3 (R2020a) 18-Nov-2019
- * C/C++ source code generated on : Tue Sep 15 21:21:08 2020
+ * C/C++ source code generated on : Sun Oct 18 22:34:34 2020
  *
  * Target selection: ert.tlc
  * Embedded hardware selection: Intel->x86-64 (Windows64)
@@ -31,18 +31,18 @@
 
 /* Block states (default storage) for system '<Root>' */
 typedef struct {
-  real32_T Memory_PreviousInput;       /* '<S4>/Memory' */
-  real32_T Memory2_PreviousInput;      /* '<S4>/Memory2' */
-  real32_T Memory1_PreviousInput;      /* '<S4>/Memory1' */
-  real32_T Memory3_PreviousInput;      /* '<S4>/Memory3' */
-  real32_T Memory_PreviousInput_n;     /* '<S5>/Memory' */
-  real32_T Memory2_PreviousInput_m;    /* '<S5>/Memory2' */
-  real32_T Memory1_PreviousInput_b;    /* '<S5>/Memory1' */
-  real32_T Memory3_PreviousInput_k;    /* '<S5>/Memory3' */
-  real32_T Memory4_PreviousInput;      /* '<S4>/Memory4' */
-  real32_T Memory5_PreviousInput;      /* '<S4>/Memory5' */
-  real32_T Memory4_PreviousInput_g;    /* '<S5>/Memory4' */
-  real32_T Memory5_PreviousInput_b;    /* '<S5>/Memory5' */
+  real32_T DiscreteTimeIntegrator2_DSTATE;/* '<S4>/Discrete-Time Integrator2' */
+  real32_T UD_DSTATE;                  /* '<S8>/UD' */
+  real32_T DiscreteTimeIntegrator1_DSTATE;/* '<S4>/Discrete-Time Integrator1' */
+  real32_T UD_DSTATE_j;                /* '<S7>/UD' */
+  real32_T DiscreteTimeIntegrator2_DSTAT_o;/* '<S5>/Discrete-Time Integrator2' */
+  real32_T UD_DSTATE_p;                /* '<S10>/UD' */
+  real32_T DiscreteTimeIntegrator1_DSTAT_p;/* '<S5>/Discrete-Time Integrator1' */
+  real32_T UD_DSTATE_d;                /* '<S9>/UD' */
+  int8_T DiscreteTimeIntegrator2_PrevRes;/* '<S4>/Discrete-Time Integrator2' */
+  int8_T DiscreteTimeIntegrator1_PrevRes;/* '<S4>/Discrete-Time Integrator1' */
+  int8_T DiscreteTimeIntegrator2_PrevR_e;/* '<S5>/Discrete-Time Integrator2' */
+  int8_T DiscreteTimeIntegrator1_PrevR_o;/* '<S5>/Discrete-Time Integrator1' */
 } DW_single_qc_ppid_T;
 
 /* External inputs (root inport signals with default storage) */
@@ -135,55 +135,106 @@ struct P_single_qc_ppid_T_ {
   real32_T torque_modifier;            /* Variable: torque_modifier
                                         * Referenced by: '<Root>/Constant'
                                         */
+  real32_T DiscreteDerivative2_ICPrevScale;
+                              /* Mask Parameter: DiscreteDerivative2_ICPrevScale
+                               * Referenced by: '<S8>/UD'
+                               */
+  real32_T DiscreteDerivative1_ICPrevScale;
+                              /* Mask Parameter: DiscreteDerivative1_ICPrevScale
+                               * Referenced by: '<S7>/UD'
+                               */
+  real32_T DiscreteDerivative2_ICPrevSca_g;
+                              /* Mask Parameter: DiscreteDerivative2_ICPrevSca_g
+                               * Referenced by: '<S10>/UD'
+                               */
+  real32_T DiscreteDerivative1_ICPrevSca_h;
+                              /* Mask Parameter: DiscreteDerivative1_ICPrevSca_h
+                               * Referenced by: '<S9>/UD'
+                               */
+  real32_T Constant_Value;             /* Computed Parameter: Constant_Value
+                                        * Referenced by: '<S6>/Constant'
+                                        */
   real32_T Saturation_UpperSat;       /* Computed Parameter: Saturation_UpperSat
                                        * Referenced by: '<Root>/Saturation'
                                        */
   real32_T Saturation_LowerSat;       /* Computed Parameter: Saturation_LowerSat
                                        * Referenced by: '<Root>/Saturation'
                                        */
-  real32_T Memory_InitialCondition;
-                                  /* Computed Parameter: Memory_InitialCondition
-                                   * Referenced by: '<S4>/Memory'
-                                   */
-  real32_T Memory2_InitialCondition;
-                                 /* Computed Parameter: Memory2_InitialCondition
-                                  * Referenced by: '<S4>/Memory2'
-                                  */
-  real32_T dgain2_Gain;                /* Computed Parameter: dgain2_Gain
-                                        * Referenced by: '<S4>/dgain2'
-                                        */
-  real32_T Memory1_InitialCondition;
-                                 /* Computed Parameter: Memory1_InitialCondition
-                                  * Referenced by: '<S4>/Memory1'
-                                  */
-  real32_T Memory3_InitialCondition;
-                                 /* Computed Parameter: Memory3_InitialCondition
-                                  * Referenced by: '<S4>/Memory3'
-                                  */
-  real32_T dgain3_Gain;                /* Computed Parameter: dgain3_Gain
-                                        * Referenced by: '<S4>/dgain3'
-                                        */
-  real32_T Memory_InitialCondition_a;
-                                /* Computed Parameter: Memory_InitialCondition_a
-                                 * Referenced by: '<S5>/Memory'
-                                 */
-  real32_T Memory2_InitialCondition_c;
-                               /* Computed Parameter: Memory2_InitialCondition_c
-                                * Referenced by: '<S5>/Memory2'
+  real32_T DiscreteTimeIntegrator2_gainval;
+                          /* Computed Parameter: DiscreteTimeIntegrator2_gainval
+                           * Referenced by: '<S4>/Discrete-Time Integrator2'
+                           */
+  real32_T DiscreteTimeIntegrator2_IC;
+                               /* Computed Parameter: DiscreteTimeIntegrator2_IC
+                                * Referenced by: '<S4>/Discrete-Time Integrator2'
                                 */
-  real32_T dgain2_Gain_l;              /* Computed Parameter: dgain2_Gain_l
-                                        * Referenced by: '<S5>/dgain2'
+  real32_T DiscreteTimeIntegrator2_UpperSa;
+                          /* Computed Parameter: DiscreteTimeIntegrator2_UpperSa
+                           * Referenced by: '<S4>/Discrete-Time Integrator2'
+                           */
+  real32_T DiscreteTimeIntegrator2_LowerSa;
+                          /* Computed Parameter: DiscreteTimeIntegrator2_LowerSa
+                           * Referenced by: '<S4>/Discrete-Time Integrator2'
+                           */
+  real32_T TSamp_WtEt;                 /* Computed Parameter: TSamp_WtEt
+                                        * Referenced by: '<S8>/TSamp'
                                         */
-  real32_T Memory1_InitialCondition_d;
-                               /* Computed Parameter: Memory1_InitialCondition_d
-                                * Referenced by: '<S5>/Memory1'
+  real32_T DiscreteTimeIntegrator1_gainval;
+                          /* Computed Parameter: DiscreteTimeIntegrator1_gainval
+                           * Referenced by: '<S4>/Discrete-Time Integrator1'
+                           */
+  real32_T DiscreteTimeIntegrator1_IC;
+                               /* Computed Parameter: DiscreteTimeIntegrator1_IC
+                                * Referenced by: '<S4>/Discrete-Time Integrator1'
                                 */
-  real32_T Memory3_InitialCondition_o;
-                               /* Computed Parameter: Memory3_InitialCondition_o
-                                * Referenced by: '<S5>/Memory3'
-                                */
-  real32_T dgain3_Gain_h;              /* Computed Parameter: dgain3_Gain_h
-                                        * Referenced by: '<S5>/dgain3'
+  real32_T DiscreteTimeIntegrator1_UpperSa;
+                          /* Computed Parameter: DiscreteTimeIntegrator1_UpperSa
+                           * Referenced by: '<S4>/Discrete-Time Integrator1'
+                           */
+  real32_T DiscreteTimeIntegrator1_LowerSa;
+                          /* Computed Parameter: DiscreteTimeIntegrator1_LowerSa
+                           * Referenced by: '<S4>/Discrete-Time Integrator1'
+                           */
+  real32_T TSamp_WtEt_k;               /* Computed Parameter: TSamp_WtEt_k
+                                        * Referenced by: '<S7>/TSamp'
+                                        */
+  real32_T DiscreteTimeIntegrator2_gainv_f;
+                          /* Computed Parameter: DiscreteTimeIntegrator2_gainv_f
+                           * Referenced by: '<S5>/Discrete-Time Integrator2'
+                           */
+  real32_T DiscreteTimeIntegrator2_IC_h;
+                             /* Computed Parameter: DiscreteTimeIntegrator2_IC_h
+                              * Referenced by: '<S5>/Discrete-Time Integrator2'
+                              */
+  real32_T DiscreteTimeIntegrator2_Upper_l;
+                          /* Computed Parameter: DiscreteTimeIntegrator2_Upper_l
+                           * Referenced by: '<S5>/Discrete-Time Integrator2'
+                           */
+  real32_T DiscreteTimeIntegrator2_Lower_i;
+                          /* Computed Parameter: DiscreteTimeIntegrator2_Lower_i
+                           * Referenced by: '<S5>/Discrete-Time Integrator2'
+                           */
+  real32_T TSamp_WtEt_i;               /* Computed Parameter: TSamp_WtEt_i
+                                        * Referenced by: '<S10>/TSamp'
+                                        */
+  real32_T DiscreteTimeIntegrator1_gainv_c;
+                          /* Computed Parameter: DiscreteTimeIntegrator1_gainv_c
+                           * Referenced by: '<S5>/Discrete-Time Integrator1'
+                           */
+  real32_T DiscreteTimeIntegrator1_IC_h;
+                             /* Computed Parameter: DiscreteTimeIntegrator1_IC_h
+                              * Referenced by: '<S5>/Discrete-Time Integrator1'
+                              */
+  real32_T DiscreteTimeIntegrator1_Upper_e;
+                          /* Computed Parameter: DiscreteTimeIntegrator1_Upper_e
+                           * Referenced by: '<S5>/Discrete-Time Integrator1'
+                           */
+  real32_T DiscreteTimeIntegrator1_Lower_f;
+                          /* Computed Parameter: DiscreteTimeIntegrator1_Lower_f
+                           * Referenced by: '<S5>/Discrete-Time Integrator1'
+                           */
+  real32_T TSamp_WtEt_b;               /* Computed Parameter: TSamp_WtEt_b
+                                        * Referenced by: '<S9>/TSamp'
                                         */
   real32_T Saturation1_UpperSat;     /* Computed Parameter: Saturation1_UpperSat
                                       * Referenced by: '<Root>/Saturation1'
@@ -191,22 +242,6 @@ struct P_single_qc_ppid_T_ {
   real32_T Saturation1_LowerSat;     /* Computed Parameter: Saturation1_LowerSat
                                       * Referenced by: '<Root>/Saturation1'
                                       */
-  real32_T Memory4_InitialCondition;
-                                 /* Computed Parameter: Memory4_InitialCondition
-                                  * Referenced by: '<S4>/Memory4'
-                                  */
-  real32_T Memory5_InitialCondition;
-                                 /* Computed Parameter: Memory5_InitialCondition
-                                  * Referenced by: '<S4>/Memory5'
-                                  */
-  real32_T Memory4_InitialCondition_a;
-                               /* Computed Parameter: Memory4_InitialCondition_a
-                                * Referenced by: '<S5>/Memory4'
-                                */
-  real32_T Memory5_InitialCondition_p;
-                               /* Computed Parameter: Memory5_InitialCondition_p
-                                * Referenced by: '<S5>/Memory5'
-                                */
 };
 
 /* Block parameters (default storage) */
@@ -229,6 +264,10 @@ extern void single_qc_ppid_terminate(void);
 /*-
  * These blocks were eliminated from the model due to optimizations:
  *
+ * Block '<S7>/Data Type Duplicate' : Unused code path elimination
+ * Block '<S8>/Data Type Duplicate' : Unused code path elimination
+ * Block '<S9>/Data Type Duplicate' : Unused code path elimination
+ * Block '<S10>/Data Type Duplicate' : Unused code path elimination
  * Block '<Root>/Data Type Conversion1' : Eliminate redundant data type conversion
  */
 
@@ -252,10 +291,11 @@ extern void single_qc_ppid_terminate(void);
  * '<S3>'   : 'single_qc_ppid/transformed_PID'
  * '<S4>'   : 'single_qc_ppid/transformed_PID/PIDa'
  * '<S5>'   : 'single_qc_ppid/transformed_PID/PIDb'
- * '<S6>'   : 'single_qc_ppid/transformed_PID/PIDa/MATLAB Function'
- * '<S7>'   : 'single_qc_ppid/transformed_PID/PIDa/MATLAB Function1'
- * '<S8>'   : 'single_qc_ppid/transformed_PID/PIDb/MATLAB Function'
- * '<S9>'   : 'single_qc_ppid/transformed_PID/PIDb/MATLAB Function1'
+ * '<S6>'   : 'single_qc_ppid/transformed_PID/PIDa/Compare To Zero'
+ * '<S7>'   : 'single_qc_ppid/transformed_PID/PIDa/Discrete Derivative1'
+ * '<S8>'   : 'single_qc_ppid/transformed_PID/PIDa/Discrete Derivative2'
+ * '<S9>'   : 'single_qc_ppid/transformed_PID/PIDb/Discrete Derivative1'
+ * '<S10>'  : 'single_qc_ppid/transformed_PID/PIDb/Discrete Derivative2'
  */
 #endif                                 /* RTW_HEADER_single_qc_ppid_h_ */
 

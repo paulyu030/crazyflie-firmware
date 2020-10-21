@@ -3,9 +3,9 @@
  *
  * Code generated for Simulink model 'single_qc_ppid'.
  *
- * Model version                  : 1.66
+ * Model version                  : 1.71
  * Simulink Coder version         : 9.3 (R2020a) 18-Nov-2019
- * C/C++ source code generated on : Tue Sep 15 21:21:08 2020
+ * C/C++ source code generated on : Sun Oct 18 22:34:34 2020
  *
  * Target selection: ert.tlc
  * Embedded hardware selection: Intel->x86-64 (Windows64)
@@ -96,7 +96,32 @@ P_single_qc_ppid_T single_qc_ppid_P = {
   /* Variable: torque_modifier
    * Referenced by: '<Root>/Constant'
    */
-  1.0F,
+  5.3063F,
+
+  /* Mask Parameter: DiscreteDerivative2_ICPrevScale
+   * Referenced by: '<S8>/UD'
+   */
+  0.0F,
+
+  /* Mask Parameter: DiscreteDerivative1_ICPrevScale
+   * Referenced by: '<S7>/UD'
+   */
+  0.0F,
+
+  /* Mask Parameter: DiscreteDerivative2_ICPrevSca_g
+   * Referenced by: '<S10>/UD'
+   */
+  0.0F,
+
+  /* Mask Parameter: DiscreteDerivative1_ICPrevSca_h
+   * Referenced by: '<S9>/UD'
+   */
+  0.0F,
+
+  /* Computed Parameter: Constant_Value
+   * Referenced by: '<S6>/Constant'
+   */
+  0.0F,
 
   /* Computed Parameter: Saturation_UpperSat
    * Referenced by: '<Root>/Saturation'
@@ -108,63 +133,103 @@ P_single_qc_ppid_T single_qc_ppid_P = {
    */
   0.0F,
 
-  /* Computed Parameter: Memory_InitialCondition
-   * Referenced by: '<S4>/Memory'
+  /* Computed Parameter: DiscreteTimeIntegrator2_gainval
+   * Referenced by: '<S4>/Discrete-Time Integrator2'
+   */
+  0.002F,
+
+  /* Computed Parameter: DiscreteTimeIntegrator2_IC
+   * Referenced by: '<S4>/Discrete-Time Integrator2'
    */
   0.0F,
 
-  /* Computed Parameter: Memory2_InitialCondition
-   * Referenced by: '<S4>/Memory2'
+  /* Computed Parameter: DiscreteTimeIntegrator2_UpperSa
+   * Referenced by: '<S4>/Discrete-Time Integrator2'
    */
-  0.0F,
+  30.0F,
 
-  /* Computed Parameter: dgain2_Gain
-   * Referenced by: '<S4>/dgain2'
+  /* Computed Parameter: DiscreteTimeIntegrator2_LowerSa
+   * Referenced by: '<S4>/Discrete-Time Integrator2'
+   */
+  -30.0F,
+
+  /* Computed Parameter: TSamp_WtEt
+   * Referenced by: '<S8>/TSamp'
    */
   500.0F,
 
-  /* Computed Parameter: Memory1_InitialCondition
-   * Referenced by: '<S4>/Memory1'
+  /* Computed Parameter: DiscreteTimeIntegrator1_gainval
+   * Referenced by: '<S4>/Discrete-Time Integrator1'
+   */
+  0.002F,
+
+  /* Computed Parameter: DiscreteTimeIntegrator1_IC
+   * Referenced by: '<S4>/Discrete-Time Integrator1'
    */
   0.0F,
 
-  /* Computed Parameter: Memory3_InitialCondition
-   * Referenced by: '<S4>/Memory3'
+  /* Computed Parameter: DiscreteTimeIntegrator1_UpperSa
+   * Referenced by: '<S4>/Discrete-Time Integrator1'
    */
-  0.0F,
+  30.0F,
 
-  /* Computed Parameter: dgain3_Gain
-   * Referenced by: '<S4>/dgain3'
+  /* Computed Parameter: DiscreteTimeIntegrator1_LowerSa
+   * Referenced by: '<S4>/Discrete-Time Integrator1'
+   */
+  -30.0F,
+
+  /* Computed Parameter: TSamp_WtEt_k
+   * Referenced by: '<S7>/TSamp'
    */
   500.0F,
 
-  /* Computed Parameter: Memory_InitialCondition_a
-   * Referenced by: '<S5>/Memory'
+  /* Computed Parameter: DiscreteTimeIntegrator2_gainv_f
+   * Referenced by: '<S5>/Discrete-Time Integrator2'
+   */
+  0.002F,
+
+  /* Computed Parameter: DiscreteTimeIntegrator2_IC_h
+   * Referenced by: '<S5>/Discrete-Time Integrator2'
    */
   0.0F,
 
-  /* Computed Parameter: Memory2_InitialCondition_c
-   * Referenced by: '<S5>/Memory2'
+  /* Computed Parameter: DiscreteTimeIntegrator2_Upper_l
+   * Referenced by: '<S5>/Discrete-Time Integrator2'
    */
-  0.0F,
+  30.0F,
 
-  /* Computed Parameter: dgain2_Gain_l
-   * Referenced by: '<S5>/dgain2'
+  /* Computed Parameter: DiscreteTimeIntegrator2_Lower_i
+   * Referenced by: '<S5>/Discrete-Time Integrator2'
+   */
+  -30.0F,
+
+  /* Computed Parameter: TSamp_WtEt_i
+   * Referenced by: '<S10>/TSamp'
    */
   500.0F,
 
-  /* Computed Parameter: Memory1_InitialCondition_d
-   * Referenced by: '<S5>/Memory1'
+  /* Computed Parameter: DiscreteTimeIntegrator1_gainv_c
+   * Referenced by: '<S5>/Discrete-Time Integrator1'
+   */
+  0.002F,
+
+  /* Computed Parameter: DiscreteTimeIntegrator1_IC_h
+   * Referenced by: '<S5>/Discrete-Time Integrator1'
    */
   0.0F,
 
-  /* Computed Parameter: Memory3_InitialCondition_o
-   * Referenced by: '<S5>/Memory3'
+  /* Computed Parameter: DiscreteTimeIntegrator1_Upper_e
+   * Referenced by: '<S5>/Discrete-Time Integrator1'
    */
-  0.0F,
+  30.0F,
 
-  /* Computed Parameter: dgain3_Gain_h
-   * Referenced by: '<S5>/dgain3'
+  /* Computed Parameter: DiscreteTimeIntegrator1_Lower_f
+   * Referenced by: '<S5>/Discrete-Time Integrator1'
+   */
+  -30.0F,
+
+  /* Computed Parameter: TSamp_WtEt_b
+   * Referenced by: '<S9>/TSamp'
    */
   500.0F,
 
@@ -175,26 +240,6 @@ P_single_qc_ppid_T single_qc_ppid_P = {
 
   /* Computed Parameter: Saturation1_LowerSat
    * Referenced by: '<Root>/Saturation1'
-   */
-  0.0F,
-
-  /* Computed Parameter: Memory4_InitialCondition
-   * Referenced by: '<S4>/Memory4'
-   */
-  0.0F,
-
-  /* Computed Parameter: Memory5_InitialCondition
-   * Referenced by: '<S4>/Memory5'
-   */
-  0.0F,
-
-  /* Computed Parameter: Memory4_InitialCondition_a
-   * Referenced by: '<S5>/Memory4'
-   */
-  0.0F,
-
-  /* Computed Parameter: Memory5_InitialCondition_p
-   * Referenced by: '<S5>/Memory5'
    */
   0.0F
 };
