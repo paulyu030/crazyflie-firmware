@@ -3,9 +3,9 @@
  *
  * Code generated for Simulink model 'single_qc_ppid'.
  *
- * Model version                  : 1.71
+ * Model version                  : 1.73
  * Simulink Coder version         : 9.3 (R2020a) 18-Nov-2019
- * C/C++ source code generated on : Sun Oct 18 22:34:34 2020
+ * C/C++ source code generated on : Fri Oct 23 15:29:38 2020
  *
  * Target selection: ert.tlc
  * Embedded hardware selection: Intel->x86-64 (Windows64)
@@ -137,7 +137,7 @@ void single_qc_ppid_step(void)
    *  Inport: '<Root>/qz_IMU'
    *  Inport: '<Root>/qz_op'
    */
-  rtb_alpha_e = single_qc_ppid_U.index * 3.14159274F / 4.0F;
+  rtb_alpha_e = -single_qc_ppid_U.index * 3.14159274F / 4.0F;
   rtb_beta_e = cosf(rtb_alpha_e);
   q_Bbi[0] = rtb_beta_e;
   q_Bbi[1] = 0.0F;
@@ -164,7 +164,7 @@ void single_qc_ppid_step(void)
   q_Bbi[3] = q_bi[3];
   single_qc_ppid_quatmultiply(tmp, c, tmp_0);
   single_qc_ppid_quatmultiply(b, tmp_0, tmp);
-  single_qc_ppid_quatmultiply(tmp, q_Bbi, q_bi);
+  single_qc_ppid_quatmultiply(q_Bbi, tmp, q_bi);
   rtb_alpha_e = 1.0F / sqrtf(((q_bi[0] * q_bi[0] + q_bi[1] * q_bi[1]) + q_bi[2] *
     q_bi[2]) + q_bi[3] * q_bi[3]);
   q_Bbi[0] = q_bi[0] * rtb_alpha_e;

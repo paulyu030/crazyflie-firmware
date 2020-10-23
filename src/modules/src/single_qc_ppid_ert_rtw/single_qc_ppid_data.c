@@ -3,9 +3,9 @@
  *
  * Code generated for Simulink model 'single_qc_ppid'.
  *
- * Model version                  : 1.71
+ * Model version                  : 1.73
  * Simulink Coder version         : 9.3 (R2020a) 18-Nov-2019
- * C/C++ source code generated on : Sun Oct 18 22:34:34 2020
+ * C/C++ source code generated on : Fri Oct 23 15:29:38 2020
  *
  * Target selection: ert.tlc
  * Embedded hardware selection: Intel->x86-64 (Windows64)
@@ -21,62 +21,62 @@ P_single_qc_ppid_T single_qc_ppid_P = {
   /* Variable: dgaina
    * Referenced by: '<S4>/dgain'
    */
-  0.4F,
+  1.0F,
 
   /* Variable: dgainas
    * Referenced by: '<S4>/dgain1'
    */
-  4.0E-5F,
+  3.0E-6F,
 
   /* Variable: dgainb
    * Referenced by: '<S5>/dgain'
    */
-  0.5F,
+  0.0F,
 
   /* Variable: dgainbs
    * Referenced by: '<S5>/dgain1'
    */
-  5.0E-5F,
+  3.0E-6F,
 
   /* Variable: igaina
    * Referenced by: '<S4>/igain'
    */
-  0.0F,
+  10.0F,
 
   /* Variable: igainas
    * Referenced by: '<S4>/igain1'
    */
-  1.0E-5F,
+  6.0E-5F,
 
   /* Variable: igainb
    * Referenced by: '<S5>/igain'
    */
-  0.0F,
+  10.0F,
 
   /* Variable: igainbs
    * Referenced by: '<S5>/igain1'
    */
-  2.0E-5F,
+  6.0E-5F,
 
   /* Variable: pgaina
    * Referenced by: '<S4>/pgain'
    */
-  5.0F,
+  1200.0F,
 
   /* Variable: pgainas
    * Referenced by: '<S4>/pgain1'
    */
-  0.002F,
+  7.0E-5F,
 
   /* Variable: pgainb
    * Referenced by: '<S5>/pgain'
    */
-  8.0F,
+  1400.0F,
 
   /* Variable: pgainbs
    * Referenced by: '<S5>/pgain1'
    */
-  0.003F,
+  7.0E-5F,
 
   /* Variable: sat_tx
    * Referenced by: '<S3>/Saturation'

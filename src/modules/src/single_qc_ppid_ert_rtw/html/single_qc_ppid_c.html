@@ -21,11 +21,11 @@
 <tr name="5" id="5">
 <td><a id="l5" class='ln'>5</a></td><td><span class="ct"> *</span></td></tr>
 <tr name="6" id="6">
-<td><a id="l6" class='ln'>6</a></td><td><span class="ct"> * Model version                  : 1.71</span></td></tr>
+<td><a id="l6" class='ln'>6</a></td><td><span class="ct"> * Model version                  : 1.73</span></td></tr>
 <tr name="7" id="7">
 <td><a id="l7" class='ln'>7</a></td><td><span class="ct"> * Simulink Coder version         : 9.3 (R2020a) 18-Nov-2019</span></td></tr>
 <tr name="8" id="8">
-<td><a id="l8" class='ln'>8</a></td><td><span class="ct"> * C/C++ source code generated on : Sun Oct 18 22:34:34 2020</span></td></tr>
+<td><a id="l8" class='ln'>8</a></td><td><span class="ct"> * C/C++ source code generated on : Fri Oct 23 15:29:38 2020</span></td></tr>
 <tr name="9" id="9">
 <td><a id="l9" class='ln'>9</a></td><td><span class="ct"> *</span></td></tr>
 <tr name="10" id="10">
@@ -289,7 +289,7 @@
 <tr name="139" id="139">
 <td><a id="l139" class='ln'>139</a></td><td><span class="ct">   */</span></td></tr>
 <tr name="140" id="140">
-<td><a id="l140" class='ln'>140</a></td><td>  <a id="140c3" class="tk">rtb_alpha_e</a> = <a id="140c17" class="tk">single_qc_ppid_U</a>.<a id="140c34" class="tk">index</a> <a id="140c40" class="tk">*</a> 3.14159274F <a id="140c54" class="tk">/</a> 4.0F;</td></tr>
+<td><a id="l140" class='ln'>140</a></td><td>  <a id="140c3" class="tk">rtb_alpha_e</a> = <a id="140c17" class="tk">-</a><a id="140c18" class="tk">single_qc_ppid_U</a>.<a id="140c35" class="tk">index</a> <a id="140c41" class="tk">*</a> 3.14159274F <a id="140c55" class="tk">/</a> 4.0F;</td></tr>
 <tr name="141" id="141">
 <td><a id="l141" class='ln'>141</a></td><td>  <a id="141c3" class="tk">rtb_beta_e</a> = <a id="141c16" class="tk">cosf</a>(<a id="141c21" class="tk">rtb_alpha_e</a>);</td></tr>
 <tr name="142" id="142">
@@ -343,7 +343,7 @@
 <tr name="166" id="166">
 <td><a id="l166" class='ln'>166</a></td><td>  <a id="166c3" class="tk">single_qc_ppid_quatmultiply</a>(<a id="166c31" class="tk">b</a>, <a id="166c34" class="tk">tmp_0</a>, <a id="166c41" class="tk">tmp</a>);</td></tr>
 <tr name="167" id="167">
-<td><a id="l167" class='ln'>167</a></td><td>  <a id="167c3" class="tk">single_qc_ppid_quatmultiply</a>(<a id="167c31" class="tk">tmp</a>, <a id="167c36" class="tk">q_Bbi</a>, <a id="167c43" class="tk">q_bi</a>);</td></tr>
+<td><a id="l167" class='ln'>167</a></td><td>  <a id="167c3" class="tk">single_qc_ppid_quatmultiply</a>(<a id="167c31" class="tk">q_Bbi</a>, <a id="167c38" class="tk">tmp</a>, <a id="167c43" class="tk">q_bi</a>);</td></tr>
 <tr name="168" id="168">
 <td><a id="l168" class='ln'>168</a></td><td>  <a id="168c3" class="tk">rtb_alpha_e</a> = 1.0F <a id="168c22" class="tk">/</a> <a id="168c24" class="tk">sqrtf</a>(((<a id="168c32" class="tk">q_bi</a>[0] <a id="168c40" class="tk">*</a> <a id="168c42" class="tk">q_bi</a>[0] <a id="168c50" class="tk">+</a> <a id="168c52" class="tk">q_bi</a>[1] <a id="168c60" class="tk">*</a> <a id="168c62" class="tk">q_bi</a>[1]) <a id="168c71" class="tk">+</a> <a id="168c73" class="tk">q_bi</a>[2] <a id="168c81" class="tk">*</a></td></tr>
 <tr name="169" id="169">

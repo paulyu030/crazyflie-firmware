@@ -47,8 +47,8 @@ void controllerSinglePPID(control_t *control, setpoint_t *setpoint,
   single_qc_ppid_U.alpha_desired = setpoint->attitude.pitch;
   single_qc_ppid_U.beta_desired = setpoint->attitude.yaw;
 
-  single_qc_ppid_U.alpha_speed = -sensors->gyro.y*3.14159f/180;
-  single_qc_ppid_U.beta_speed = sensors->gyro.x*3.14159f/180;
+  single_qc_ppid_U.alpha_speed = -sensors->gyro.y;
+  single_qc_ppid_U.beta_speed = sensors->gyro.x;
 
   single_qc_ppid_U.thrust = setpoint->thrust;
 
