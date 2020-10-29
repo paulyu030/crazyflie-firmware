@@ -54,7 +54,7 @@ static void single_qc_real_quatmultiply(const real32_T q[4], const real32_T r[4]
   qout[3] = (q[0] * r[3] + r[0] * q[3]) + (q[1] * r[2] - q[2] * r[1]);
 }
 
-real32_T rt_atan2f_snf(real32_T u0, real32_T u1)
+real32_T rt_atan2f_snf_real(real32_T u0, real32_T u1)
 {
   real32_T y;
   int32_T u0_0;
@@ -184,8 +184,8 @@ void single_qc_real_step(void)
     R_bii[subsa_idx_1 + 5] = tempR[(subsa_idx_1 - 1) * 3 + 2];
   }
 
-  rtb_alpha_e = rt_atan2f_snf(-R_bii[7], R_bii[8]);
-  rtb_beta_e = rt_atan2f_snf(R_bii[6], R_bii[0]);
+  rtb_alpha_e = rt_atan2f_snf_real(-R_bii[7], R_bii[8]);
+  rtb_beta_e = rt_atan2f_snf_real(R_bii[6], R_bii[0]);
 
   /* End of MATLAB Function: '<Root>/MATLAB Function' */
 

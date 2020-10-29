@@ -47,8 +47,9 @@ void controllerSinglePPID(control_t *control, setpoint_t *setpoint,
   single_qc_ppid_U.alpha_desired = setpoint->attitude.pitch;
   single_qc_ppid_U.beta_desired = setpoint->attitude.yaw;
 
-  single_qc_ppid_U.alpha_speed = -sensors->gyro.y;
+  single_qc_ppid_U.omega_x = -sensors->gyro.y;
   single_qc_ppid_U.beta_speed = sensors->gyro.x;
+  single_qc_ppid_U.omega_z = sensors->gyro.z;
 
   single_qc_ppid_U.thrust = setpoint->thrust;
 
@@ -88,8 +89,9 @@ LOG_ADD(LOG_FLOAT, t_bin, &single_qc_ppid_Y.t_betain)
 LOG_ADD(LOG_FLOAT, t_ae, &single_qc_ppid_Y.t_alphae)
 LOG_ADD(LOG_FLOAT, t_ain, &single_qc_ppid_Y.t_alphain)
 
-LOG_ADD(LOG_FLOAT, a_gyro, &single_qc_ppid_U.alpha_speed)
+LOG_ADD(LOG_FLOAT, x_gyro, &single_qc_ppid_U.omega_x)
 LOG_ADD(LOG_FLOAT, b_gyro, &single_qc_ppid_U.beta_speed)
+LOG_ADD(LOG_FLOAT, z_gyro, &single_qc_ppid_U.omega_z)
 
 LOG_ADD(LOG_FLOAT, t_m1, &single_qc_ppid_Y.t_m1)
 LOG_ADD(LOG_FLOAT, t_m2, &single_qc_ppid_Y.t_m2)

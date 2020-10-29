@@ -18,7 +18,7 @@
 #include "rtwtypes.h"
 #include "single_qc_real.h"
 
-extern real32_T rt_atan2f_snf(real32_T u0, real32_T u1);
+extern real32_T rt_atan2f_snf_real(real32_T u0, real32_T u1);
 extern void single_qc_real_MATLABFunction(real32_T rtu_value, boolean_T
   rtu_label, real32_T *rty_newvalue);
 

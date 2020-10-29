@@ -3,9 +3,9 @@
  *
  * Code generated for Simulink model 'single_qc_ppid'.
  *
- * Model version                  : 1.73
+ * Model version                  : 1.77
  * Simulink Coder version         : 9.3 (R2020a) 18-Nov-2019
- * C/C++ source code generated on : Fri Oct 23 15:29:38 2020
+ * C/C++ source code generated on : Tue Oct 27 16:19:03 2020
  *
  * Target selection: ert.tlc
  * Embedded hardware selection: Intel->x86-64 (Windows64)
@@ -31,18 +31,18 @@
 
 /* Block states (default storage) for system '<Root>' */
 typedef struct {
-  real32_T DiscreteTimeIntegrator2_DSTATE;/* '<S4>/Discrete-Time Integrator2' */
-  real32_T UD_DSTATE;                  /* '<S8>/UD' */
-  real32_T DiscreteTimeIntegrator1_DSTATE;/* '<S4>/Discrete-Time Integrator1' */
-  real32_T UD_DSTATE_j;                /* '<S7>/UD' */
-  real32_T DiscreteTimeIntegrator2_DSTAT_o;/* '<S5>/Discrete-Time Integrator2' */
-  real32_T UD_DSTATE_p;                /* '<S10>/UD' */
-  real32_T DiscreteTimeIntegrator1_DSTAT_p;/* '<S5>/Discrete-Time Integrator1' */
-  real32_T UD_DSTATE_d;                /* '<S9>/UD' */
-  int8_T DiscreteTimeIntegrator2_PrevRes;/* '<S4>/Discrete-Time Integrator2' */
-  int8_T DiscreteTimeIntegrator1_PrevRes;/* '<S4>/Discrete-Time Integrator1' */
-  int8_T DiscreteTimeIntegrator2_PrevR_e;/* '<S5>/Discrete-Time Integrator2' */
-  int8_T DiscreteTimeIntegrator1_PrevR_o;/* '<S5>/Discrete-Time Integrator1' */
+  real32_T DiscreteTimeIntegrator2_DSTATE;/* '<S5>/Discrete-Time Integrator2' */
+  real32_T UD_DSTATE;                  /* '<S9>/UD' */
+  real32_T DiscreteTimeIntegrator1_DSTATE;/* '<S5>/Discrete-Time Integrator1' */
+  real32_T UD_DSTATE_j;                /* '<S8>/UD' */
+  real32_T DiscreteTimeIntegrator2_DSTAT_o;/* '<S6>/Discrete-Time Integrator2' */
+  real32_T UD_DSTATE_p;                /* '<S11>/UD' */
+  real32_T DiscreteTimeIntegrator1_DSTAT_p;/* '<S6>/Discrete-Time Integrator1' */
+  real32_T UD_DSTATE_d;                /* '<S10>/UD' */
+  int8_T DiscreteTimeIntegrator2_PrevRes;/* '<S5>/Discrete-Time Integrator2' */
+  int8_T DiscreteTimeIntegrator1_PrevRes;/* '<S5>/Discrete-Time Integrator1' */
+  int8_T DiscreteTimeIntegrator2_PrevR_e;/* '<S6>/Discrete-Time Integrator2' */
+  int8_T DiscreteTimeIntegrator1_PrevR_o;/* '<S6>/Discrete-Time Integrator1' */
 } DW_single_qc_ppid_T;
 
 /* External inputs (root inport signals with default storage) */
@@ -59,8 +59,9 @@ typedef struct {
   real32_T qx_IMU;                     /* '<Root>/qx_IMU' */
   real32_T qy_IMU;                     /* '<Root>/qy_IMU' */
   real32_T qz_IMU;                     /* '<Root>/qz_IMU' */
-  real32_T alpha_speed;                /* '<Root>/alpha_speed' */
+  real32_T omega_x;                    /* '<Root>/omega_x' */
   real32_T beta_speed;                 /* '<Root>/beta_speed' */
+  real32_T omega_z;                    /* '<Root>/omega_z' */
 } ExtU_single_qc_ppid_T;
 
 /* External outputs (root outports fed by signals with default storage) */
@@ -88,71 +89,71 @@ typedef struct {
 /* Parameters (default storage) */
 struct P_single_qc_ppid_T_ {
   real32_T dgaina;                     /* Variable: dgaina
-                                        * Referenced by: '<S4>/dgain'
-                                        */
-  real32_T dgainas;                    /* Variable: dgainas
-                                        * Referenced by: '<S4>/dgain1'
-                                        */
-  real32_T dgainb;                     /* Variable: dgainb
                                         * Referenced by: '<S5>/dgain'
                                         */
-  real32_T dgainbs;                    /* Variable: dgainbs
+  real32_T dgainas;                    /* Variable: dgainas
                                         * Referenced by: '<S5>/dgain1'
                                         */
+  real32_T dgainb;                     /* Variable: dgainb
+                                        * Referenced by: '<S6>/dgain'
+                                        */
+  real32_T dgainbs;                    /* Variable: dgainbs
+                                        * Referenced by: '<S6>/dgain1'
+                                        */
   real32_T igaina;                     /* Variable: igaina
-                                        * Referenced by: '<S4>/igain'
-                                        */
-  real32_T igainas;                    /* Variable: igainas
-                                        * Referenced by: '<S4>/igain1'
-                                        */
-  real32_T igainb;                     /* Variable: igainb
                                         * Referenced by: '<S5>/igain'
                                         */
-  real32_T igainbs;                    /* Variable: igainbs
+  real32_T igainas;                    /* Variable: igainas
                                         * Referenced by: '<S5>/igain1'
                                         */
+  real32_T igainb;                     /* Variable: igainb
+                                        * Referenced by: '<S6>/igain'
+                                        */
+  real32_T igainbs;                    /* Variable: igainbs
+                                        * Referenced by: '<S6>/igain1'
+                                        */
   real32_T pgaina;                     /* Variable: pgaina
-                                        * Referenced by: '<S4>/pgain'
-                                        */
-  real32_T pgainas;                    /* Variable: pgainas
-                                        * Referenced by: '<S4>/pgain1'
-                                        */
-  real32_T pgainb;                     /* Variable: pgainb
                                         * Referenced by: '<S5>/pgain'
                                         */
-  real32_T pgainbs;                    /* Variable: pgainbs
+  real32_T pgainas;                    /* Variable: pgainas
                                         * Referenced by: '<S5>/pgain1'
                                         */
+  real32_T pgainb;                     /* Variable: pgainb
+                                        * Referenced by: '<S6>/pgain'
+                                        */
+  real32_T pgainbs;                    /* Variable: pgainbs
+                                        * Referenced by: '<S6>/pgain1'
+                                        */
   real32_T sat_tx;                     /* Variable: sat_tx
-                                        * Referenced by: '<S3>/Saturation'
+                                        * Referenced by: '<S4>/Saturation'
                                         */
   real32_T sat_ty;                     /* Variable: sat_ty
-                                        * Referenced by: '<S3>/Saturation1'
+                                        * Referenced by: '<S4>/Saturation1'
                                         */
   real32_T sat_tz;                     /* Variable: sat_tz
-                                        * Referenced by: '<S3>/Saturation2'
+                                        * Referenced by: '<S4>/Saturation2'
                                         */
   real32_T torque_modifier;            /* Variable: torque_modifier
                                         * Referenced by: '<Root>/Constant'
                                         */
   real32_T DiscreteDerivative2_ICPrevScale;
                               /* Mask Parameter: DiscreteDerivative2_ICPrevScale
-                               * Referenced by: '<S8>/UD'
+                               * Referenced by: '<S9>/UD'
                                */
   real32_T DiscreteDerivative1_ICPrevScale;
                               /* Mask Parameter: DiscreteDerivative1_ICPrevScale
-                               * Referenced by: '<S7>/UD'
+                               * Referenced by: '<S8>/UD'
                                */
   real32_T DiscreteDerivative2_ICPrevSca_g;
                               /* Mask Parameter: DiscreteDerivative2_ICPrevSca_g
-                               * Referenced by: '<S10>/UD'
+                               * Referenced by: '<S11>/UD'
                                */
   real32_T DiscreteDerivative1_ICPrevSca_h;
                               /* Mask Parameter: DiscreteDerivative1_ICPrevSca_h
-                               * Referenced by: '<S9>/UD'
+                               * Referenced by: '<S10>/UD'
                                */
   real32_T Constant_Value;             /* Computed Parameter: Constant_Value
-                                        * Referenced by: '<S6>/Constant'
+                                        * Referenced by: '<S7>/Constant'
                                         */
   real32_T Saturation_UpperSat;       /* Computed Parameter: Saturation_UpperSat
                                        * Referenced by: '<Root>/Saturation'
@@ -162,79 +163,79 @@ struct P_single_qc_ppid_T_ {
                                        */
   real32_T DiscreteTimeIntegrator2_gainval;
                           /* Computed Parameter: DiscreteTimeIntegrator2_gainval
-                           * Referenced by: '<S4>/Discrete-Time Integrator2'
+                           * Referenced by: '<S5>/Discrete-Time Integrator2'
                            */
   real32_T DiscreteTimeIntegrator2_IC;
                                /* Computed Parameter: DiscreteTimeIntegrator2_IC
-                                * Referenced by: '<S4>/Discrete-Time Integrator2'
+                                * Referenced by: '<S5>/Discrete-Time Integrator2'
                                 */
   real32_T DiscreteTimeIntegrator2_UpperSa;
                           /* Computed Parameter: DiscreteTimeIntegrator2_UpperSa
-                           * Referenced by: '<S4>/Discrete-Time Integrator2'
+                           * Referenced by: '<S5>/Discrete-Time Integrator2'
                            */
   real32_T DiscreteTimeIntegrator2_LowerSa;
                           /* Computed Parameter: DiscreteTimeIntegrator2_LowerSa
-                           * Referenced by: '<S4>/Discrete-Time Integrator2'
+                           * Referenced by: '<S5>/Discrete-Time Integrator2'
                            */
   real32_T TSamp_WtEt;                 /* Computed Parameter: TSamp_WtEt
-                                        * Referenced by: '<S8>/TSamp'
+                                        * Referenced by: '<S9>/TSamp'
                                         */
   real32_T DiscreteTimeIntegrator1_gainval;
                           /* Computed Parameter: DiscreteTimeIntegrator1_gainval
-                           * Referenced by: '<S4>/Discrete-Time Integrator1'
+                           * Referenced by: '<S5>/Discrete-Time Integrator1'
                            */
   real32_T DiscreteTimeIntegrator1_IC;
                                /* Computed Parameter: DiscreteTimeIntegrator1_IC
-                                * Referenced by: '<S4>/Discrete-Time Integrator1'
+                                * Referenced by: '<S5>/Discrete-Time Integrator1'
                                 */
   real32_T DiscreteTimeIntegrator1_UpperSa;
                           /* Computed Parameter: DiscreteTimeIntegrator1_UpperSa
-                           * Referenced by: '<S4>/Discrete-Time Integrator1'
+                           * Referenced by: '<S5>/Discrete-Time Integrator1'
                            */
   real32_T DiscreteTimeIntegrator1_LowerSa;
                           /* Computed Parameter: DiscreteTimeIntegrator1_LowerSa
-                           * Referenced by: '<S4>/Discrete-Time Integrator1'
+                           * Referenced by: '<S5>/Discrete-Time Integrator1'
                            */
   real32_T TSamp_WtEt_k;               /* Computed Parameter: TSamp_WtEt_k
-                                        * Referenced by: '<S7>/TSamp'
+                                        * Referenced by: '<S8>/TSamp'
                                         */
   real32_T DiscreteTimeIntegrator2_gainv_f;
                           /* Computed Parameter: DiscreteTimeIntegrator2_gainv_f
-                           * Referenced by: '<S5>/Discrete-Time Integrator2'
+                           * Referenced by: '<S6>/Discrete-Time Integrator2'
                            */
   real32_T DiscreteTimeIntegrator2_IC_h;
                              /* Computed Parameter: DiscreteTimeIntegrator2_IC_h
-                              * Referenced by: '<S5>/Discrete-Time Integrator2'
+                              * Referenced by: '<S6>/Discrete-Time Integrator2'
                               */
   real32_T DiscreteTimeIntegrator2_Upper_l;
                           /* Computed Parameter: DiscreteTimeIntegrator2_Upper_l
-                           * Referenced by: '<S5>/Discrete-Time Integrator2'
+                           * Referenced by: '<S6>/Discrete-Time Integrator2'
                            */
   real32_T DiscreteTimeIntegrator2_Lower_i;
                           /* Computed Parameter: DiscreteTimeIntegrator2_Lower_i
-                           * Referenced by: '<S5>/Discrete-Time Integrator2'
+                           * Referenced by: '<S6>/Discrete-Time Integrator2'
                            */
   real32_T TSamp_WtEt_i;               /* Computed Parameter: TSamp_WtEt_i
-                                        * Referenced by: '<S10>/TSamp'
+                                        * Referenced by: '<S11>/TSamp'
                                         */
   real32_T DiscreteTimeIntegrator1_gainv_c;
                           /* Computed Parameter: DiscreteTimeIntegrator1_gainv_c
-                           * Referenced by: '<S5>/Discrete-Time Integrator1'
+                           * Referenced by: '<S6>/Discrete-Time Integrator1'
                            */
   real32_T DiscreteTimeIntegrator1_IC_h;
                              /* Computed Parameter: DiscreteTimeIntegrator1_IC_h
-                              * Referenced by: '<S5>/Discrete-Time Integrator1'
+                              * Referenced by: '<S6>/Discrete-Time Integrator1'
                               */
   real32_T DiscreteTimeIntegrator1_Upper_e;
                           /* Computed Parameter: DiscreteTimeIntegrator1_Upper_e
-                           * Referenced by: '<S5>/Discrete-Time Integrator1'
+                           * Referenced by: '<S6>/Discrete-Time Integrator1'
                            */
   real32_T DiscreteTimeIntegrator1_Lower_f;
                           /* Computed Parameter: DiscreteTimeIntegrator1_Lower_f
-                           * Referenced by: '<S5>/Discrete-Time Integrator1'
+                           * Referenced by: '<S6>/Discrete-Time Integrator1'
                            */
   real32_T TSamp_WtEt_b;               /* Computed Parameter: TSamp_WtEt_b
-                                        * Referenced by: '<S9>/TSamp'
+                                        * Referenced by: '<S10>/TSamp'
                                         */
   real32_T Saturation1_UpperSat;     /* Computed Parameter: Saturation1_UpperSat
                                       * Referenced by: '<Root>/Saturation1'
@@ -264,10 +265,10 @@ extern void single_qc_ppid_terminate(void);
 /*-
  * These blocks were eliminated from the model due to optimizations:
  *
- * Block '<S7>/Data Type Duplicate' : Unused code path elimination
  * Block '<S8>/Data Type Duplicate' : Unused code path elimination
  * Block '<S9>/Data Type Duplicate' : Unused code path elimination
  * Block '<S10>/Data Type Duplicate' : Unused code path elimination
+ * Block '<S11>/Data Type Duplicate' : Unused code path elimination
  * Block '<Root>/Data Type Conversion1' : Eliminate redundant data type conversion
  */
 
@@ -288,14 +289,15 @@ extern void single_qc_ppid_terminate(void);
  * '<Root>' : 'single_qc_ppid'
  * '<S1>'   : 'single_qc_ppid/MATLAB Function'
  * '<S2>'   : 'single_qc_ppid/MATLAB Function1'
- * '<S3>'   : 'single_qc_ppid/transformed_PID'
- * '<S4>'   : 'single_qc_ppid/transformed_PID/PIDa'
- * '<S5>'   : 'single_qc_ppid/transformed_PID/PIDb'
- * '<S6>'   : 'single_qc_ppid/transformed_PID/PIDa/Compare To Zero'
- * '<S7>'   : 'single_qc_ppid/transformed_PID/PIDa/Discrete Derivative1'
- * '<S8>'   : 'single_qc_ppid/transformed_PID/PIDa/Discrete Derivative2'
- * '<S9>'   : 'single_qc_ppid/transformed_PID/PIDb/Discrete Derivative1'
- * '<S10>'  : 'single_qc_ppid/transformed_PID/PIDb/Discrete Derivative2'
+ * '<S3>'   : 'single_qc_ppid/MATLAB Function2'
+ * '<S4>'   : 'single_qc_ppid/transformed_PID'
+ * '<S5>'   : 'single_qc_ppid/transformed_PID/PIDa'
+ * '<S6>'   : 'single_qc_ppid/transformed_PID/PIDb'
+ * '<S7>'   : 'single_qc_ppid/transformed_PID/PIDa/Compare To Zero'
+ * '<S8>'   : 'single_qc_ppid/transformed_PID/PIDa/Discrete Derivative1'
+ * '<S9>'   : 'single_qc_ppid/transformed_PID/PIDa/Discrete Derivative2'
+ * '<S10>'  : 'single_qc_ppid/transformed_PID/PIDb/Discrete Derivative1'
+ * '<S11>'  : 'single_qc_ppid/transformed_PID/PIDb/Discrete Derivative2'
  */
 #endif                                 /* RTW_HEADER_single_qc_ppid_h_ */
 
