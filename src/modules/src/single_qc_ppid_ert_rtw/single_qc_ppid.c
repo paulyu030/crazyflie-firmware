@@ -3,9 +3,9 @@
  *
  * Code generated for Simulink model 'single_qc_ppid'.
  *
- * Model version                  : 1.77
+ * Model version                  : 1.91
  * Simulink Coder version         : 9.3 (R2020a) 18-Nov-2019
- * C/C++ source code generated on : Tue Oct 27 16:19:03 2020
+ * C/C++ source code generated on : Thu Oct 29 23:21:12 2020
  *
  * Target selection: ert.tlc
  * Embedded hardware selection: Intel->x86-64 (Windows64)
@@ -78,9 +78,13 @@ real32_T rt_atan2f_snf(real32_T u0, real32_T u1)
 /* Model step function */
 void single_qc_ppid_step(void)
 {
+  real32_T acount_prev;
+  real32_T bcount_prev;
   real32_T q_Bbi[4];
   real32_T q_bi[4];
   real32_T R_bii[9];
+  real32_T diff_a;
+  real32_T diff_b;
   real32_T tempR[9];
   int32_T d_k;
   real32_T ftx;
@@ -91,10 +95,8 @@ void single_qc_ppid_step(void)
   real32_T f3;
   real32_T rtb_Sum1_d;
   real32_T rtb_Saturation;
-  real32_T rtb_beta_e;
-  real32_T rtb_alpha_e;
   real32_T rtb_Sum;
-  boolean_T rtb_Compare;
+  boolean_T rtb_Compare_h;
   real32_T rtb_TSamp;
   real32_T rtb_Sum3;
   real32_T rtb_TSamp_p2;
@@ -106,6 +108,8 @@ void single_qc_ppid_step(void)
   real32_T tmp[4];
   int8_T subsa_idx_1;
   real32_T u0;
+  real32_T q_Bbi_tmp;
+  real32_T q_Bbi_tmp_0;
   int32_T R_bii_tmp;
   static const real32_T b[4] = { 0.707106769F, 0.0F, 0.0F, 0.707106769F };
 
@@ -127,6 +131,8 @@ void single_qc_ppid_step(void)
   /* End of Saturate: '<Root>/Saturation' */
 
   /* MATLAB Function: '<Root>/MATLAB Function' incorporates:
+   *  Constant: '<S1>/Constant'
+   *  Constant: '<S2>/Constant'
    *  Inport: '<Root>/index'
    *  Inport: '<Root>/qw_IMU'
    *  Inport: '<Root>/qw_op'
@@ -136,22 +142,32 @@ void single_qc_ppid_step(void)
    *  Inport: '<Root>/qy_op'
    *  Inport: '<Root>/qz_IMU'
    *  Inport: '<Root>/qz_op'
+   *  Logic: '<Root>/Logical Operator'
+   *  Memory: '<Root>/Memory'
+   *  Memory: '<Root>/Memory1'
+   *  Memory: '<Root>/Memory2'
+   *  Memory: '<Root>/Memory3'
+   *  Memory: '<Root>/Memory4'
+   *  RelationalOperator: '<S1>/Compare'
+   *  RelationalOperator: '<S2>/Compare'
    */
-  rtb_alpha_e = -single_qc_ppid_U.index * 3.14159274F / 4.0F;
-  rtb_beta_e = cosf(rtb_alpha_e);
-  q_Bbi[0] = rtb_beta_e;
+  acount_prev = single_qc_ppid_DW.Memory2_PreviousInput;
+  bcount_prev = single_qc_ppid_DW.Memory3_PreviousInput;
+  q_Bbi_tmp = -single_qc_ppid_U.index * 3.14159274F / 4.0F;
+  q_Bbi_tmp_0 = cosf(q_Bbi_tmp);
+  q_Bbi[0] = q_Bbi_tmp_0;
   q_Bbi[1] = 0.0F;
   q_Bbi[2] = 0.0F;
-  rtb_alpha_e = sinf(rtb_alpha_e);
-  q_Bbi[3] = rtb_alpha_e;
+  q_Bbi_tmp = sinf(q_Bbi_tmp);
+  q_Bbi[3] = q_Bbi_tmp;
   tmp[0] = single_qc_ppid_U.qw_op;
   tmp[1] = single_qc_ppid_U.qx_op;
   tmp[2] = single_qc_ppid_U.qy_op;
   tmp[3] = single_qc_ppid_U.qz_op;
-  q_bi[0] = -rtb_beta_e;
+  q_bi[0] = -q_Bbi_tmp_0;
   q_bi[1] = 0.0F;
   q_bi[2] = 0.0F;
-  q_bi[3] = rtb_alpha_e;
+  q_bi[3] = q_Bbi_tmp;
   single_qc_ppid_quatmultiply(tmp, q_bi, tmp_0);
   single_qc_ppid_quatmultiply(q_Bbi, tmp_0, q_bi);
   tmp[0] = single_qc_ppid_U.qw_IMU;
@@ -165,30 +181,30 @@ void single_qc_ppid_step(void)
   single_qc_ppid_quatmultiply(tmp, c, tmp_0);
   single_qc_ppid_quatmultiply(b, tmp_0, tmp);
   single_qc_ppid_quatmultiply(q_Bbi, tmp, q_bi);
-  rtb_alpha_e = 1.0F / sqrtf(((q_bi[0] * q_bi[0] + q_bi[1] * q_bi[1]) + q_bi[2] *
+  q_Bbi_tmp = 1.0F / sqrtf(((q_bi[0] * q_bi[0] + q_bi[1] * q_bi[1]) + q_bi[2] *
     q_bi[2]) + q_bi[3] * q_bi[3]);
-  q_Bbi[0] = q_bi[0] * rtb_alpha_e;
-  q_Bbi[1] = q_bi[1] * rtb_alpha_e;
-  q_Bbi[2] = q_bi[2] * rtb_alpha_e;
-  q_Bbi[3] = q_bi[3] * rtb_alpha_e;
-  rtb_alpha_e = q_Bbi[3] * q_Bbi[3];
-  rtb_beta_e = q_Bbi[2] * q_Bbi[2];
-  tempR[0] = 1.0F - (rtb_beta_e + rtb_alpha_e) * 2.0F;
-  rtb_Sum = q_Bbi[1] * q_Bbi[2];
-  rtb_TSamp = q_Bbi[0] * q_Bbi[3];
-  tempR[1] = (rtb_Sum - rtb_TSamp) * 2.0F;
-  rtb_Sum3 = q_Bbi[1] * q_Bbi[3];
-  rtb_TSamp_p2 = q_Bbi[0] * q_Bbi[2];
-  tempR[2] = (rtb_Sum3 + rtb_TSamp_p2) * 2.0F;
-  tempR[3] = (rtb_Sum + rtb_TSamp) * 2.0F;
-  rtb_Sum = q_Bbi[1] * q_Bbi[1];
-  tempR[4] = 1.0F - (rtb_Sum + rtb_alpha_e) * 2.0F;
-  rtb_alpha_e = q_Bbi[2] * q_Bbi[3];
-  rtb_TSamp = q_Bbi[0] * q_Bbi[1];
-  tempR[5] = (rtb_alpha_e - rtb_TSamp) * 2.0F;
-  tempR[6] = (rtb_Sum3 - rtb_TSamp_p2) * 2.0F;
-  tempR[7] = (rtb_alpha_e + rtb_TSamp) * 2.0F;
-  tempR[8] = 1.0F - (rtb_Sum + rtb_beta_e) * 2.0F;
+  q_Bbi[0] = q_bi[0] * q_Bbi_tmp;
+  q_Bbi[1] = q_bi[1] * q_Bbi_tmp;
+  q_Bbi[2] = q_bi[2] * q_Bbi_tmp;
+  q_Bbi[3] = q_bi[3] * q_Bbi_tmp;
+  q_Bbi_tmp = q_Bbi[3] * q_Bbi[3];
+  q_Bbi_tmp_0 = q_Bbi[2] * q_Bbi[2];
+  tempR[0] = 1.0F - (q_Bbi_tmp_0 + q_Bbi_tmp) * 2.0F;
+  diff_a = q_Bbi[1] * q_Bbi[2];
+  diff_b = q_Bbi[0] * q_Bbi[3];
+  tempR[1] = (diff_a - diff_b) * 2.0F;
+  rtb_Sum = q_Bbi[1] * q_Bbi[3];
+  rtb_TSamp = q_Bbi[0] * q_Bbi[2];
+  tempR[2] = (rtb_Sum + rtb_TSamp) * 2.0F;
+  tempR[3] = (diff_a + diff_b) * 2.0F;
+  diff_a = q_Bbi[1] * q_Bbi[1];
+  tempR[4] = 1.0F - (diff_a + q_Bbi_tmp) * 2.0F;
+  q_Bbi_tmp = q_Bbi[2] * q_Bbi[3];
+  diff_b = q_Bbi[0] * q_Bbi[1];
+  tempR[5] = (q_Bbi_tmp - diff_b) * 2.0F;
+  tempR[6] = (rtb_Sum - rtb_TSamp) * 2.0F;
+  tempR[7] = (q_Bbi_tmp + diff_b) * 2.0F;
+  tempR[8] = 1.0F - (diff_a + q_Bbi_tmp_0) * 2.0F;
   for (d_k = 0; d_k < 3; d_k++) {
     R_bii_tmp = (int8_T)(d_k + 1) - 1;
     R_bii[R_bii_tmp] = tempR[R_bii_tmp * 3];
@@ -198,23 +214,61 @@ void single_qc_ppid_step(void)
     R_bii[subsa_idx_1 + 5] = tempR[(subsa_idx_1 - 1) * 3 + 2];
   }
 
-  rtb_alpha_e = rt_atan2f_snf(R_bii[5], R_bii[4]);
-  rtb_beta_e = rt_atan2f_snf(R_bii[6], R_bii[0]);
+  q_Bbi_tmp = rt_atan2f_snf(R_bii[5], R_bii[4]);
+  q_Bbi_tmp_0 = rt_atan2f_snf(R_bii[6], R_bii[0]);
+  if ((single_qc_ppid_DW.Memory4_PreviousInput <=
+       single_qc_ppid_P.Constant_Value_k) && (rtb_Saturation >
+       single_qc_ppid_P.Constant_Value)) {
+    acount_prev = 0.0F;
+    bcount_prev = 0.0F;
+  }
 
-  /* End of MATLAB Function: '<Root>/MATLAB Function' */
+  diff_a = single_qc_ppid_DW.Memory_PreviousInput - q_Bbi_tmp;
+  if (fabsf(diff_a) > 3.14159274F) {
+    if (diff_a < 0.0F) {
+      diff_a = -1.0F;
+    } else if (diff_a > 0.0F) {
+      diff_a = 1.0F;
+    } else if (diff_a == 0.0F) {
+      diff_a = 0.0F;
+    } else {
+      diff_a = (rtNaNF);
+    }
 
-  /* Sum: '<S4>/Sum' incorporates:
+    acount_prev += diff_a;
+  }
+
+  diff_a = 6.28318548F * acount_prev + q_Bbi_tmp;
+  diff_b = single_qc_ppid_DW.Memory1_PreviousInput - q_Bbi_tmp_0;
+  if (fabsf(diff_b) > 3.14159274F) {
+    if (diff_b < 0.0F) {
+      diff_b = -1.0F;
+    } else if (diff_b > 0.0F) {
+      diff_b = 1.0F;
+    } else if (diff_b == 0.0F) {
+      diff_b = 0.0F;
+    } else {
+      diff_b = (rtNaNF);
+    }
+
+    bcount_prev += diff_b;
+  }
+
+  diff_b = 6.28318548F * bcount_prev + q_Bbi_tmp_0;
+
+  /* Sum: '<S6>/Sum' incorporates:
    *  Inport: '<Root>/alpha_desired'
    */
-  rtb_Sum = single_qc_ppid_U.alpha_desired - rtb_alpha_e;
+  rtb_Sum = single_qc_ppid_U.alpha_desired - diff_a;
 
-  /* RelationalOperator: '<S7>/Compare' incorporates:
-   *  Constant: '<S7>/Constant'
+  /* RelationalOperator: '<S9>/Compare' incorporates:
+   *  Constant: '<S9>/Constant'
    */
-  rtb_Compare = (rtb_Saturation > single_qc_ppid_P.Constant_Value);
+  rtb_Compare_h = (rtb_Saturation > single_qc_ppid_P.Constant_Value_a);
 
-  /* DiscreteIntegrator: '<S5>/Discrete-Time Integrator2' */
-  if (rtb_Compare && (single_qc_ppid_DW.DiscreteTimeIntegrator2_PrevRes <= 0)) {
+  /* DiscreteIntegrator: '<S7>/Discrete-Time Integrator2' */
+  if (rtb_Compare_h && (single_qc_ppid_DW.DiscreteTimeIntegrator2_PrevRes <= 0))
+  {
     single_qc_ppid_DW.DiscreteTimeIntegrator2_DSTATE =
       single_qc_ppid_P.DiscreteTimeIntegrator2_IC;
   }
@@ -231,37 +285,37 @@ void single_qc_ppid_step(void)
     }
   }
 
-  /* SampleTimeMath: '<S9>/TSamp'
+  /* SampleTimeMath: '<S11>/TSamp'
    *
-   * About '<S9>/TSamp':
+   * About '<S11>/TSamp':
    *  y = u * K where K = 1 / ( w * Ts )
    */
   rtb_TSamp = rtb_Sum * single_qc_ppid_P.TSamp_WtEt;
 
   /* MATLAB Function: '<Root>/MATLAB Function2' incorporates:
-   *  Trigonometry: '<S4>/Trigonometric Function'
-   *  Trigonometry: '<S4>/Trigonometric Function1'
+   *  Trigonometry: '<S6>/Trigonometric Function'
+   *  Trigonometry: '<S6>/Trigonometric Function1'
    */
-  fty = cosf(rtb_beta_e);
-  ftz = sinf(rtb_beta_e);
+  fty = cosf(diff_b);
+  ftz = sinf(diff_b);
 
-  /* Sum: '<S5>/Sum3' incorporates:
-   *  DiscreteIntegrator: '<S5>/Discrete-Time Integrator2'
-   *  Gain: '<S5>/dgain'
-   *  Gain: '<S5>/igain'
-   *  Gain: '<S5>/pgain'
+  /* Sum: '<S7>/Sum3' incorporates:
+   *  DiscreteIntegrator: '<S7>/Discrete-Time Integrator2'
+   *  Gain: '<S7>/dgain'
+   *  Gain: '<S7>/igain'
+   *  Gain: '<S7>/pgain'
    *  Inport: '<Root>/omega_x'
    *  Inport: '<Root>/omega_z'
    *  MATLAB Function: '<Root>/MATLAB Function2'
-   *  Sum: '<S5>/Sum2'
-   *  Sum: '<S9>/Diff'
-   *  UnitDelay: '<S9>/UD'
+   *  Sum: '<S11>/Diff'
+   *  Sum: '<S7>/Sum2'
+   *  UnitDelay: '<S11>/UD'
    *
-   * Block description for '<S9>/Diff':
+   * Block description for '<S11>/Diff':
    *
    *  Add in CPU
    *
-   * Block description for '<S9>/UD':
+   * Block description for '<S11>/UD':
    *
    *  Store in Global RAM
    */
@@ -270,8 +324,9 @@ void single_qc_ppid_step(void)
     single_qc_ppid_DW.UD_DSTATE) * single_qc_ppid_P.dgaina) - (fty *
     single_qc_ppid_U.omega_x + ftz * single_qc_ppid_U.omega_z);
 
-  /* DiscreteIntegrator: '<S5>/Discrete-Time Integrator1' */
-  if (rtb_Compare && (single_qc_ppid_DW.DiscreteTimeIntegrator1_PrevRes <= 0)) {
+  /* DiscreteIntegrator: '<S7>/Discrete-Time Integrator1' */
+  if (rtb_Compare_h && (single_qc_ppid_DW.DiscreteTimeIntegrator1_PrevRes <= 0))
+  {
     single_qc_ppid_DW.DiscreteTimeIntegrator1_DSTATE =
       single_qc_ppid_P.DiscreteTimeIntegrator1_IC;
   }
@@ -288,26 +343,26 @@ void single_qc_ppid_step(void)
     }
   }
 
-  /* SampleTimeMath: '<S8>/TSamp'
+  /* SampleTimeMath: '<S10>/TSamp'
    *
-   * About '<S8>/TSamp':
+   * About '<S10>/TSamp':
    *  y = u * K where K = 1 / ( w * Ts )
    */
   rtb_TSamp_p2 = rtb_Sum3 * single_qc_ppid_P.TSamp_WtEt_k;
 
-  /* Sum: '<S5>/Sum1' incorporates:
-   *  DiscreteIntegrator: '<S5>/Discrete-Time Integrator1'
-   *  Gain: '<S5>/dgain1'
-   *  Gain: '<S5>/igain1'
-   *  Gain: '<S5>/pgain1'
-   *  Sum: '<S8>/Diff'
-   *  UnitDelay: '<S8>/UD'
+  /* Sum: '<S7>/Sum1' incorporates:
+   *  DiscreteIntegrator: '<S7>/Discrete-Time Integrator1'
+   *  Gain: '<S7>/dgain1'
+   *  Gain: '<S7>/igain1'
+   *  Gain: '<S7>/pgain1'
+   *  Sum: '<S10>/Diff'
+   *  UnitDelay: '<S10>/UD'
    *
-   * Block description for '<S8>/Diff':
+   * Block description for '<S10>/Diff':
    *
    *  Add in CPU
    *
-   * Block description for '<S8>/UD':
+   * Block description for '<S10>/UD':
    *
    *  Store in Global RAM
    */
@@ -315,12 +370,12 @@ void single_qc_ppid_step(void)
                 single_qc_ppid_DW.DiscreteTimeIntegrator1_DSTATE) +
     (rtb_TSamp_p2 - single_qc_ppid_DW.UD_DSTATE_j) * single_qc_ppid_P.dgainas;
 
-  /* Sum: '<S4>/Sum1' incorporates:
+  /* Sum: '<S6>/Sum1' incorporates:
    *  Inport: '<Root>/beta_desired'
    */
-  rtb_Sum1 = single_qc_ppid_U.beta_desired - rtb_beta_e;
+  rtb_Sum1 = single_qc_ppid_U.beta_desired - diff_b;
 
-  /* DiscreteIntegrator: '<S6>/Discrete-Time Integrator2' */
+  /* DiscreteIntegrator: '<S8>/Discrete-Time Integrator2' */
   if ((rtb_Saturation > 0.0F) &&
       (single_qc_ppid_DW.DiscreteTimeIntegrator2_PrevR_e <= 0)) {
     single_qc_ppid_DW.DiscreteTimeIntegrator2_DSTAT_o =
@@ -339,28 +394,28 @@ void single_qc_ppid_step(void)
     }
   }
 
-  /* SampleTimeMath: '<S11>/TSamp'
+  /* SampleTimeMath: '<S13>/TSamp'
    *
-   * About '<S11>/TSamp':
+   * About '<S13>/TSamp':
    *  y = u * K where K = 1 / ( w * Ts )
    */
   rtb_TSamp_c = rtb_Sum1 * single_qc_ppid_P.TSamp_WtEt_i;
 
-  /* Sum: '<S6>/Sum3' incorporates:
-   *  DiscreteIntegrator: '<S6>/Discrete-Time Integrator2'
-   *  Gain: '<S6>/dgain'
-   *  Gain: '<S6>/igain'
-   *  Gain: '<S6>/pgain'
+  /* Sum: '<S8>/Sum3' incorporates:
+   *  DiscreteIntegrator: '<S8>/Discrete-Time Integrator2'
+   *  Gain: '<S8>/dgain'
+   *  Gain: '<S8>/igain'
+   *  Gain: '<S8>/pgain'
    *  Inport: '<Root>/beta_speed'
-   *  Sum: '<S11>/Diff'
-   *  Sum: '<S6>/Sum2'
-   *  UnitDelay: '<S11>/UD'
+   *  Sum: '<S13>/Diff'
+   *  Sum: '<S8>/Sum2'
+   *  UnitDelay: '<S13>/UD'
    *
-   * Block description for '<S11>/Diff':
+   * Block description for '<S13>/Diff':
    *
    *  Add in CPU
    *
-   * Block description for '<S11>/UD':
+   * Block description for '<S13>/UD':
    *
    *  Store in Global RAM
    */
@@ -369,7 +424,7 @@ void single_qc_ppid_step(void)
                 (rtb_TSamp_c - single_qc_ppid_DW.UD_DSTATE_p) *
                 single_qc_ppid_P.dgainb) - single_qc_ppid_U.beta_speed;
 
-  /* DiscreteIntegrator: '<S6>/Discrete-Time Integrator1' */
+  /* DiscreteIntegrator: '<S8>/Discrete-Time Integrator1' */
   if ((rtb_Saturation > 0.0F) &&
       (single_qc_ppid_DW.DiscreteTimeIntegrator1_PrevR_o <= 0)) {
     single_qc_ppid_DW.DiscreteTimeIntegrator1_DSTAT_p =
@@ -388,26 +443,26 @@ void single_qc_ppid_step(void)
     }
   }
 
-  /* SampleTimeMath: '<S10>/TSamp'
+  /* SampleTimeMath: '<S12>/TSamp'
    *
-   * About '<S10>/TSamp':
+   * About '<S12>/TSamp':
    *  y = u * K where K = 1 / ( w * Ts )
    */
   rtb_TSamp_gn = rtb_Sum3_b * single_qc_ppid_P.TSamp_WtEt_b;
 
-  /* Sum: '<S6>/Sum1' incorporates:
-   *  DiscreteIntegrator: '<S6>/Discrete-Time Integrator1'
-   *  Gain: '<S6>/dgain1'
-   *  Gain: '<S6>/igain1'
-   *  Gain: '<S6>/pgain1'
-   *  Sum: '<S10>/Diff'
-   *  UnitDelay: '<S10>/UD'
+  /* Sum: '<S8>/Sum1' incorporates:
+   *  DiscreteIntegrator: '<S8>/Discrete-Time Integrator1'
+   *  Gain: '<S8>/dgain1'
+   *  Gain: '<S8>/igain1'
+   *  Gain: '<S8>/pgain1'
+   *  Sum: '<S12>/Diff'
+   *  UnitDelay: '<S12>/UD'
    *
-   * Block description for '<S10>/Diff':
+   * Block description for '<S12>/Diff':
    *
    *  Add in CPU
    *
-   * Block description for '<S10>/UD':
+   * Block description for '<S12>/UD':
    *
    *  Store in Global RAM
    */
@@ -418,10 +473,10 @@ void single_qc_ppid_step(void)
   /* MATLAB Function: '<Root>/MATLAB Function1' */
   f3 = rtb_Saturation / 4.0F;
 
-  /* Product: '<S4>/Product' */
+  /* Product: '<S6>/Product' */
   u0 = fty * rtb_Sum1_d;
 
-  /* Saturate: '<S4>/Saturation' */
+  /* Saturate: '<S6>/Saturation' */
   if (u0 > single_qc_ppid_P.sat_tx) {
     u0 = single_qc_ppid_P.sat_tx;
   } else {
@@ -430,12 +485,12 @@ void single_qc_ppid_step(void)
     }
   }
 
-  /* End of Saturate: '<S4>/Saturation' */
+  /* End of Saturate: '<S6>/Saturation' */
 
   /* MATLAB Function: '<Root>/MATLAB Function1' */
   ftx = u0 / 4.0F / 0.03165F;
 
-  /* Saturate: '<S4>/Saturation1' */
+  /* Saturate: '<S6>/Saturation1' */
   if (rtb_Sum1_p > single_qc_ppid_P.sat_ty) {
     fty = single_qc_ppid_P.sat_ty;
   } else if (rtb_Sum1_p < -single_qc_ppid_P.sat_ty) {
@@ -444,15 +499,15 @@ void single_qc_ppid_step(void)
     fty = rtb_Sum1_p;
   }
 
-  /* End of Saturate: '<S4>/Saturation1' */
+  /* End of Saturate: '<S6>/Saturation1' */
 
   /* MATLAB Function: '<Root>/MATLAB Function1' */
   fty = fty / 4.0F / 0.03165F;
 
-  /* Product: '<S4>/Product1' */
+  /* Product: '<S6>/Product1' */
   u0 = rtb_Sum1_d * ftz;
 
-  /* Saturate: '<S4>/Saturation2' */
+  /* Saturate: '<S6>/Saturation2' */
   if (u0 > single_qc_ppid_P.sat_tz) {
     u0 = single_qc_ppid_P.sat_tz;
   } else {
@@ -461,7 +516,7 @@ void single_qc_ppid_step(void)
     }
   }
 
-  /* End of Saturate: '<S4>/Saturation2' */
+  /* End of Saturate: '<S6>/Saturation2' */
 
   /* MATLAB Function: '<Root>/MATLAB Function1' incorporates:
    *  Constant: '<Root>/Constant'
@@ -621,10 +676,10 @@ void single_qc_ppid_step(void)
   single_qc_ppid_Y.error_alpha = rtb_Sum;
 
   /* Outport: '<Root>/t_betae' */
-  single_qc_ppid_Y.t_betae = rtb_beta_e;
+  single_qc_ppid_Y.t_betae = diff_b;
 
   /* Outport: '<Root>/t_alphae' */
-  single_qc_ppid_Y.t_alphae = rtb_alpha_e;
+  single_qc_ppid_Y.t_alphae = diff_a;
 
   /* Outport: '<Root>/t_betain' incorporates:
    *  Inport: '<Root>/beta_desired'
@@ -636,7 +691,30 @@ void single_qc_ppid_step(void)
    */
   single_qc_ppid_Y.t_alphain = single_qc_ppid_U.alpha_desired;
 
-  /* Update for DiscreteIntegrator: '<S5>/Discrete-Time Integrator2' */
+  /* Update for Memory: '<Root>/Memory' incorporates:
+   *  MATLAB Function: '<Root>/MATLAB Function'
+   */
+  single_qc_ppid_DW.Memory_PreviousInput = q_Bbi_tmp;
+
+  /* Update for Memory: '<Root>/Memory1' incorporates:
+   *  MATLAB Function: '<Root>/MATLAB Function'
+   */
+  single_qc_ppid_DW.Memory1_PreviousInput = q_Bbi_tmp_0;
+
+  /* Update for Memory: '<Root>/Memory2' incorporates:
+   *  MATLAB Function: '<Root>/MATLAB Function'
+   */
+  single_qc_ppid_DW.Memory2_PreviousInput = acount_prev;
+
+  /* Update for Memory: '<Root>/Memory3' incorporates:
+   *  MATLAB Function: '<Root>/MATLAB Function'
+   */
+  single_qc_ppid_DW.Memory3_PreviousInput = bcount_prev;
+
+  /* Update for Memory: '<Root>/Memory4' */
+  single_qc_ppid_DW.Memory4_PreviousInput = rtb_Saturation;
+
+  /* Update for DiscreteIntegrator: '<S7>/Discrete-Time Integrator2' */
   single_qc_ppid_DW.DiscreteTimeIntegrator2_DSTATE +=
     single_qc_ppid_P.DiscreteTimeIntegrator2_gainval * rtb_Sum;
   if (single_qc_ppid_DW.DiscreteTimeIntegrator2_DSTATE >=
@@ -651,19 +729,19 @@ void single_qc_ppid_step(void)
     }
   }
 
-  single_qc_ppid_DW.DiscreteTimeIntegrator2_PrevRes = (int8_T)rtb_Compare;
+  single_qc_ppid_DW.DiscreteTimeIntegrator2_PrevRes = (int8_T)rtb_Compare_h;
 
-  /* End of Update for DiscreteIntegrator: '<S5>/Discrete-Time Integrator2' */
+  /* End of Update for DiscreteIntegrator: '<S7>/Discrete-Time Integrator2' */
 
-  /* Update for UnitDelay: '<S9>/UD'
+  /* Update for UnitDelay: '<S11>/UD'
    *
-   * Block description for '<S9>/UD':
+   * Block description for '<S11>/UD':
    *
    *  Store in Global RAM
    */
   single_qc_ppid_DW.UD_DSTATE = rtb_TSamp;
 
-  /* Update for DiscreteIntegrator: '<S5>/Discrete-Time Integrator1' */
+  /* Update for DiscreteIntegrator: '<S7>/Discrete-Time Integrator1' */
   single_qc_ppid_DW.DiscreteTimeIntegrator1_DSTATE +=
     single_qc_ppid_P.DiscreteTimeIntegrator1_gainval * rtb_Sum3;
   if (single_qc_ppid_DW.DiscreteTimeIntegrator1_DSTATE >=
@@ -678,19 +756,19 @@ void single_qc_ppid_step(void)
     }
   }
 
-  single_qc_ppid_DW.DiscreteTimeIntegrator1_PrevRes = (int8_T)rtb_Compare;
+  single_qc_ppid_DW.DiscreteTimeIntegrator1_PrevRes = (int8_T)rtb_Compare_h;
 
-  /* End of Update for DiscreteIntegrator: '<S5>/Discrete-Time Integrator1' */
+  /* End of Update for DiscreteIntegrator: '<S7>/Discrete-Time Integrator1' */
 
-  /* Update for UnitDelay: '<S8>/UD'
+  /* Update for UnitDelay: '<S10>/UD'
    *
-   * Block description for '<S8>/UD':
+   * Block description for '<S10>/UD':
    *
    *  Store in Global RAM
    */
   single_qc_ppid_DW.UD_DSTATE_j = rtb_TSamp_p2;
 
-  /* Update for DiscreteIntegrator: '<S6>/Discrete-Time Integrator2' */
+  /* Update for DiscreteIntegrator: '<S8>/Discrete-Time Integrator2' */
   single_qc_ppid_DW.DiscreteTimeIntegrator2_DSTAT_o +=
     single_qc_ppid_P.DiscreteTimeIntegrator2_gainv_f * rtb_Sum1;
   if (single_qc_ppid_DW.DiscreteTimeIntegrator2_DSTAT_o >=
@@ -715,17 +793,17 @@ void single_qc_ppid_step(void)
     single_qc_ppid_DW.DiscreteTimeIntegrator2_PrevR_e = 2;
   }
 
-  /* End of Update for DiscreteIntegrator: '<S6>/Discrete-Time Integrator2' */
+  /* End of Update for DiscreteIntegrator: '<S8>/Discrete-Time Integrator2' */
 
-  /* Update for UnitDelay: '<S11>/UD'
+  /* Update for UnitDelay: '<S13>/UD'
    *
-   * Block description for '<S11>/UD':
+   * Block description for '<S13>/UD':
    *
    *  Store in Global RAM
    */
   single_qc_ppid_DW.UD_DSTATE_p = rtb_TSamp_c;
 
-  /* Update for DiscreteIntegrator: '<S6>/Discrete-Time Integrator1' */
+  /* Update for DiscreteIntegrator: '<S8>/Discrete-Time Integrator1' */
   single_qc_ppid_DW.DiscreteTimeIntegrator1_DSTAT_p +=
     single_qc_ppid_P.DiscreteTimeIntegrator1_gainv_c * rtb_Sum3_b;
   if (single_qc_ppid_DW.DiscreteTimeIntegrator1_DSTAT_p >=
@@ -750,11 +828,11 @@ void single_qc_ppid_step(void)
     single_qc_ppid_DW.DiscreteTimeIntegrator1_PrevR_o = 2;
   }
 
-  /* End of Update for DiscreteIntegrator: '<S6>/Discrete-Time Integrator1' */
+  /* End of Update for DiscreteIntegrator: '<S8>/Discrete-Time Integrator1' */
 
-  /* Update for UnitDelay: '<S10>/UD'
+  /* Update for UnitDelay: '<S12>/UD'
    *
-   * Block description for '<S10>/UD':
+   * Block description for '<S12>/UD':
    *
    *  Store in Global RAM
    */
@@ -780,37 +858,30 @@ void single_qc_ppid_initialize(void)
   (void) memset((void *)&single_qc_ppid_Y, 0,
                 sizeof(ExtY_single_qc_ppid_T));
 
-  /* InitializeConditions for DiscreteIntegrator: '<S5>/Discrete-Time Integrator2' */
+  /* InitializeConditions for Memory: '<Root>/Memory' */
+  single_qc_ppid_DW.Memory_PreviousInput =
+    single_qc_ppid_P.Memory_InitialCondition;
+
+  /* InitializeConditions for Memory: '<Root>/Memory1' */
+  single_qc_ppid_DW.Memory1_PreviousInput =
+    single_qc_ppid_P.Memory1_InitialCondition;
+
+  /* InitializeConditions for Memory: '<Root>/Memory2' */
+  single_qc_ppid_DW.Memory2_PreviousInput =
+    single_qc_ppid_P.Memory2_InitialCondition;
+
+  /* InitializeConditions for Memory: '<Root>/Memory3' */
+  single_qc_ppid_DW.Memory3_PreviousInput =
+    single_qc_ppid_P.Memory3_InitialCondition;
+
+  /* InitializeConditions for Memory: '<Root>/Memory4' */
+  single_qc_ppid_DW.Memory4_PreviousInput =
+    single_qc_ppid_P.Memory4_InitialCondition;
+
+  /* InitializeConditions for DiscreteIntegrator: '<S7>/Discrete-Time Integrator2' */
   single_qc_ppid_DW.DiscreteTimeIntegrator2_DSTATE =
     single_qc_ppid_P.DiscreteTimeIntegrator2_IC;
   single_qc_ppid_DW.DiscreteTimeIntegrator2_PrevRes = 2;
-
-  /* InitializeConditions for UnitDelay: '<S9>/UD'
-   *
-   * Block description for '<S9>/UD':
-   *
-   *  Store in Global RAM
-   */
-  single_qc_ppid_DW.UD_DSTATE = single_qc_ppid_P.DiscreteDerivative2_ICPrevScale;
-
-  /* InitializeConditions for DiscreteIntegrator: '<S5>/Discrete-Time Integrator1' */
-  single_qc_ppid_DW.DiscreteTimeIntegrator1_DSTATE =
-    single_qc_ppid_P.DiscreteTimeIntegrator1_IC;
-  single_qc_ppid_DW.DiscreteTimeIntegrator1_PrevRes = 2;
-
-  /* InitializeConditions for UnitDelay: '<S8>/UD'
-   *
-   * Block description for '<S8>/UD':
-   *
-   *  Store in Global RAM
-   */
-  single_qc_ppid_DW.UD_DSTATE_j =
-    single_qc_ppid_P.DiscreteDerivative1_ICPrevScale;
-
-  /* InitializeConditions for DiscreteIntegrator: '<S6>/Discrete-Time Integrator2' */
-  single_qc_ppid_DW.DiscreteTimeIntegrator2_DSTAT_o =
-    single_qc_ppid_P.DiscreteTimeIntegrator2_IC_h;
-  single_qc_ppid_DW.DiscreteTimeIntegrator2_PrevR_e = 2;
 
   /* InitializeConditions for UnitDelay: '<S11>/UD'
    *
@@ -818,17 +889,44 @@ void single_qc_ppid_initialize(void)
    *
    *  Store in Global RAM
    */
-  single_qc_ppid_DW.UD_DSTATE_p =
-    single_qc_ppid_P.DiscreteDerivative2_ICPrevSca_g;
+  single_qc_ppid_DW.UD_DSTATE = single_qc_ppid_P.DiscreteDerivative2_ICPrevScale;
 
-  /* InitializeConditions for DiscreteIntegrator: '<S6>/Discrete-Time Integrator1' */
-  single_qc_ppid_DW.DiscreteTimeIntegrator1_DSTAT_p =
-    single_qc_ppid_P.DiscreteTimeIntegrator1_IC_h;
-  single_qc_ppid_DW.DiscreteTimeIntegrator1_PrevR_o = 2;
+  /* InitializeConditions for DiscreteIntegrator: '<S7>/Discrete-Time Integrator1' */
+  single_qc_ppid_DW.DiscreteTimeIntegrator1_DSTATE =
+    single_qc_ppid_P.DiscreteTimeIntegrator1_IC;
+  single_qc_ppid_DW.DiscreteTimeIntegrator1_PrevRes = 2;
 
   /* InitializeConditions for UnitDelay: '<S10>/UD'
    *
    * Block description for '<S10>/UD':
+   *
+   *  Store in Global RAM
+   */
+  single_qc_ppid_DW.UD_DSTATE_j =
+    single_qc_ppid_P.DiscreteDerivative1_ICPrevScale;
+
+  /* InitializeConditions for DiscreteIntegrator: '<S8>/Discrete-Time Integrator2' */
+  single_qc_ppid_DW.DiscreteTimeIntegrator2_DSTAT_o =
+    single_qc_ppid_P.DiscreteTimeIntegrator2_IC_h;
+  single_qc_ppid_DW.DiscreteTimeIntegrator2_PrevR_e = 2;
+
+  /* InitializeConditions for UnitDelay: '<S13>/UD'
+   *
+   * Block description for '<S13>/UD':
+   *
+   *  Store in Global RAM
+   */
+  single_qc_ppid_DW.UD_DSTATE_p =
+    single_qc_ppid_P.DiscreteDerivative2_ICPrevSca_g;
+
+  /* InitializeConditions for DiscreteIntegrator: '<S8>/Discrete-Time Integrator1' */
+  single_qc_ppid_DW.DiscreteTimeIntegrator1_DSTAT_p =
+    single_qc_ppid_P.DiscreteTimeIntegrator1_IC_h;
+  single_qc_ppid_DW.DiscreteTimeIntegrator1_PrevR_o = 2;
+
+  /* InitializeConditions for UnitDelay: '<S12>/UD'
+   *
+   * Block description for '<S12>/UD':
    *
    *  Store in Global RAM
    */
