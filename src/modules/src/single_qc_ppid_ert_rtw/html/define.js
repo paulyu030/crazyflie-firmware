@@ -2,17 +2,13 @@ function CodeDefine() {
 this.def = new Array();
 this.def["rt_OneStep"] = {file: "ert_main_c.html",line:33,type:"fcn"};
 this.def["main"] = {file: "ert_main_c.html",line:69,type:"fcn"};
-this.def["single_qc_ppid_DW"] = {file: "single_qc_ppid_c.html",line:20,type:"var"};
-this.def["single_qc_ppid_U"] = {file: "single_qc_ppid_c.html",line:23,type:"var"};
-this.def["single_qc_ppid_Y"] = {file: "single_qc_ppid_c.html",line:26,type:"var"};
-this.def["single_qc_ppid.c:single_qc_ppid_quatmultiply"] = {file: "single_qc_ppid_c.html",line:33,type:"fcn"};
-this.def["rt_atan2f_snf"] = {file: "single_qc_ppid_c.html",line:42,type:"fcn"};
-this.def["single_qc_ppid_step"] = {file: "single_qc_ppid_c.html",line:79,type:"fcn"};
-this.def["single_qc_ppid_initialize"] = {file: "single_qc_ppid_c.html",line:843,type:"fcn"};
-this.def["single_qc_ppid_terminate"] = {file: "single_qc_ppid_c.html",line:938,type:"fcn"};
-this.def["DW_single_qc_ppid_T"] = {file: "single_qc_ppid_h.html",line:52,type:"type"};
-this.def["ExtU_single_qc_ppid_T"] = {file: "single_qc_ppid_h.html",line:71,type:"type"};
-this.def["ExtY_single_qc_ppid_T"] = {file: "single_qc_ppid_h.html",line:93,type:"type"};
+this.def["single_qc_ppid_U"] = {file: "single_qc_ppid_c.html",line:20,type:"var"};
+this.def["single_qc_ppid_Y"] = {file: "single_qc_ppid_c.html",line:23,type:"var"};
+this.def["single_qc_ppid_step"] = {file: "single_qc_ppid_c.html",line:26,type:"fcn"};
+this.def["single_qc_ppid_initialize"] = {file: "single_qc_ppid_c.html",line:225,type:"fcn"};
+this.def["single_qc_ppid_terminate"] = {file: "single_qc_ppid_c.html",line:241,type:"fcn"};
+this.def["ExtU_single_qc_ppid_T"] = {file: "single_qc_ppid_h.html",line:48,type:"type"};
+this.def["ExtY_single_qc_ppid_T"] = {file: "single_qc_ppid_h.html",line:70,type:"type"};
 this.def["P_single_qc_ppid_T"] = {file: "single_qc_ppid_types_h.html",line:23,type:"type"};
 this.def["single_qc_ppid_P"] = {file: "single_qc_ppid_data_c.html",line:20,type:"var"};
 this.def["rtGetInf"] = {file: "rtGetInf_c.html",line:27,type:"fcn"};
@@ -91,8 +87,6 @@ function Html2SrcLink() {
 	this.html2Root["rtGetNaN_c.html"] = "rtGetNaN_c.html";
 	this.html2SrcPath["rtGetNaN_h.html"] = "../rtGetNaN.h";
 	this.html2Root["rtGetNaN_h.html"] = "rtGetNaN_h.html";
-	this.html2SrcPath["rt_defines_h.html"] = "../rt_defines.h";
-	this.html2Root["rt_defines_h.html"] = "rt_defines_h.html";
 	this.html2SrcPath["rt_nonfinite_c.html"] = "../rt_nonfinite.c";
 	this.html2Root["rt_nonfinite_c.html"] = "rt_nonfinite_c.html";
 	this.html2SrcPath["rt_nonfinite_h.html"] = "../rt_nonfinite.h";
@@ -114,4 +108,4 @@ function Html2SrcLink() {
 }
 Html2SrcLink.instance = new Html2SrcLink();
 var fileList = [
-"ert_main_c.html","single_qc_ppid_c.html","single_qc_ppid_h.html","single_qc_ppid_private_h.html","single_qc_ppid_types_h.html","single_qc_ppid_data_c.html","rtGetInf_c.html","rtGetInf_h.html","rtGetNaN_c.html","rtGetNaN_h.html","rt_defines_h.html","rt_nonfinite_c.html","rt_nonfinite_h.html","rtwtypes_h.html"];
+"ert_main_c.html","single_qc_ppid_c.html","single_qc_ppid_h.html","single_qc_ppid_private_h.html","single_qc_ppid_types_h.html","single_qc_ppid_data_c.html","rtGetInf_c.html","rtGetInf_h.html","rtGetNaN_c.html","rtGetNaN_h.html","rt_nonfinite_c.html","rt_nonfinite_h.html","rtwtypes_h.html"];
