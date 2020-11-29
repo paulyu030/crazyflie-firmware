@@ -103,27 +103,27 @@ LOG_GROUP_STOP(sctrl_ppid)
 
 
 
-// PARAM_GROUP_START(sparam_ppid)
-// PARAM_ADD(PARAM_FLOAT, pgaina, &single_qc_ppid_P.pgaina)
-// PARAM_ADD(PARAM_FLOAT, igaina, &single_qc_ppid_P.igaina)
-// PARAM_ADD(PARAM_FLOAT, dgaina, &single_qc_ppid_P.dgaina)
+PARAM_GROUP_START(sparam_ppid)
+PARAM_ADD(PARAM_FLOAT, pgaina, &single_qc_ppid_P.pgaina)
+PARAM_ADD(PARAM_FLOAT, igaina, &single_qc_ppid_P.igaina)
+PARAM_ADD(PARAM_FLOAT, dgaina, &single_qc_ppid_P.dgaina)
 
-// PARAM_ADD(PARAM_FLOAT, pgainb, &single_qc_ppid_P.pgainb)
-// PARAM_ADD(PARAM_FLOAT, igainb, &single_qc_ppid_P.igainb)
-// PARAM_ADD(PARAM_FLOAT, dgainb, &single_qc_ppid_P.dgainb)
+PARAM_ADD(PARAM_FLOAT, pgainb, &single_qc_ppid_P.pgainb)
+PARAM_ADD(PARAM_FLOAT, igainb, &single_qc_ppid_P.igainb)
+PARAM_ADD(PARAM_FLOAT, dgainb, &single_qc_ppid_P.dgainb)
 
-// PARAM_ADD(PARAM_FLOAT, pgainas, &single_qc_ppid_P.pgainas)
-// PARAM_ADD(PARAM_FLOAT, igainas, &single_qc_ppid_P.igainas)
-// PARAM_ADD(PARAM_FLOAT, dgainas, &single_qc_ppid_P.dgainas)
+PARAM_ADD(PARAM_FLOAT, pgainas, &single_qc_ppid_P.pgainas)
+PARAM_ADD(PARAM_FLOAT, igainas, &single_qc_ppid_P.igainas)
+PARAM_ADD(PARAM_FLOAT, dgainas, &single_qc_ppid_P.dgainas)
 
-// PARAM_ADD(PARAM_FLOAT, pgainbs, &single_qc_ppid_P.pgainbs)
-// PARAM_ADD(PARAM_FLOAT, igainbs, &single_qc_ppid_P.igainbs)
-// PARAM_ADD(PARAM_FLOAT, dgainbs, &single_qc_ppid_P.dgainbs)
+PARAM_ADD(PARAM_FLOAT, pgainbs, &single_qc_ppid_P.pgainbs)
+PARAM_ADD(PARAM_FLOAT, igainbs, &single_qc_ppid_P.igainbs)
+PARAM_ADD(PARAM_FLOAT, dgainbs, &single_qc_ppid_P.dgainbs)
 
-// PARAM_ADD(PARAM_FLOAT, t_mod, &single_qc_ppid_P.torque_modifier)
+PARAM_ADD(PARAM_FLOAT, t_mod, &single_qc_ppid_P.torque_modifier)
 
-// PARAM_ADD(PARAM_FLOAT, s_tx, &single_qc_ppid_P.sat_tx)
-// PARAM_ADD(PARAM_FLOAT, s_ty, &single_qc_ppid_P.sat_ty)
-// PARAM_ADD(PARAM_FLOAT, s_tz, &single_qc_ppid_P.sat_tz)
-// PARAM_GROUP_STOP(sparam_ppid)
+PARAM_ADD(PARAM_FLOAT, s_tx, &single_qc_ppid_P.sat_tx)
+PARAM_ADD(PARAM_FLOAT, s_ty, &single_qc_ppid_P.sat_ty)
+PARAM_ADD(PARAM_FLOAT, s_tz, &single_qc_ppid_P.sat_tz)
+PARAM_GROUP_STOP(sparam_ppid)
 
