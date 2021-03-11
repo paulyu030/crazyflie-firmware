@@ -74,6 +74,7 @@ enum packet_type {
   basePoseType      = 8,
   thrustType        = 9,
   twoDType          = 10,
+  mxmzType          = 11,
 };
 
 /* ---===== 2 - Decoding functions =====--- */
@@ -415,8 +416,8 @@ static void thrustDecoder(setpoint_t *setpoint, uint8_t type, const void *data, 
 }
 
 
-/* basePoseDecoder
- * Set the absolute postition and orientation
+/* twoDDecoder
+ * Used in either gimbal, or hinge with mx compensation
  */
  struct twoDPacket_s {
    uint8_t index;
@@ -445,6 +446,36 @@ static void twoDDecoder(setpoint_t *setpoint, uint8_t type, const void *data, si
   setpoint->thrust = values->thrust;
 }
 
+/* mxmzDecoder
+ * Used in hinge, send both mx and mz data
+ * euler base angles
+ */
+ struct mxmzPacket_s {
+   uint8_t index;
+   float roll;
+   float pitch;
+   float yaw;
+   float theta;
+   float mx;
+   float mz;
+   float thrust;
+ } __attribute__((packed));
+static void mxmzDecoder(setpoint_t *setpoint, uint8_t type, const void *data, size_t datalen)
+{
+  const struct mxmzPacket_s *values = data;
+
+  setpoint->attitudeQuaternion.w = (float)values->index;  // use quat w to save index
+  setpoint->attitudeQuaternion.x = values->roll;
+  setpoint->attitudeQuaternion.y = values->pitch;
+  setpoint->attitudeQuaternion.z = values->yaw;
+
+  setpoint->attitude.roll = values->theta; // use roll to save theta
+  setpoint->attitude.pitch = values->mx;  // use pitch to save mx torque
+  setpoint->attitude.yaw = values->mz; //use yaw to save mz torque
+
+  setpoint->thrust = values->thrust;
+}
+
 
  /* ---===== 3 - packetDecoders array =====--- */
 const static packetDecoder_t packetDecoders[] = {
@@ -459,6 +490,7 @@ const static packetDecoder_t packetDecoders[] = {
   [basePoseType]      = basePoseDecoder,
   [thrustType]        = thrustDecoder,
   [twoDType]          = twoDDecoder,
+  [mxmzType]          = mxmzDecoder,
 };
 
 /* Decoder switch */

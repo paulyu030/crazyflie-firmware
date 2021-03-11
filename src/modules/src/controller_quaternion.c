@@ -33,19 +33,19 @@ void controllerQuaternion(control_t *control, setpoint_t *setpoint,
                                          const state_t *state,
                                          const uint32_t tick)
 {
-  Quaternion_single_axis_contro_U.base_w = setpoint->attitudeQuaternion.w;
-  Quaternion_single_axis_contro_U.base_x = setpoint->attitudeQuaternion.x;
-  Quaternion_single_axis_contro_U.base_y = setpoint->attitudeQuaternion.y;
-  Quaternion_single_axis_contro_U.base_z = setpoint->attitudeQuaternion.z;
+  Quaternion_single_axis_contro_U.base_roll = setpoint->attitudeQuaternion.x;
+  Quaternion_single_axis_contro_U.base_pitch = setpoint->attitudeQuaternion.y;
+  Quaternion_single_axis_contro_U.base_yaw = setpoint->attitudeQuaternion.z;
 
   Quaternion_single_axis_contro_U.qw = state->attitudeQuaternion.w;
   Quaternion_single_axis_contro_U.qx = state->attitudeQuaternion.x;
   Quaternion_single_axis_contro_U.qy = -state->attitudeQuaternion.y;
   Quaternion_single_axis_contro_U.qz = -state->attitudeQuaternion.z;
 
-  Quaternion_single_axis_contro_U.index = setpoint->attitude.roll;
-  Quaternion_single_axis_contro_U.theta = setpoint->attitude.pitch;
-  Quaternion_single_axis_contro_U.mx = setpoint->attitude.yaw;
+  Quaternion_single_axis_contro_U.index = setpoint->attitudeQuaternion.w;
+  Quaternion_single_axis_contro_U.theta = setpoint->attitude.roll;
+  Quaternion_single_axis_contro_U.mx = setpoint->attitude.pitch;
+  Quaternion_single_axis_contro_U.mz = setpoint->attitude.yaw;
   Quaternion_single_axis_contro_U.thrust = setpoint->thrust;
   Quaternion_single_axis_contro_U.q = sensors->gyro.y;
 
@@ -89,13 +89,16 @@ LOG_ADD(LOG_FLOAT, theta, &Quaternion_single_axis_contro_U.theta)
 LOG_ADD(LOG_FLOAT, thrust,&Quaternion_single_axis_contro_U.thrust)
 LOG_ADD(LOG_FLOAT, theta_meas,    &Quaternion_single_axis_contro_Y.theta_meas)
 LOG_ADD(LOG_FLOAT, gyroy, &Quaternion_single_axis_contro_U.q)
-LOG_ADD(LOG_FLOAT, my, &Quaternion_single_axis_contro_Y.my)
+LOG_ADD(LOG_FLOAT, mx_out, &Quaternion_single_axis_contro_Y.mx_out)
+LOG_ADD(LOG_FLOAT, my_out, &Quaternion_single_axis_contro_Y.my_out)
+LOG_ADD(LOG_FLOAT, mz_out, &Quaternion_single_axis_contro_Y.mz_out)
 LOG_ADD(LOG_FLOAT, fy, &Quaternion_single_axis_contro_Y.fy)
 LOG_ADD(LOG_FLOAT, e_omega, &Quaternion_single_axis_contro_Y.error_omega)
 LOG_ADD(LOG_FLOAT, e_theta, &Quaternion_single_axis_contro_Y.error_theta)
 LOG_GROUP_STOP(Q_att)
 
 PARAM_GROUP_START(Q_att)
+PARAM_ADD(PARAM_FLOAT, fail_flag, &Quaternion_single_axis_contro_P.fail_flag)
 PARAM_ADD(PARAM_FLOAT, fy_sat, &Quaternion_single_axis_contro_P.fy_sat)
 PARAM_ADD(PARAM_FLOAT, pitch_P, &Quaternion_single_axis_contro_P.pitch_P)
 PARAM_ADD(PARAM_FLOAT, pitch_I, &Quaternion_single_axis_contro_P.pitch_I)
@@ -103,7 +106,6 @@ PARAM_ADD(PARAM_FLOAT, pitch_D, &Quaternion_single_axis_contro_P.pitch_D)
 PARAM_ADD(PARAM_FLOAT, pitch_rP, &Quaternion_single_axis_contro_P.pitch_rate_P)
 PARAM_ADD(PARAM_FLOAT, pitch_rI, &Quaternion_single_axis_contro_P.pitch_rate_I)
 PARAM_ADD(PARAM_FLOAT, pitch_rD, &Quaternion_single_axis_contro_P.pitch_rate_D)
-// PARAM_ADD(PARAM_FLOAT, index, &Quaternion_single_axis_contro_P.index)
 PARAM_GROUP_STOP(Q_att)
 
 // PARAM_GROUP_START(Quaternion_rate)

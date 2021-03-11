@@ -7,12 +7,11 @@ this.def["Quaternion_single_axis_contro_U"] = {file: "Quaternion_single_axis_con
 this.def["Quaternion_single_axis_contro_Y"] = {file: "Quaternion_single_axis_controller_c.html",line:26,type:"var"};
 this.def["Quaternion_single_axis_contr_M_"] = {file: "Quaternion_single_axis_controller_c.html",line:29,type:"var"};
 this.def["Quaternion_single_axis_contr_M"] = {file: "Quaternion_single_axis_controller_c.html",line:30,type:"var"};
-this.def["rt_atan2f_snf"] = {file: "Quaternion_single_axis_controller_c.html",line:32,type:"fcn"};
-this.def["Quaternion_single_axis_controller_step"] = {file: "Quaternion_single_axis_controller_c.html",line:69,type:"fcn"};
-this.def["Quaternion_single_axis_controller_initialize"] = {file: "Quaternion_single_axis_controller_c.html",line:512,type:"fcn"};
-this.def["Quaternion_single_axis_controller_terminate"] = {file: "Quaternion_single_axis_controller_c.html",line:564,type:"fcn"};
-this.def["DW_Quaternion_single_axis_con_T"] = {file: "Quaternion_single_axis_controller_h.html",line:48,type:"type"};
-this.def["ExtU_Quaternion_single_axis_c_T"] = {file: "Quaternion_single_axis_controller_h.html",line:65,type:"type"};
+this.def["Quaternion_single_axis_controller_step"] = {file: "Quaternion_single_axis_controller_c.html",line:34,type:"fcn"};
+this.def["Quaternion_single_axis_controller_initialize"] = {file: "Quaternion_single_axis_controller_c.html",line:638,type:"fcn"};
+this.def["Quaternion_single_axis_controller_terminate"] = {file: "Quaternion_single_axis_controller_c.html",line:690,type:"fcn"};
+this.def["DW_Quaternion_single_axis_con_T"] = {file: "Quaternion_single_axis_controller_h.html",line:47,type:"type"};
+this.def["ExtU_Quaternion_single_axis_c_T"] = {file: "Quaternion_single_axis_controller_h.html",line:64,type:"type"};
 this.def["ExtY_Quaternion_single_axis_c_T"] = {file: "Quaternion_single_axis_controller_h.html",line:79,type:"type"};
 this.def["P_Quaternion_single_axis_cont_T"] = {file: "Quaternion_single_axis_controller_types_h.html",line:23,type:"type"};
 this.def["RT_MODEL_Quaternion_single_ax_T"] = {file: "Quaternion_single_axis_controller_types_h.html",line:26,type:"type"};
@@ -93,8 +92,6 @@ function Html2SrcLink() {
 	this.html2Root["rtGetNaN_c.html"] = "rtGetNaN_c.html";
 	this.html2SrcPath["rtGetNaN_h.html"] = "../rtGetNaN.h";
 	this.html2Root["rtGetNaN_h.html"] = "rtGetNaN_h.html";
-	this.html2SrcPath["rt_defines_h.html"] = "../rt_defines.h";
-	this.html2Root["rt_defines_h.html"] = "rt_defines_h.html";
 	this.html2SrcPath["rt_nonfinite_c.html"] = "../rt_nonfinite.c";
 	this.html2Root["rt_nonfinite_c.html"] = "rt_nonfinite_c.html";
 	this.html2SrcPath["rt_nonfinite_h.html"] = "../rt_nonfinite.h";
@@ -116,4 +113,4 @@ function Html2SrcLink() {
 }
 Html2SrcLink.instance = new Html2SrcLink();
 var fileList = [
-"ert_main_c.html","Quaternion_single_axis_controller_c.html","Quaternion_single_axis_controller_h.html","Quaternion_single_axis_controller_private_h.html","Quaternion_single_axis_controller_types_h.html","Quaternion_single_axis_controller_data_c.html","rtGetInf_c.html","rtGetInf_h.html","rtGetNaN_c.html","rtGetNaN_h.html","rt_defines_h.html","rt_nonfinite_c.html","rt_nonfinite_h.html","rtwtypes_h.html"];
+"ert_main_c.html","Quaternion_single_axis_controller_c.html","Quaternion_single_axis_controller_h.html","Quaternion_single_axis_controller_private_h.html","Quaternion_single_axis_controller_types_h.html","Quaternion_single_axis_controller_data_c.html","rtGetInf_c.html","rtGetInf_h.html","rtGetNaN_c.html","rtGetNaN_h.html","rt_nonfinite_c.html","rt_nonfinite_h.html","rtwtypes_h.html"];

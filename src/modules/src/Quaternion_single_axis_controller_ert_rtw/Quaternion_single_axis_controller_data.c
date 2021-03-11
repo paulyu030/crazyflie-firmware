@@ -3,9 +3,9 @@
  *
  * Code generated for Simulink model 'Quaternion_single_axis_controller'.
  *
- * Model version                  : 1.116
+ * Model version                  : 1.115
  * Simulink Coder version         : 9.3 (R2020a) 18-Nov-2019
- * C/C++ source code generated on : Mon Oct 12 13:08:59 2020
+ * C/C++ source code generated on : Thu Mar 11 12:46:48 2021
  *
  * Target selection: ert.tlc
  * Embedded hardware selection: Intel->x86-64 (Windows64)
@@ -18,55 +18,45 @@
 
 /* Block parameters (default storage) */
 P_Quaternion_single_axis_cont_T Quaternion_single_axis_contro_P = {
-  /* Variable: com_dist
-   * Referenced by: '<Root>/MATLAB Function'
-   */
-  0.014,
-
-  /* Variable: inertia
-   * Referenced by: '<Root>/MATLAB Function'
+  /* Variable: fail_flag
+   * Referenced by: '<S8>/cmd2force'
    */
   0.0,
-
-  /* Variable: mass
-   * Referenced by: '<Root>/MATLAB Function'
-   */
-  0.027,
 
   /* Variable: fy_sat
    * Referenced by: '<Root>/Saturation3'
    */
-  0.4F,
+  0.1F,
 
   /* Variable: pitch_D
    * Referenced by: '<Root>/pitch_rate_D1'
    */
-  0.0F,
+  1.0F,
 
   /* Variable: pitch_I
    * Referenced by: '<Root>/pitch_rate_I1'
    */
-  1.0F,
+  0.0F,
 
   /* Variable: pitch_P
    * Referenced by: '<Root>/pitch_rate_P1'
    */
-  1000.0F,
+  5.0F,
 
   /* Variable: pitch_rate_D
    * Referenced by: '<Root>/pitch_rate_D'
    */
-  9.0E-6F,
+  0.5F,
 
   /* Variable: pitch_rate_I
    * Referenced by: '<Root>/pitch_rate_I'
    */
-  0.0003F,
+  8.0F,
 
   /* Variable: pitch_rate_P
    * Referenced by: '<Root>/pitch_rate_P'
    */
-  0.00021F,
+  10.0F,
 
   /* Variable: theta_cmd_sat
    * Referenced by: '<Root>/Saturation2'
@@ -166,15 +156,15 @@ P_Quaternion_single_axis_cont_T Quaternion_single_axis_contro_P = {
   /* Computed Parameter: Saturation3_LowerSat
    * Referenced by: '<Root>/Saturation3'
    */
-  -0.4F,
+  -0.1F,
 
   /* Computed Parameter: Saturation_UpperSat_d
-   * Referenced by: '<S9>/Saturation'
+   * Referenced by: '<S8>/Saturation'
    */
   20.0F,
 
   /* Computed Parameter: Saturation_LowerSat_l
-   * Referenced by: '<S9>/Saturation'
+   * Referenced by: '<S8>/Saturation'
    */
   0.0F
 };
