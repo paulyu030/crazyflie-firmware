@@ -18,6 +18,10 @@
 
 /* Block parameters (default storage) */
 P_Quaternion_single_axis_cont_T Quaternion_single_axis_contro_P = {
+  /* Variable: fail_flag
+   */
+  0.0F,
+
   /* Variable: fy_sat
    * Referenced by: '<Root>/Saturation3'
    */

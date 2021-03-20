@@ -80,6 +80,8 @@ typedef struct {
 
 /* Parameters (default storage) */
 struct P_Quaternion_single_axis_cont_T_ {
+  real_T fail_flag;
+  
   real32_T fy_sat;                     /* Variable: fy_sat
                                         * Referenced by: '<Root>/Saturation3'
                                         */
