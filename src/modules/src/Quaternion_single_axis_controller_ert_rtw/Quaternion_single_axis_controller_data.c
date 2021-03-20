@@ -26,37 +26,37 @@ P_Quaternion_single_axis_cont_T Quaternion_single_axis_contro_P = {
   /* Variable: fy_sat
    * Referenced by: '<Root>/Saturation3'
    */
-  0.1F,
+  0.4F,
 
   /* Variable: pitch_D
    * Referenced by: '<Root>/pitch_rate_D1'
    */
-  1.0F,
+  0.0F,
 
   /* Variable: pitch_I
    * Referenced by: '<Root>/pitch_rate_I1'
    */
-  0.0F,
+  1.0F,
 
   /* Variable: pitch_P
    * Referenced by: '<Root>/pitch_rate_P1'
    */
-  5.0F,
+  1000.0F,
 
   /* Variable: pitch_rate_D
    * Referenced by: '<Root>/pitch_rate_D'
    */
-  0.5F,
+  9.0E-6F,
 
   /* Variable: pitch_rate_I
    * Referenced by: '<Root>/pitch_rate_I'
    */
-  8.0F,
+  0.0003F,
 
   /* Variable: pitch_rate_P
    * Referenced by: '<Root>/pitch_rate_P'
    */
-  10.0F,
+  0.00021F,
 
   /* Variable: theta_cmd_sat
    * Referenced by: '<Root>/Saturation2'
