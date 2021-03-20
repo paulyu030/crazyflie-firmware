@@ -20,7 +20,7 @@
 P_Quaternion_single_axis_cont_T Quaternion_single_axis_contro_P = {
   /* Variable: fail_flag
    */
-  0.0F,
+  0.0,
 
   /* Variable: fy_sat
    * Referenced by: '<Root>/Saturation3'
