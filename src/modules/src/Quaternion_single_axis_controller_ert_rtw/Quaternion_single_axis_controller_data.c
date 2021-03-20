@@ -3,9 +3,9 @@
  *
  * Code generated for Simulink model 'Quaternion_single_axis_controller'.
  *
- * Model version                  : 1.115
+ * Model version                  : 1.117
  * Simulink Coder version         : 9.3 (R2020a) 18-Nov-2019
- * C/C++ source code generated on : Thu Mar 11 12:46:48 2021
+ * C/C++ source code generated on : Sat Mar 20 14:47:21 2021
  *
  * Target selection: ert.tlc
  * Embedded hardware selection: Intel->x86-64 (Windows64)
@@ -18,11 +18,6 @@
 
 /* Block parameters (default storage) */
 P_Quaternion_single_axis_cont_T Quaternion_single_axis_contro_P = {
-  /* Variable: fail_flag
-   * Referenced by: '<S8>/cmd2force'
-   */
-  0.0,
-
   /* Variable: fy_sat
    * Referenced by: '<Root>/Saturation3'
    */
@@ -156,15 +151,15 @@ P_Quaternion_single_axis_cont_T Quaternion_single_axis_contro_P = {
   /* Computed Parameter: Saturation3_LowerSat
    * Referenced by: '<Root>/Saturation3'
    */
-  -0.1F,
+  -0.4F,
 
   /* Computed Parameter: Saturation_UpperSat_d
-   * Referenced by: '<S8>/Saturation'
+   * Referenced by: '<S9>/Saturation'
    */
   20.0F,
 
   /* Computed Parameter: Saturation_LowerSat_l
-   * Referenced by: '<S8>/Saturation'
+   * Referenced by: '<S9>/Saturation'
    */
   0.0F
 };

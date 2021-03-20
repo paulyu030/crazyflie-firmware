@@ -3,9 +3,9 @@
  *
  * Code generated for Simulink model 'Quaternion_single_axis_controller'.
  *
- * Model version                  : 1.115
+ * Model version                  : 1.117
  * Simulink Coder version         : 9.3 (R2020a) 18-Nov-2019
- * C/C++ source code generated on : Thu Mar 11 12:46:48 2021
+ * C/C++ source code generated on : Sat Mar 20 14:47:21 2021
  *
  * Target selection: ert.tlc
  * Embedded hardware selection: Intel->x86-64 (Windows64)
@@ -38,12 +38,14 @@ void Quaternion_single_axis_controller_step(void)
   real32_T y;
   real32_T z;
   real32_T rtb_Saturation1;
-  real32_T rtb_TSamp;
-  real32_T rtb_Saturation3;
+  real32_T rtb_TSamp_b;
   real32_T rtb_force[4];
   real32_T rtb_TmpSignalConversionAtSFunct[3];
+  int32_T rtb_fail_flag;
+  real32_T rtb_real_index;
   boolean_T rtb_Compare;
   real32_T w_tmp;
+  real32_T w_tmp_0;
   real32_T rtb_DotProduct_tmp[9];
   int32_T i;
   real_T rtb_omega_cmd;
@@ -59,6 +61,19 @@ void Quaternion_single_axis_controller_step(void)
 
   static const real32_T b[16] = { -1.0F, -1.0F, 1.0F, 1.0F, -1.0F, 1.0F, 1.0F,
     -1.0F, -1.0F, 1.0F, -1.0F, 1.0F, 0.25F, 0.25F, 0.25F, 0.25F };
+
+  /* MATLAB Function: '<Root>/MATLAB Function' incorporates:
+   *  Inport: '<Root>/index'
+   */
+  if (Quaternion_single_axis_contro_U.index >= 10.0F) {
+    rtb_fail_flag = 1;
+    rtb_real_index = Quaternion_single_axis_contro_U.index - 10.0F;
+  } else {
+    rtb_fail_flag = 0;
+    rtb_real_index = Quaternion_single_axis_contro_U.index;
+  }
+
+  /* End of MATLAB Function: '<Root>/MATLAB Function' */
 
   /* Saturate: '<Root>/Saturation1' incorporates:
    *  Inport: '<Root>/thrust'
@@ -83,17 +98,17 @@ void Quaternion_single_axis_controller_step(void)
   x = sinf(Quaternion_single_axis_contro_U.base_roll / 2.0F);
   y = cosf(Quaternion_single_axis_contro_U.base_pitch / 2.0F);
   z = cosf(Quaternion_single_axis_contro_U.base_yaw / 2.0F);
-  rtb_Saturation3 = cosf(Quaternion_single_axis_contro_U.base_roll / 2.0F);
-  w_tmp = sinf(Quaternion_single_axis_contro_U.base_pitch / 2.0F);
-  rtb_TSamp = sinf(Quaternion_single_axis_contro_U.base_yaw / 2.0F);
-  w = rtb_Saturation3 * y * z + x * w_tmp * rtb_TSamp;
-  x = x * y * z - rtb_Saturation3 * w_tmp * rtb_TSamp;
+  w_tmp = cosf(Quaternion_single_axis_contro_U.base_roll / 2.0F);
+  w_tmp_0 = sinf(Quaternion_single_axis_contro_U.base_pitch / 2.0F);
+  rtb_TSamp_b = sinf(Quaternion_single_axis_contro_U.base_yaw / 2.0F);
+  w = w_tmp * y * z + x * w_tmp_0 * rtb_TSamp_b;
+  x = x * y * z - w_tmp * w_tmp_0 * rtb_TSamp_b;
   y = cosf(Quaternion_single_axis_contro_U.base_roll / 2.0F) * sinf
     (Quaternion_single_axis_contro_U.base_pitch / 2.0F) * z + sinf
     (Quaternion_single_axis_contro_U.base_roll / 2.0F) * cosf
-    (Quaternion_single_axis_contro_U.base_pitch / 2.0F) * rtb_TSamp;
+    (Quaternion_single_axis_contro_U.base_pitch / 2.0F) * rtb_TSamp_b;
   z = cosf(Quaternion_single_axis_contro_U.base_roll / 2.0F) * cosf
-    (Quaternion_single_axis_contro_U.base_pitch / 2.0F) * rtb_TSamp - sinf
+    (Quaternion_single_axis_contro_U.base_pitch / 2.0F) * rtb_TSamp_b - sinf
     (Quaternion_single_axis_contro_U.base_roll / 2.0F) * sinf
     (Quaternion_single_axis_contro_U.base_pitch / 2.0F) * z;
   rtb_TmpSignalConversionAtSFunct[0] = 2.0F * x * z + 2.0F * w * y;
@@ -101,21 +116,20 @@ void Quaternion_single_axis_controller_step(void)
   rtb_TmpSignalConversionAtSFunct[2] = ((w * w - x * x) - y * y) + z * z;
 
   /* MATLAB Function: '<Root>/MATLAB Function1' incorporates:
-   *  Inport: '<Root>/index'
    *  Inport: '<Root>/qw'
    *  Inport: '<Root>/qx'
    *  Inport: '<Root>/qy'
    *  Inport: '<Root>/qz'
    *  MATLAB Function: '<Root>/MATLAB Function3'
    */
-  rtb_Saturation3 = -Quaternion_single_axis_contro_U.index * 3.14159274F / 2.0F;
-  w_tmp = sinf(rtb_Saturation3);
-  rtb_Saturation3 = cosf(rtb_Saturation3);
-  rtb_DotProduct_tmp[0] = rtb_Saturation3;
-  rtb_DotProduct_tmp[3] = -w_tmp;
+  w_tmp = -rtb_real_index * 3.14159274F / 2.0F;
+  w_tmp_0 = sinf(w_tmp);
+  w_tmp = cosf(w_tmp);
+  rtb_DotProduct_tmp[0] = w_tmp;
+  rtb_DotProduct_tmp[3] = -w_tmp_0;
   rtb_DotProduct_tmp[6] = 0.0F;
-  rtb_DotProduct_tmp[1] = w_tmp;
-  rtb_DotProduct_tmp[4] = rtb_Saturation3;
+  rtb_DotProduct_tmp[1] = w_tmp_0;
+  rtb_DotProduct_tmp[4] = w_tmp;
   rtb_DotProduct_tmp[7] = 0.0F;
   rtb_DotProduct_tmp[2] = 0.0F;
   rtb_DotProduct_tmp[5] = 0.0F;
@@ -139,12 +153,12 @@ void Quaternion_single_axis_controller_step(void)
   z = ((tmp_3 - tmp_4) - tmp_5) + tmp_6;
 
   /* DotProduct: '<Root>/Dot Product' */
-  rtb_TSamp = 0.0F;
+  rtb_TSamp_b = 0.0F;
   for (i = 0; i < 3; i++) {
     /* DotProduct: '<Root>/Dot Product' incorporates:
      *  MATLAB Function: '<Root>/MATLAB Function1'
      */
-    rtb_TSamp += (rtb_DotProduct_tmp[i + 6] * z + (rtb_DotProduct_tmp[i + 3] *
+    rtb_TSamp_b += (rtb_DotProduct_tmp[i + 6] * z + (rtb_DotProduct_tmp[i + 3] *
       tmp + rtb_DotProduct_tmp[i] * w)) * rtb_TmpSignalConversionAtSFunct[i];
   }
 
@@ -152,86 +166,85 @@ void Quaternion_single_axis_controller_step(void)
    *  DotProduct: '<Root>/Dot Product'
    *  DotProduct: '<Root>/Dot Product1'
    */
-  if (rtb_TSamp >= 0.0F) {
+  if (rtb_TSamp_b >= 0.0F) {
     /* MATLAB Function: '<Root>/MATLAB Function3' incorporates:
-     *  Inport: '<Root>/index'
      *  Inport: '<Root>/qw'
      *  Inport: '<Root>/qx'
      *  Inport: '<Root>/qy'
      *  Inport: '<Root>/qz'
      */
-    rtb_DotProduct_tmp[0] = rtb_Saturation3;
-    rtb_DotProduct_tmp[3] = -sinf(-Quaternion_single_axis_contro_U.index *
-      3.14159274F / 2.0F);
+    rtb_DotProduct_tmp[0] = w_tmp;
+    rtb_DotProduct_tmp[3] = -sinf(-rtb_real_index * 3.14159274F / 2.0F);
     rtb_DotProduct_tmp[6] = 0.0F;
-    rtb_DotProduct_tmp[1] = w_tmp;
-    rtb_DotProduct_tmp[4] = rtb_Saturation3;
+    rtb_DotProduct_tmp[1] = w_tmp_0;
+    rtb_DotProduct_tmp[4] = w_tmp;
     rtb_DotProduct_tmp[7] = 0.0F;
     rtb_DotProduct_tmp[2] = 0.0F;
     rtb_DotProduct_tmp[5] = 0.0F;
     rtb_DotProduct_tmp[8] = 1.0F;
-    w = ((Quaternion_single_axis_contro_U.qw *
-          Quaternion_single_axis_contro_U.qw +
-          Quaternion_single_axis_contro_U.qx *
-          Quaternion_single_axis_contro_U.qx) -
-         Quaternion_single_axis_contro_U.qy * Quaternion_single_axis_contro_U.qy)
-      - Quaternion_single_axis_contro_U.qz * Quaternion_single_axis_contro_U.qz;
-    z = 2.0F * Quaternion_single_axis_contro_U.qx *
+    rtb_real_index = ((Quaternion_single_axis_contro_U.qw *
+                       Quaternion_single_axis_contro_U.qw +
+                       Quaternion_single_axis_contro_U.qx *
+                       Quaternion_single_axis_contro_U.qx) -
+                      Quaternion_single_axis_contro_U.qy *
+                      Quaternion_single_axis_contro_U.qy) -
+      Quaternion_single_axis_contro_U.qz * Quaternion_single_axis_contro_U.qz;
+    w = 2.0F * Quaternion_single_axis_contro_U.qx *
       Quaternion_single_axis_contro_U.qy + 2.0F *
       Quaternion_single_axis_contro_U.qz * Quaternion_single_axis_contro_U.qw;
-    y = 2.0F * Quaternion_single_axis_contro_U.qx *
+    x = 2.0F * Quaternion_single_axis_contro_U.qx *
       Quaternion_single_axis_contro_U.qz - 2.0F *
       Quaternion_single_axis_contro_U.qw * Quaternion_single_axis_contro_U.qy;
 
     /* DotProduct: '<Root>/Dot Product1' */
-    x = 0.0F;
+    z = 0.0F;
     for (i = 0; i < 3; i++) {
       /* DotProduct: '<Root>/Dot Product1' incorporates:
        *  MATLAB Function: '<Root>/MATLAB Function3'
        */
-      x += (rtb_DotProduct_tmp[i + 6] * y + (rtb_DotProduct_tmp[i + 3] * z +
-             rtb_DotProduct_tmp[i] * w)) * rtb_TmpSignalConversionAtSFunct[i];
+      z += (rtb_DotProduct_tmp[i + 6] * x + (rtb_DotProduct_tmp[i + 3] * w +
+             rtb_DotProduct_tmp[i] * rtb_real_index)) *
+        rtb_TmpSignalConversionAtSFunct[i];
     }
 
-    Quaternion_single_axis_contro_Y.theta_meas = acosf(x) - 1.57079637F;
+    Quaternion_single_axis_contro_Y.theta_meas = acosf(z) - 1.57079637F;
   } else {
     /* MATLAB Function: '<Root>/MATLAB Function3' incorporates:
-     *  Inport: '<Root>/index'
      *  Inport: '<Root>/qw'
      *  Inport: '<Root>/qx'
      *  Inport: '<Root>/qy'
      *  Inport: '<Root>/qz'
      */
-    rtb_DotProduct_tmp[0] = rtb_Saturation3;
-    rtb_DotProduct_tmp[3] = -sinf(-Quaternion_single_axis_contro_U.index *
-      3.14159274F / 2.0F);
+    rtb_DotProduct_tmp[0] = w_tmp;
+    rtb_DotProduct_tmp[3] = -sinf(-rtb_real_index * 3.14159274F / 2.0F);
     rtb_DotProduct_tmp[6] = 0.0F;
-    rtb_DotProduct_tmp[1] = w_tmp;
-    rtb_DotProduct_tmp[4] = rtb_Saturation3;
+    rtb_DotProduct_tmp[1] = w_tmp_0;
+    rtb_DotProduct_tmp[4] = w_tmp;
     rtb_DotProduct_tmp[7] = 0.0F;
     rtb_DotProduct_tmp[2] = 0.0F;
     rtb_DotProduct_tmp[5] = 0.0F;
     rtb_DotProduct_tmp[8] = 1.0F;
-    w = ((tmp_3 + tmp_4) - tmp_5) - tmp_6;
-    z = 2.0F * Quaternion_single_axis_contro_U.qx *
+    rtb_real_index = ((tmp_3 + tmp_4) - tmp_5) - tmp_6;
+    w = 2.0F * Quaternion_single_axis_contro_U.qx *
       Quaternion_single_axis_contro_U.qy + 2.0F *
       Quaternion_single_axis_contro_U.qz * Quaternion_single_axis_contro_U.qw;
-    y = x - y;
+    x -= y;
 
     /* DotProduct: '<Root>/Dot Product1' */
-    x = 0.0F;
+    z = 0.0F;
     for (i = 0; i < 3; i++) {
       /* DotProduct: '<Root>/Dot Product1' incorporates:
        *  MATLAB Function: '<Root>/MATLAB Function3'
        */
-      x += (rtb_DotProduct_tmp[i + 6] * y + (rtb_DotProduct_tmp[i + 3] * z +
-             rtb_DotProduct_tmp[i] * w)) * rtb_TmpSignalConversionAtSFunct[i];
+      z += (rtb_DotProduct_tmp[i + 6] * x + (rtb_DotProduct_tmp[i + 3] * w +
+             rtb_DotProduct_tmp[i] * rtb_real_index)) *
+        rtb_TmpSignalConversionAtSFunct[i];
     }
 
-    if (x <= 0.0F) {
-      Quaternion_single_axis_contro_Y.theta_meas = acosf(rtb_TSamp);
+    if (z <= 0.0F) {
+      Quaternion_single_axis_contro_Y.theta_meas = acosf(rtb_TSamp_b);
     } else {
-      Quaternion_single_axis_contro_Y.theta_meas = -acosf(rtb_TSamp);
+      Quaternion_single_axis_contro_Y.theta_meas = -acosf(rtb_TSamp_b);
     }
   }
 
@@ -242,19 +255,19 @@ void Quaternion_single_axis_controller_step(void)
    */
   if (Quaternion_single_axis_contro_U.theta >
       Quaternion_single_axis_contro_P.theta_cmd_sat) {
-    x = Quaternion_single_axis_contro_P.theta_cmd_sat;
+    z = Quaternion_single_axis_contro_P.theta_cmd_sat;
   } else if (Quaternion_single_axis_contro_U.theta <
              Quaternion_single_axis_contro_P.Saturation2_LowerSat) {
-    x = Quaternion_single_axis_contro_P.Saturation2_LowerSat;
+    z = Quaternion_single_axis_contro_P.Saturation2_LowerSat;
   } else {
-    x = Quaternion_single_axis_contro_U.theta;
+    z = Quaternion_single_axis_contro_U.theta;
   }
 
   /* End of Saturate: '<Root>/Saturation2' */
 
   /* Sum: '<Root>/Sum4' */
   Quaternion_single_axis_contro_Y.error_theta =
-    Quaternion_single_axis_contro_Y.theta_meas - x;
+    Quaternion_single_axis_contro_Y.theta_meas - z;
 
   /* RelationalOperator: '<S1>/Compare' incorporates:
    *  Constant: '<S1>/Constant'
@@ -286,7 +299,7 @@ void Quaternion_single_axis_controller_step(void)
    * About '<S3>/TSamp':
    *  y = u * K where K = 1 / ( w * Ts )
    */
-  rtb_TSamp = Quaternion_single_axis_contro_Y.error_theta *
+  rtb_real_index = Quaternion_single_axis_contro_Y.error_theta *
     Quaternion_single_axis_contro_P.TSamp_WtEt;
 
   /* Sum: '<Root>/Sum1' incorporates:
@@ -312,7 +325,7 @@ void Quaternion_single_axis_controller_step(void)
       Quaternion_single_axis_contro_Y.error_theta +
       Quaternion_single_axis_contro_P.pitch_I *
       Quaternion_single_axis_contr_DW.DiscreteTimeIntegrator2_DSTATE) +
-     (rtb_TSamp - Quaternion_single_axis_contr_DW.UD_DSTATE) *
+     (rtb_real_index - Quaternion_single_axis_contr_DW.UD_DSTATE) *
      Quaternion_single_axis_contro_P.pitch_D) -
     Quaternion_single_axis_contro_U.q;
 
@@ -340,7 +353,7 @@ void Quaternion_single_axis_controller_step(void)
    * About '<S2>/TSamp':
    *  y = u * K where K = 1 / ( w * Ts )
    */
-  x = Quaternion_single_axis_contro_Y.error_omega *
+  rtb_TSamp_b = Quaternion_single_axis_contro_Y.error_omega *
     Quaternion_single_axis_contro_P.TSamp_WtEt_f;
 
   /* Sum: '<Root>/Sum3' incorporates:
@@ -363,41 +376,40 @@ void Quaternion_single_axis_controller_step(void)
     (Quaternion_single_axis_contro_P.pitch_rate_P *
      Quaternion_single_axis_contro_Y.error_omega +
      Quaternion_single_axis_contro_P.pitch_rate_I *
-     Quaternion_single_axis_contr_DW.DiscreteTimeIntegrator1_DSTATE) + (x -
-    Quaternion_single_axis_contr_DW.UD_DSTATE_k) *
+     Quaternion_single_axis_contr_DW.DiscreteTimeIntegrator1_DSTATE) +
+    (rtb_TSamp_b - Quaternion_single_axis_contr_DW.UD_DSTATE_k) *
     Quaternion_single_axis_contro_P.pitch_rate_D;
 
   /* Saturate: '<Root>/Saturation3' */
   if (Quaternion_single_axis_contro_Y.fy >
       Quaternion_single_axis_contro_P.fy_sat) {
-    rtb_Saturation3 = Quaternion_single_axis_contro_P.fy_sat;
+    y = Quaternion_single_axis_contro_P.fy_sat;
   } else if (Quaternion_single_axis_contro_Y.fy <
              Quaternion_single_axis_contro_P.Saturation3_LowerSat) {
-    rtb_Saturation3 = Quaternion_single_axis_contro_P.Saturation3_LowerSat;
+    y = Quaternion_single_axis_contro_P.Saturation3_LowerSat;
   } else {
-    rtb_Saturation3 = Quaternion_single_axis_contro_Y.fy;
+    y = Quaternion_single_axis_contro_Y.fy;
   }
 
   /* End of Saturate: '<Root>/Saturation3' */
 
-  /* MATLAB Function: '<S8>/cmd2force' incorporates:
+  /* MATLAB Function: '<S9>/cmd2force' incorporates:
    *  Inport: '<Root>/mx'
    *  Inport: '<Root>/mz'
    */
-  if (Quaternion_single_axis_contro_P.fail_flag == 0.0) {
+  if (rtb_fail_flag == 0) {
     w = Quaternion_single_axis_contro_U.mx / 0.1266F;
     z = Quaternion_single_axis_contro_U.mz / 0.02388F;
     for (i = 0; i < 4; i++) {
-      y = b[i + 12] * rtb_Saturation1 + (b[i + 8] * z + (b[i + 4] *
-        rtb_Saturation3 + b[i] * w));
-      rtb_force[i] = y;
+      x = b[i + 12] * rtb_Saturation1 + (b[i + 8] * z + (b[i + 4] * y + b[i] * w));
+      rtb_force[i] = x;
     }
 
     /* Outport: '<Root>/my_out' incorporates:
      *  Inport: '<Root>/mx'
      *  Inport: '<Root>/mz'
      */
-    Quaternion_single_axis_contro_Y.my_out = rtb_Saturation3 * 4.0F * 0.03165F;
+    Quaternion_single_axis_contro_Y.my_out = y * 4.0F * 0.03165F;
 
     /* Outport: '<Root>/mx_out' incorporates:
      *  Inport: '<Root>/mx'
@@ -411,33 +423,33 @@ void Quaternion_single_axis_controller_step(void)
   } else {
     rtb_force[0] = 0.0F;
     for (i = 0; i < 3; i++) {
-      rtb_force[i + 1] = c[i + 3] * rtb_Saturation1 + c[i] * rtb_Saturation3;
+      rtb_force[i + 1] = c[i + 3] * rtb_Saturation1 + c[i] * y;
     }
 
     /* Outport: '<Root>/my_out' */
-    Quaternion_single_axis_contro_Y.my_out = rtb_Saturation3 * 4.0F * 0.03165F;
+    Quaternion_single_axis_contro_Y.my_out = y * 4.0F * 0.03165F;
 
     /* Outport: '<Root>/mx_out' */
-    Quaternion_single_axis_contro_Y.mx_out = -2.0F * rtb_Saturation3 * 0.03165F;
+    Quaternion_single_axis_contro_Y.mx_out = -2.0F * y * 0.03165F;
 
     /* Outport: '<Root>/mz_out' */
-    Quaternion_single_axis_contro_Y.mz_out = -2.0F * rtb_Saturation3 * 0.00597F;
+    Quaternion_single_axis_contro_Y.mz_out = -2.0F * y * 0.00597F;
   }
 
-  /* End of MATLAB Function: '<S8>/cmd2force' */
+  /* End of MATLAB Function: '<S9>/cmd2force' */
 
-  /* Saturate: '<S8>/Saturation' */
+  /* Saturate: '<S9>/Saturation' */
   if (rtb_force[0] > Quaternion_single_axis_contro_P.Saturation_UpperSat_d) {
-    y = Quaternion_single_axis_contro_P.Saturation_UpperSat_d;
+    x = Quaternion_single_axis_contro_P.Saturation_UpperSat_d;
   } else if (rtb_force[0] <
              Quaternion_single_axis_contro_P.Saturation_LowerSat_l) {
-    y = Quaternion_single_axis_contro_P.Saturation_LowerSat_l;
+    x = Quaternion_single_axis_contro_P.Saturation_LowerSat_l;
   } else {
-    y = rtb_force[0];
+    x = rtb_force[0];
   }
 
-  /* MATLAB Function: '<S8>/force2motorCMD' */
-  rtb_omega_cmd = (sqrtf(0.366F * y + 0.00457922881F) + -0.06767F) * 65536.0F /
+  /* MATLAB Function: '<S9>/force2motorCMD' */
+  rtb_omega_cmd = (sqrtf(0.366F * x + 0.00457922881F) + -0.06767F) * 65536.0F /
     0.183F;
 
   /* Saturate: '<Root>/Saturation' */
@@ -457,18 +469,18 @@ void Quaternion_single_axis_controller_step(void)
     tmp_2 = fmod(tmp_2, 65536.0);
   }
 
-  /* Saturate: '<S8>/Saturation' */
+  /* Saturate: '<S9>/Saturation' */
   if (rtb_force[1] > Quaternion_single_axis_contro_P.Saturation_UpperSat_d) {
-    y = Quaternion_single_axis_contro_P.Saturation_UpperSat_d;
+    x = Quaternion_single_axis_contro_P.Saturation_UpperSat_d;
   } else if (rtb_force[1] <
              Quaternion_single_axis_contro_P.Saturation_LowerSat_l) {
-    y = Quaternion_single_axis_contro_P.Saturation_LowerSat_l;
+    x = Quaternion_single_axis_contro_P.Saturation_LowerSat_l;
   } else {
-    y = rtb_force[1];
+    x = rtb_force[1];
   }
 
-  /* MATLAB Function: '<S8>/force2motorCMD' */
-  rtb_omega_cmd = (sqrtf(0.366F * y + 0.00457922881F) + -0.06767F) * 65536.0F /
+  /* MATLAB Function: '<S9>/force2motorCMD' */
+  rtb_omega_cmd = (sqrtf(0.366F * x + 0.00457922881F) + -0.06767F) * 65536.0F /
     0.183F;
 
   /* Saturate: '<Root>/Saturation' */
@@ -488,18 +500,18 @@ void Quaternion_single_axis_controller_step(void)
     tmp_1 = fmod(tmp_1, 65536.0);
   }
 
-  /* Saturate: '<S8>/Saturation' */
+  /* Saturate: '<S9>/Saturation' */
   if (rtb_force[2] > Quaternion_single_axis_contro_P.Saturation_UpperSat_d) {
-    y = Quaternion_single_axis_contro_P.Saturation_UpperSat_d;
+    x = Quaternion_single_axis_contro_P.Saturation_UpperSat_d;
   } else if (rtb_force[2] <
              Quaternion_single_axis_contro_P.Saturation_LowerSat_l) {
-    y = Quaternion_single_axis_contro_P.Saturation_LowerSat_l;
+    x = Quaternion_single_axis_contro_P.Saturation_LowerSat_l;
   } else {
-    y = rtb_force[2];
+    x = rtb_force[2];
   }
 
-  /* MATLAB Function: '<S8>/force2motorCMD' */
-  rtb_omega_cmd = (sqrtf(0.366F * y + 0.00457922881F) + -0.06767F) * 65536.0F /
+  /* MATLAB Function: '<S9>/force2motorCMD' */
+  rtb_omega_cmd = (sqrtf(0.366F * x + 0.00457922881F) + -0.06767F) * 65536.0F /
     0.183F;
 
   /* Saturate: '<Root>/Saturation' */
@@ -519,18 +531,18 @@ void Quaternion_single_axis_controller_step(void)
     tmp_0 = fmod(tmp_0, 65536.0);
   }
 
-  /* Saturate: '<S8>/Saturation' */
+  /* Saturate: '<S9>/Saturation' */
   if (rtb_force[3] > Quaternion_single_axis_contro_P.Saturation_UpperSat_d) {
-    y = Quaternion_single_axis_contro_P.Saturation_UpperSat_d;
+    x = Quaternion_single_axis_contro_P.Saturation_UpperSat_d;
   } else if (rtb_force[3] <
              Quaternion_single_axis_contro_P.Saturation_LowerSat_l) {
-    y = Quaternion_single_axis_contro_P.Saturation_LowerSat_l;
+    x = Quaternion_single_axis_contro_P.Saturation_LowerSat_l;
   } else {
-    y = rtb_force[3];
+    x = rtb_force[3];
   }
 
-  /* MATLAB Function: '<S8>/force2motorCMD' */
-  rtb_omega_cmd = (sqrtf(0.366F * y + 0.00457922881F) + -0.06767F) * 65536.0F /
+  /* MATLAB Function: '<S9>/force2motorCMD' */
+  rtb_omega_cmd = (sqrtf(0.366F * x + 0.00457922881F) + -0.06767F) * 65536.0F /
     0.183F;
 
   /* Saturate: '<Root>/Saturation' */
@@ -602,7 +614,7 @@ void Quaternion_single_axis_controller_step(void)
    *
    *  Store in Global RAM
    */
-  Quaternion_single_axis_contr_DW.UD_DSTATE = rtb_TSamp;
+  Quaternion_single_axis_contr_DW.UD_DSTATE = rtb_real_index;
 
   /* Update for DiscreteIntegrator: '<Root>/Discrete-Time Integrator1' */
   Quaternion_single_axis_contr_DW.DiscreteTimeIntegrator1_DSTATE +=
@@ -631,7 +643,7 @@ void Quaternion_single_axis_controller_step(void)
    *
    *  Store in Global RAM
    */
-  Quaternion_single_axis_contr_DW.UD_DSTATE_k = x;
+  Quaternion_single_axis_contr_DW.UD_DSTATE_k = rtb_TSamp_b;
 }
 
 /* Model initialize function */
