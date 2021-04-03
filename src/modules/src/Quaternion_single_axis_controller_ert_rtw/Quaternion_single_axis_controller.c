@@ -3,9 +3,9 @@
  *
  * Code generated for Simulink model 'Quaternion_single_axis_controller'.
  *
- * Model version                  : 1.117
+ * Model version                  : 1.119
  * Simulink Coder version         : 9.3 (R2020a) 18-Nov-2019
- * C/C++ source code generated on : Sat Mar 20 14:47:21 2021
+ * C/C++ source code generated on : Sat Apr  3 15:45:18 2021
  *
  * Target selection: ert.tlc
  * Embedded hardware selection: Intel->x86-64 (Windows64)
@@ -57,8 +57,6 @@ void Quaternion_single_axis_controller_step(void)
   real32_T tmp_4;
   real32_T tmp_5;
   real32_T tmp_6;
-  static const real32_T c[6] = { 1.0F, 1.0F, -2.0F, 0.25F, 0.25F, 0.5F };
-
   static const real32_T b[16] = { -1.0F, -1.0F, 1.0F, 1.0F, -1.0F, 1.0F, 1.0F,
     -1.0F, -1.0F, 1.0F, -1.0F, 1.0F, 0.25F, 0.25F, 0.25F, 0.25F };
 
@@ -422,18 +420,21 @@ void Quaternion_single_axis_controller_step(void)
     Quaternion_single_axis_contro_Y.mz_out = Quaternion_single_axis_contro_U.mz;
   } else {
     rtb_force[0] = 0.0F;
-    for (i = 0; i < 3; i++) {
-      rtb_force[i + 1] = c[i + 3] * rtb_Saturation1 + c[i] * y;
-    }
+    rtb_force[1] = 0.0F;
+    rtb_force[2] = 2.0F * y + 0.5F * rtb_Saturation1;
+    rtb_Saturation1 = -2.0F * y + 0.5F * rtb_Saturation1;
+    rtb_force[3] = rtb_Saturation1;
 
     /* Outport: '<Root>/my_out' */
     Quaternion_single_axis_contro_Y.my_out = y * 4.0F * 0.03165F;
 
     /* Outport: '<Root>/mx_out' */
-    Quaternion_single_axis_contro_Y.mx_out = -2.0F * y * 0.03165F;
+    Quaternion_single_axis_contro_Y.mx_out = (rtb_force[2] + rtb_Saturation1) *
+      2.0F * 0.03165F;
 
     /* Outport: '<Root>/mz_out' */
-    Quaternion_single_axis_contro_Y.mz_out = -2.0F * y * 0.00597F;
+    Quaternion_single_axis_contro_Y.mz_out = (rtb_Saturation1 - rtb_force[2]) *
+      2.0F * 0.00597F;
   }
 
   /* End of MATLAB Function: '<S9>/cmd2force' */
