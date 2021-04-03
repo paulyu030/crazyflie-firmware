@@ -2,7 +2,7 @@
 ## Makefile generated for Simulink model 'Quaternion_single_axis_controller'. 
 ## 
 ## Makefile     : Quaternion_single_axis_controller.mk
-## Generated on : Sat Apr 03 15:45:49 2021
+## Generated on : Sat Apr 03 15:49:47 2021
 ## MATLAB Coder version: 5.0 (R2020a)
 ## 
 ## Build Info:
@@ -29,7 +29,7 @@ MATLAB_ROOT               = C:\PROGRA~1\POLYSP~1\R2020a
 MATLAB_BIN                = C:\PROGRA~1\POLYSP~1\R2020a\bin
 MATLAB_ARCH_BIN           = $(MATLAB_BIN)\win64
 MASTER_ANCHOR_DIR         = 
-START_DIR                 = C:\Dropbox\CONTRO~1\QUADCO~1\MATLAB~1\CRAZYF~1\20210325 hinge_ftc_online_2fail
+START_DIR                 = C:\Dropbox\CONTRO~1\QUADCO~1\MATLAB~1\CRAZYF~1\202103~2
 SOLVER                    = 
 SOLVER_OBJ                = 
 CLASSIC_INTERFACE         = 0
