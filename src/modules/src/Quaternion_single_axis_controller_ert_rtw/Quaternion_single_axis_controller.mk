@@ -2,7 +2,7 @@
 ## Makefile generated for Simulink model 'Quaternion_single_axis_controller'. 
 ## 
 ## Makefile     : Quaternion_single_axis_controller.mk
-## Generated on : Sat Apr 03 15:49:47 2021
+## Generated on : Sat Apr 03 17:38:00 2021
 ## MATLAB Coder version: 5.0 (R2020a)
 ## 
 ## Build Info:

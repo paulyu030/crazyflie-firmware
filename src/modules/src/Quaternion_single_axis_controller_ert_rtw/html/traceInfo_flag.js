@@ -200,13 +200,11 @@ function TraceInfoFlag() {
     this.traceFlag["Quaternion_single_axis_controller.c:433c61"]=1;
     this.traceFlag["Quaternion_single_axis_controller.c:433c77"]=1;
     this.traceFlag["Quaternion_single_axis_controller.c:434c21"]=1;
-    this.traceFlag["Quaternion_single_axis_controller.c:434c23"]=1;
-    this.traceFlag["Quaternion_single_axis_controller.c:434c29"]=1;
+    this.traceFlag["Quaternion_single_axis_controller.c:434c28"]=1;
     this.traceFlag["Quaternion_single_axis_controller.c:437c61"]=1;
     this.traceFlag["Quaternion_single_axis_controller.c:437c77"]=1;
     this.traceFlag["Quaternion_single_axis_controller.c:438c21"]=1;
-    this.traceFlag["Quaternion_single_axis_controller.c:438c23"]=1;
-    this.traceFlag["Quaternion_single_axis_controller.c:438c29"]=1;
+    this.traceFlag["Quaternion_single_axis_controller.c:438c28"]=1;
     this.traceFlag["Quaternion_single_axis_controller.c:444c20"]=1;
     this.traceFlag["Quaternion_single_axis_controller.c:446c27"]=1;
     this.traceFlag["Quaternion_single_axis_controller.c:454c33"]=1;
